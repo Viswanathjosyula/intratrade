@@ -1,0 +1,12 @@
+{
+  "name": "intratrade-pages",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "publish": "tsx scripts/publish-book.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}
