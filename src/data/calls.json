@@ -1,0 +1,81 @@
+{
+  "calls": [
+    {
+      "symbol": "DIS",
+      "side": "long",
+      "target": 111.4,
+      "stop": 104.99,
+      "asOf": "2026-10-08"
+    },
+    {
+      "symbol": "AMZN",
+      "side": "long",
+      "target": 274.46,
+      "stop": 256.8,
+      "asOf": "2026-10-09"
+    },
+    {
+      "symbol": "WMT",
+      "side": "long",
+      "target": 119.69,
+      "stop": 109.05,
+      "asOf": "2026-10-09"
+    },
+    {
+      "symbol": "ORCL",
+      "side": "short",
+      "target": 124.2,
+      "stop": 143.5,
+      "asOf": "2026-10-12"
+    },
+    {
+      "symbol": "XOM",
+      "side": "long",
+      "target": 183.69,
+      "stop": 168.86,
+      "asOf": "2026-10-12"
+    },
+    {
+      "symbol": "JPM",
+      "side": "short",
+      "target": 317.23,
+      "stop": 339.21,
+      "asOf": "2026-10-12"
+    },
+    {
+      "symbol": "ORCL",
+      "side": "short",
+      "target": 115.34,
+      "stop": 137.12,
+      "asOf": "2026-10-14"
+    },
+    {
+      "symbol": "NFLX",
+      "side": "long",
+      "target": 78.17,
+      "stop": 70.96,
+      "asOf": "2026-10-15"
+    },
+    {
+      "symbol": "COST",
+      "side": "long",
+      "target": 1069.6,
+      "stop": 973.07,
+      "asOf": "2026-10-16"
+    },
+    {
+      "symbol": "AMD",
+      "side": "short",
+      "target": 464.54,
+      "stop": 555.03,
+      "asOf": "2026-10-16"
+    },
+    {
+      "symbol": "META",
+      "side": "short",
+      "target": 647.81,
+      "stop": 731.44,
+      "asOf": "2026-10-16"
+    }
+  ]
+}

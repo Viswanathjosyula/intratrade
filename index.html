@@ -40,6 +40,20 @@
     .plan p { margin: 0.45rem 0 0; font-size: 0.78rem; line-height: 1.35; }
     .keys { flex-direction: column; position: sticky; top: 0; background: #221f1c; border-bottom: 1px solid #44403c; padding: 0.45rem 0.2rem 0.55rem; z-index: 2; }
     .keys-top span, .keys p { font-size: 0.7rem; }
+    .targets { margin: 0 1rem 0.75rem; border: 1px solid #44403c; border-radius: 0.5rem; background: #292524; }
+    .targets-head { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding: 0.4rem 0.65rem; }
+    .targets-head h2 { margin: 0; font-size: 0.9rem; }
+    .targets-head p, .targets-note { margin: 0; color: #a8a29e; font-size: 0.72rem; }
+    .targets-scroll { max-height: 9.5rem; overflow: auto; border-top: 1px solid #44403c; }
+    .targets table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+    .targets th, .targets td { text-align: left; padding: 0.22rem 0.55rem; border-top: 1px solid #44403c; }
+    .targets th { position: sticky; top: 0; background: #292524; color: #a8a29e; font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    .targets .sym { font-family: ui-monospace, monospace; font-weight: 650; }
+    .targets td:nth-child(3), .targets td:nth-child(4) { font-family: ui-monospace, monospace; }
+    .reached { color: #6ee7b7; }
+    .not-reached { color: #fecdd3; }
+    .open { color: #d6d3d1; }
+    .targets-note { padding: 0.3rem 0.65rem 0.4rem; border-top: 1px solid #44403c; }
     .mobile-keys { display: none; }
     @media (max-width: 860px) {
       .board { display: flex; flex-direction: column; min-height: 0; }
@@ -114,10 +128,99 @@
   <header class="site">
     <div>
       <h1>Intratrade</h1>
-      <p class="meta">Yahoo Finance regular-session prices, as of Fri, Oct 16, 4:03 PM EDT. The cash session is closed, so this is the closing print rather than a fresh tick. Not a broker feed. · Cash session is closed. Prices are the regular-session print, not after-hours trading. No high-impact USD event is on the public calendar for this session date. Nothing on this desk sends an order.</p>
+      <p class="meta">Yahoo Finance regular-session prices, as of Fri, Oct 16, 3:55 PM EDT. That is the previous regular session's close; today's chart does not have a regular-session bar yet. Not a broker feed. · Previous regular session. Today's chart does not have a regular-session bar yet, so these prices are the previous close. No high-impact USD event is on the public calendar for this session date. Nothing on this desk sends an order.</p>
     </div>
     <p class="counts"><span class="consider-count">2 consider</span> · <span class="aside-count">18 stand aside</span></p>
   </header>
+  <section class="targets" aria-label="Target tracking">
+    <div class="targets-head">
+      <h2>Targets</h2>
+      <p><span class="reached">2 reached</span> · <span class="not-reached">5 not reached</span> · <span class="open">4 open</span></p>
+    </div>
+    <div class="targets-scroll">
+      <table>
+        <thead><tr><th>Name</th><th>Side</th><th>Target</th><th>As of</th><th>Status</th></tr></thead>
+        <tbody><tr>
+          <td class="sym">DIS</td>
+          <td>Long</td>
+          <td>111.40</td>
+          <td>Thu, Oct 8, 2026</td>
+          <td class="reached">Reached</td>
+        </tr>
+<tr>
+          <td class="sym">AMZN</td>
+          <td>Long</td>
+          <td>274.46</td>
+          <td>Fri, Oct 9, 2026</td>
+          <td class="not-reached">Not reached</td>
+        </tr>
+<tr>
+          <td class="sym">WMT</td>
+          <td>Long</td>
+          <td>119.69</td>
+          <td>Fri, Oct 9, 2026</td>
+          <td class="reached">Reached</td>
+        </tr>
+<tr>
+          <td class="sym">ORCL</td>
+          <td>Short</td>
+          <td>124.20</td>
+          <td>Mon, Oct 12, 2026</td>
+          <td class="not-reached">Not reached</td>
+        </tr>
+<tr>
+          <td class="sym">XOM</td>
+          <td>Long</td>
+          <td>183.69</td>
+          <td>Mon, Oct 12, 2026</td>
+          <td class="not-reached">Not reached</td>
+        </tr>
+<tr>
+          <td class="sym">JPM</td>
+          <td>Short</td>
+          <td>317.23</td>
+          <td>Mon, Oct 12, 2026</td>
+          <td class="not-reached">Not reached</td>
+        </tr>
+<tr>
+          <td class="sym">ORCL</td>
+          <td>Short</td>
+          <td>115.34</td>
+          <td>Wed, Oct 14, 2026</td>
+          <td class="open">Open</td>
+        </tr>
+<tr>
+          <td class="sym">NFLX</td>
+          <td>Long</td>
+          <td>78.17</td>
+          <td>Thu, Oct 15, 2026</td>
+          <td class="not-reached">Not reached</td>
+        </tr>
+<tr>
+          <td class="sym">COST</td>
+          <td>Long</td>
+          <td>1,069.60</td>
+          <td>Fri, Oct 16, 2026</td>
+          <td class="open">Open</td>
+        </tr>
+<tr>
+          <td class="sym">AMD</td>
+          <td>Short</td>
+          <td>464.54</td>
+          <td>Fri, Oct 16, 2026</td>
+          <td class="open">Open</td>
+        </tr>
+<tr>
+          <td class="sym">META</td>
+          <td>Short</td>
+          <td>647.81</td>
+          <td>Fri, Oct 16, 2026</td>
+          <td class="open">Open</td>
+        </tr></tbody>
+      </table>
+    </div>
+    <p class="targets-note">Checked against Yahoo regular-session bars through Mon, Oct 19, 2026. This table does not send an order.</p>
+  </section>
   <input class="pick" type="radio" name="book" id="pick-COST" checked>
 <input class="pick" type="radio" name="book" id="pick-META">
 <input class="pick" type="radio" name="book" id="pick-JPM">
@@ -388,7 +491,7 @@
           <div><dt>Reward:risk</dt><dd>2.78:1</dd></div>
         </dl>
         <p class="reach">Wed, Oct 21, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
-        <p><strong>News.</strong> Neutral. Meta and Musk earnings and September pending home sales: What to Watch</p>
+        <p><strong>News.</strong> Neutral. Meta's AI vision doesn't come cheap, and its earnings could prove it</p>
         <p><strong>Earnings.</strong> EPS 6.18 vs 7.10 (-12.96%). $60.80B reported revenue. Quarter ended Jun 2026.</p>
         <p><strong>Pattern.</strong> Double top, triggered. Two highs near 775.55 share a neckline at 711.68. Price closed through that neckline.</p>
         <p class="reason">Double top (triggered). Two highs near 775.55 share a neckline at 711.68. Price closed through that neckline.</p>
@@ -405,7 +508,7 @@
           <div><dt>Reward:risk</dt><dd>6.12:1</dd></div>
         </dl>
         <p class="reach">Tue, Oct 27, 2026, if price travels about one daily ATR per session toward the target (7 sessions).</p>
-        <p><strong>News.</strong> Neutral. BREAKING: JPMorgan Expands JPM Coin Deposit Token to Ethereum Network</p>
+        <p><strong>News.</strong> Neutral. JPMorgan Chase Invests $5 Billion In US National Security Tech</p>
         <p><strong>Earnings.</strong> EPS 5.75 vs 5.94 (-3.20%). $50.17B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double top, forming. Two highs near 347.80 share a neckline at 325.07. Price has not closed through 325.07.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered.</p>
@@ -490,7 +593,7 @@
           <div><dt>Reward:risk</dt><dd>0.27:1</dd></div>
         </dl>
         <p class="reach">Mon, Oct 19, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        <p><strong>News.</strong> Neutral. Microsoft Pulls Out Of UK Data Center Deal With Nscale</p>
+        <p><strong>News.</strong> Neutral. Microsoft backs out of Nscale data center deal: What to know</p>
         <p><strong>Earnings.</strong> EPS 4.74 vs 4.21 (+12.59%). $90.01B reported revenue. Quarter ended Jun 2026.</p>
         <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 534.84–543.81, and the session closed outside that range.</p>
         <p class="reason">Stand aside. Reward to risk is 0.27:1, short of the 2.00:1 minimum.</p>
@@ -507,7 +610,7 @@
           <div><dt>Reward:risk</dt><dd>0.25:1</dd></div>
         </dl>
         <p class="reach">Mon, Oct 19, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        <p><strong>News.</strong> Neutral. Tesla’s rocket-thrusted Roadster hints at a SpaceX merger</p>
+        <p><strong>News.</strong> Neutral. Can Ad-Supported Streaming Momentum Boost Netflix's Q3 Results?</p>
         <p><strong>Earnings.</strong> EPS 9.11 vs 2.88 (+216.32%). $119.80B reported revenue. Quarter ended Jun 2026.</p>
         <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 344.50–350.66, and the session closed outside that range.</p>
         <p class="reason">Stand aside. Reward to risk is 0.25:1, short of the 2.00:1 minimum.</p>
@@ -524,7 +627,7 @@
           <div><dt>Reward:risk</dt><dd>-0.04:1</dd></div>
         </dl>
         <p class="reach">Mon, Oct 19, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        <p><strong>News.</strong> Neutral. X-energy, Amazon, American Electric Power Partner to Bring SMR Project to Indiana</p>
+        <p><strong>News.</strong> Neutral. Can AI hyperscalers afford to build the infrastructure to meet long-term demand?</p>
         <p><strong>Earnings.</strong> EPS 1.88 vs 1.83 (+2.73%). $200.61B reported revenue. Quarter ended Jun 2026.</p>
         <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 252.90–255.54, and the session closed outside that range.</p>
         <p class="reason">Stand aside. Reward to risk is -0.044:1, short of the 2.00:1 minimum.</p>
@@ -541,8 +644,8 @@
           <div><dt>Reward:risk</dt><dd>3.17:1</dd></div>
         </dl>
         <p class="reach">Thu, Oct 22, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
-        <p><strong>News.</strong> Positive. What Does Broadcom (AVGO) Face As AI Chip Supply Turns Into A Bottleneck?</p>
-        <p><strong>Earnings.</strong> EPS 3.03 vs 2.83 (+7.07%). $29.59B reported revenue. Quarter ended Jul 2026.</p>
+        <p><strong>News.</strong> Positive. Is Broadcom Stock Cheap Enough Yet?</p>
+        <p><strong>Earnings.</strong> EPS 3.03 vs 2.83 (+7.07%). $22.19B reported revenue. Quarter ended Jul 2026.</p>
         <p><strong>Pattern.</strong> Double top, triggered. Two highs near 380.23 share a neckline at 335.81. Price closed through that neckline.</p>
         <p class="reason">Stand aside. News fights the short: the headline sentiment is positive.</p>
       </article>
@@ -627,7 +730,7 @@
         </dl>
         <p class="reach">Tue, Oct 20, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
         <p><strong>News.</strong> Neutral. What Is Apple (AAPL) Telling The Market With Its Biggest Smart Home Push?</p>
-        <p><strong>Earnings.</strong> EPS 1.91 vs 1.88 (+1.60%). $111.18B reported revenue. Quarter ended Jun 2026.</p>
+        <p><strong>Earnings.</strong> EPS 1.91 vs 1.88 (+1.60%). $109.42B reported revenue. Quarter ended Jun 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 332.50 share a neckline at 342.99. Price closed through that neckline.</p>
         <p class="reason">Stand aside. Price rejected at VWAP, which fights the long. Reward to risk is 1.498:1, short of the 2.00:1 minimum.</p>
       </article>
@@ -660,7 +763,7 @@
           <div><dt>Reward:risk</dt><dd>0.35:1</dd></div>
         </dl>
         <p class="reach">Mon, Oct 19, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        <p><strong>News.</strong> Neutral. Costco (COST) vs. Walmart (WMT): Which Retailing Giant Has a Wider Moat?</p>
+        <p><strong>News.</strong> Neutral. WMT, TGT &amp; DG Bet Big on Capital Spending to Drive Next Growth Wave</p>
         <p><strong>Earnings.</strong> EPS 0.81 vs 0.73 (+10.96%). $187.94B reported revenue. Quarter ended Jul 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 102.77 share a neckline at 111.23. Price closed through that neckline.</p>
         <p class="reason">Stand aside. Reward to risk is 0.348:1, short of the 2.00:1 minimum.</p>
@@ -677,7 +780,7 @@
           <div><dt>Reward:risk</dt><dd>3.03:1</dd></div>
         </dl>
         <p class="reach">Thu, Oct 22, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
-        <p><strong>News.</strong> Neutral. AI Hiring Push Might Change The Case For Investing In Disney (DIS)</p>
+        <p><strong>News.</strong> Neutral. Trump Likes Walt Disney (DIS). Time to Buy The Stock?</p>
         <p><strong>Earnings.</strong> EPS 2.06 vs 1.88 (+9.57%). $25.25B reported revenue. Quarter ended Jun 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 102.07 share a neckline at 109.42. Price closed through that neckline.</p>
         <p class="reason">Stand aside. Price rejected at VWAP, which fights the long. The opening range broke the other way.</p>

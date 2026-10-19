@@ -1,9 +1,11 @@
 import { renameSync, writeFileSync } from "node:fs";
 
 import { earningsRead, price, rewardRisk, sentimentLabel, sideLabel, stanceLabel } from "@/lib/format";
+import { trackBook, type TrackedBook } from "@/lib/market/call-log";
+import type { CallStatus } from "@/lib/market/calls";
 import { rankIdeas } from "@/lib/market/engine";
 import { loadPublicSession } from "@/lib/market/live";
-import { estimatedReach, reachLabel } from "@/lib/market/reach";
+import { estimatedReach, formatSessionDate, reachLabel } from "@/lib/market/reach";
 import { DEFAULT_RISK, type TradeIdea } from "@/lib/market/types";
 
 function escapeHtml(value: string): string {
@@ -14,7 +16,50 @@ function escapeHtml(value: string): string {
     .replaceAll('"', "&quot;");
 }
 
-function render(ideas: TradeIdea[], meta: string, asOf: string): string {
+function statusText(status: CallStatus): string {
+  if (status === "reached") return "Reached";
+  if (status === "not-reached") return "Not reached";
+  return "Open";
+}
+
+function renderTargets(tracked: TrackedBook): string {
+  const reached = tracked.calls.filter((call) => call.status === "reached").length;
+  const missed = tracked.calls.filter((call) => call.status === "not-reached").length;
+  const open = tracked.calls.filter((call) => call.status === "open").length;
+  const rows =
+    tracked.calls.length === 0
+      ? `<tr><td colspan="5">No published consider call is in the log yet.</td></tr>`
+      : tracked.calls
+          .map(
+            (call) => `<tr>
+          <td class="sym">${escapeHtml(call.symbol)}</td>
+          <td>${escapeHtml(sideLabel(call.side))}</td>
+          <td>${price(call.target)}</td>
+          <td>${escapeHtml(formatSessionDate(call.asOf))}</td>
+          <td class="${call.status}">${statusText(call.status)}</td>
+        </tr>`,
+          )
+          .join("\n");
+  const checked = tracked.through
+    ? `Checked against Yahoo regular-session bars through ${formatSessionDate(tracked.through)}.`
+    : "Yahoo bars were not available, so every row stays open.";
+  const gap = tracked.incomplete ? " Names with no confirming bars stay open." : "";
+  return `<section class="targets" aria-label="Target tracking">
+    <div class="targets-head">
+      <h2>Targets</h2>
+      <p><span class="reached">${reached} reached</span> · <span class="not-reached">${missed} not reached</span> · <span class="open">${open} open</span></p>
+    </div>
+    <div class="targets-scroll">
+      <table>
+        <thead><tr><th>Name</th><th>Side</th><th>Target</th><th>As of</th><th>Status</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <p class="targets-note">${escapeHtml(`${checked}${gap}`)} This table does not send an order.</p>
+  </section>`;
+}
+
+function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: TrackedBook): string {
   const consider = ideas.filter((idea) => idea.stance === "consider").length;
   const aside = ideas.length - consider;
   const selected = ideas.find((idea) => idea.stance === "consider") ?? ideas[0];
@@ -139,6 +184,20 @@ function render(ideas: TradeIdea[], meta: string, asOf: string): string {
     .plan p { margin: 0.45rem 0 0; font-size: 0.78rem; line-height: 1.35; }
     .keys { flex-direction: column; position: sticky; top: 0; background: #221f1c; border-bottom: 1px solid #44403c; padding: 0.45rem 0.2rem 0.55rem; z-index: 2; }
     .keys-top span, .keys p { font-size: 0.7rem; }
+    .targets { margin: 0 1rem 0.75rem; border: 1px solid #44403c; border-radius: 0.5rem; background: #292524; }
+    .targets-head { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding: 0.4rem 0.65rem; }
+    .targets-head h2 { margin: 0; font-size: 0.9rem; }
+    .targets-head p, .targets-note { margin: 0; color: #a8a29e; font-size: 0.72rem; }
+    .targets-scroll { max-height: 9.5rem; overflow: auto; border-top: 1px solid #44403c; }
+    .targets table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+    .targets th, .targets td { text-align: left; padding: 0.22rem 0.55rem; border-top: 1px solid #44403c; }
+    .targets th { position: sticky; top: 0; background: #292524; color: #a8a29e; font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    .targets .sym { font-family: ui-monospace, monospace; font-weight: 650; }
+    .targets td:nth-child(3), .targets td:nth-child(4) { font-family: ui-monospace, monospace; }
+    .reached { color: #6ee7b7; }
+    .not-reached { color: #fecdd3; }
+    .open { color: #d6d3d1; }
+    .targets-note { padding: 0.3rem 0.65rem 0.4rem; border-top: 1px solid #44403c; }
     .mobile-keys { display: none; }
     @media (max-width: 860px) {
       .board { display: flex; flex-direction: column; min-height: 0; }
@@ -158,6 +217,7 @@ function render(ideas: TradeIdea[], meta: string, asOf: string): string {
     </div>
     <p class="counts"><span class="consider-count">${consider} consider</span> · <span class="aside-count">${aside} stand aside</span></p>
   </header>
+  ${renderTargets(tracked)}
   ${radios}
   <main class="board">
     <div class="mobile-keys">${keys}</div>
@@ -185,8 +245,9 @@ if (session.snapshots.some((snapshot) => !Number.isFinite(snapshot.last) || snap
 }
 
 const ideas = rankIdeas(session.snapshots, DEFAULT_RISK);
+const tracked = await trackBook(session);
 const meta = `${session.delayLabel}${session.note.title ? ` · ${session.note.title}.` : ""}${session.note.detail ? ` ${session.note.detail}` : ""}`;
-const html = render(ideas, meta, session.asOf);
+const html = render(ideas, meta, session.asOf, tracked);
 if (/sample tape|built-in sample|sample wire/i.test(html)) {
   console.error("Refusing to publish: the rendered page looks like the sample tape.");
   process.exit(1);
@@ -200,3 +261,7 @@ console.log(`ASOF ${session.asOf}`);
 console.log(`DELAY ${session.delayLabel}`);
 console.log(`CONSIDER ${consider.join(", ") || "(none)"}`);
 console.log(`ASIDE ${ideas.length - consider.length}`);
+console.log(`THROUGH ${tracked.through ?? "(none)"}`);
+console.log(`REACHED ${tracked.calls.filter((call) => call.status === "reached").map((call) => call.symbol).join(", ") || "(none)"}`);
+console.log(`NOT_REACHED ${tracked.calls.filter((call) => call.status === "not-reached").map((call) => `${call.symbol} ${call.target}`).join(", ") || "(none)"}`);
+console.log(`OPEN ${tracked.calls.filter((call) => call.status === "open").map((call) => `${call.symbol} ${call.target}`).join(", ") || "(none)"}`);
