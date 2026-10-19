@@ -28,7 +28,7 @@ function renderTargets(tracked: TrackedBook): string {
   const open = tracked.calls.filter((call) => call.status === "open").length;
   const rows =
     tracked.calls.length === 0
-      ? `<tr><td colspan="5">No published consider call is in the log yet.</td></tr>`
+      ? `<tr><td colspan="7">No published consider call is in the log yet.</td></tr>`
       : tracked.calls
           .map(
             (call) => `<tr>
@@ -36,6 +36,8 @@ function renderTargets(tracked: TrackedBook): string {
           <td>${escapeHtml(sideLabel(call.side))}</td>
           <td>${price(call.target)}</td>
           <td>${escapeHtml(formatSessionDate(call.asOf))}</td>
+          <td>${call.paceDate ? escapeHtml(formatSessionDate(call.paceDate)) : ""}</td>
+          <td>${call.nextPaceDate ? escapeHtml(formatSessionDate(call.nextPaceDate)) : ""}</td>
           <td class="${call.status}">${statusText(call.status)}</td>
         </tr>`,
           )
@@ -51,7 +53,7 @@ function renderTargets(tracked: TrackedBook): string {
     </div>
     <div class="targets-scroll">
       <table>
-        <thead><tr><th>Name</th><th>Side</th><th>Target</th><th>As of</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Side</th><th>Target</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>

@@ -7,6 +7,8 @@ import {
   newYorkMinutes,
   scoreCall,
   mergeCalls,
+  paceMark,
+  trackedCall,
   type IntradayPrint,
   type PublishedCall,
   type SessionPrint,
@@ -122,16 +124,18 @@ export async function scorePublishedCalls(calls: PublishedCall[]): Promise<Track
   const lastBySymbol = new Map<string, string>();
   const tracked: TrackedCall[] = preliminary.map(({ call, outcome }) => {
     const daily = dailyBySymbol.get(call.symbol);
-    if (!daily || daily.length === 0) return { ...call, status: "open" };
+    if (!daily || daily.length === 0) return trackedCall(call, "open");
     const last = daily[daily.length - 1]?.date;
     if (last) lastBySymbol.set(call.symbol, last);
-    if (!outcome.needsIntradayOn) return { ...call, status: outcome.status };
+    const now = new Date();
+    if (!outcome.needsIntradayOn) return trackedCall(call, outcome.status, paceMark({ call, daily, now }));
     const intraday = intradayBySymbol.get(call.symbol);
     if (!intraday) {
       incomplete = true;
-      return { ...call, status: "open" };
+      return trackedCall(call, "open");
     }
-    return { ...call, status: scoreCall({ call, daily, intraday, now: new Date() }).status };
+    const status = scoreCall({ call, daily, intraday, now }).status;
+    return trackedCall(call, status, paceMark({ call, daily, now }));
   });
 
   const lastDates = [...lastBySymbol.values()];

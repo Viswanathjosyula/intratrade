@@ -16,6 +16,23 @@ export type CallStatus = "reached" | "not-reached" | "open";
 
 export interface TrackedCall extends PublishedCall {
   status: CallStatus;
+  /** Original pace date. Unchanged after the call is published. */
+  paceDate: string | null;
+  /** Set only after the original pace date passes without a target print. */
+  nextPaceDate: string | null;
+  latestClose: number | null;
+  dailyAtr: number | null;
+}
+
+export function trackedCall(call: PublishedCall, status: CallStatus, pace?: Partial<PaceMark>): TrackedCall {
+  return {
+    ...call,
+    status,
+    paceDate: pace?.paceDate ?? null,
+    nextPaceDate: pace?.nextPaceDate ?? null,
+    latestClose: pace?.latestClose ?? null,
+    dailyAtr: pace?.dailyAtr ?? null,
+  };
 }
 
 export interface SessionPrint {
@@ -71,6 +88,45 @@ export function levelsConfirmed(call: PublishedCall, daily: SessionPrint[]): boo
   if (!bar || !Number.isFinite(bar.close)) return false;
   if (call.side === "long") return call.target > bar.close && bar.close > call.stop;
   return call.stop > bar.close && bar.close > call.target;
+}
+
+export interface PaceMark {
+  paceDate: string | null;
+  nextPaceDate: string | null;
+  latestClose: number | null;
+  dailyAtr: number | null;
+}
+
+/**
+ * A new pace date is the latest completed close, walked forward by the
+ * remaining distance to the same target at the current daily ATR.
+ * Reached calls, and calls whose original pace date has not passed, keep a
+ * blank new date. A stop hit does not remove the new date.
+ */
+export function paceMark(input: {
+  call: PublishedCall;
+  daily: SessionPrint[];
+  now: Date;
+}): PaceMark {
+  const daily = [...input.daily].sort((a, b) => a.date.localeCompare(b.date));
+  const paceDate = paceDateFor(input.call, daily);
+  const closeBar = latestCompletedClose(daily, input.now);
+  const dailyAtr = closeBar ? atrThrough(daily, closeBar.date) : null;
+  const latestClose = closeBar && Number.isFinite(closeBar.close) ? closeBar.close : null;
+  const blank: PaceMark = { paceDate, nextPaceDate: null, latestClose, dailyAtr };
+  if (!paceDate || !paceHasPassed(paceDate, input.now)) return blank;
+  if (targetTradedLater(input.call, daily)) return blank;
+  if (!closeBar || latestClose == null || dailyAtr == null) return blank;
+  const byDate = new Map(daily.map((print) => [print.date, print]));
+  if (gapThrough(input.call.asOf, closeBar.date, byDate) || closeBar.date < paceDate) return blank;
+  const estimate = estimatedReach({
+    asOf: `${closeBar.date}T15:00:00.000Z`,
+    last: latestClose,
+    target: input.call.target,
+    atr: dailyAtr,
+    atrTimeframe: "daily",
+  });
+  return { ...blank, nextPaceDate: estimate?.date ?? null };
 }
 
 export function paceDateFor(call: PublishedCall, daily: SessionPrint[]): string | null {
@@ -163,6 +219,35 @@ export function newYorkMinutes(now: Date): { date: string; minutes: number } | n
   );
   if (!parts.hour || !parts.minute) return null;
   return { date, minutes: Number(parts.hour) * 60 + Number(parts.minute) };
+}
+
+function latestCompletedClose(daily: SessionPrint[], now: Date): SessionPrint | null {
+  const clock = newYorkMinutes(now);
+  if (!clock) return null;
+  const completed = daily.filter(
+    (bar) => bar.date < clock.date || (bar.date === clock.date && clock.minutes >= 16 * 60),
+  );
+  return completed[completed.length - 1] ?? null;
+}
+
+function atrThrough(daily: SessionPrint[], date: string): number | null {
+  const index = daily.findIndex((print) => print.date === date);
+  if (index < 1) return null;
+  const bars: Bar[] = daily.slice(0, index + 1).map((print) => ({
+    time: 0,
+    open: print.close,
+    high: print.high,
+    low: print.low,
+    close: print.close,
+    volume: 0,
+  }));
+  const atr = averageTrueRange(bars, 14);
+  if (!Number.isFinite(atr) || atr <= 0) return null;
+  return atr;
+}
+
+function targetTradedLater(call: PublishedCall, daily: SessionPrint[]): boolean {
+  return daily.some((bar) => bar.date > call.asOf && tradedTarget(call, bar));
 }
 
 function paceHasPassed(paceDate: string, now: Date): boolean {
