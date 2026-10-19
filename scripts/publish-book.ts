@@ -2,7 +2,7 @@ import { renameSync, writeFileSync } from "node:fs";
 
 import { earningsRead, price, rewardRisk, sentimentLabel, sideLabel, stanceLabel } from "@/lib/format";
 import { trackBook, type TrackedBook } from "@/lib/market/call-log";
-import type { CallStatus } from "@/lib/market/calls";
+import { settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
 import { rankIdeas } from "@/lib/market/engine";
 import { loadPublicSession } from "@/lib/market/live";
 import { estimatedReach, formatSessionDate, reachLabel } from "@/lib/market/reach";
@@ -23,9 +23,7 @@ function statusText(status: CallStatus): string {
 }
 
 function renderTargets(tracked: TrackedBook): string {
-  const reached = tracked.calls.filter((call) => call.status === "reached").length;
-  const missed = tracked.calls.filter((call) => call.status === "not-reached").length;
-  const open = tracked.calls.filter((call) => call.status === "open").length;
+  const rates = suggestionRates(tracked.calls);
   const rows =
     tracked.calls.length === 0
       ? `<tr><td colspan="7">No published consider call is in the log yet.</td></tr>`
@@ -49,7 +47,11 @@ function renderTargets(tracked: TrackedBook): string {
   return `<section class="targets" aria-label="Target tracking">
     <div class="targets-head">
       <h2>Targets</h2>
-      <p><span class="reached">${reached} reached</span> · <span class="not-reached">${missed} not reached</span> · <span class="open">${open} open</span></p>
+      <div class="rates">
+        <p><span class="reached">${rates.reached} reached</span> · <span class="not-reached">${rates.notReached} not reached</span> · <span class="open">${rates.open} open</span></p>
+        <p>${escapeHtml(settledHitLabel(rates))}</p>
+        <p>${escapeHtml(shareOfSuggestionsLabel(rates))}</p>
+      </div>
     </div>
     <div class="targets-scroll">
       <table>
@@ -190,6 +192,7 @@ function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: Tracked
     .targets-head { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding: 0.4rem 0.65rem; }
     .targets-head h2 { margin: 0; font-size: 0.9rem; }
     .targets-head p, .targets-note { margin: 0; color: #a8a29e; font-size: 0.72rem; }
+    .rates { text-align: right; }
     .targets-scroll { max-height: 9.5rem; overflow: auto; border-top: 1px solid #44403c; }
     .targets table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
     .targets th, .targets td { text-align: left; padding: 0.22rem 0.55rem; border-top: 1px solid #44403c; }

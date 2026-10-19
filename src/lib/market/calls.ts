@@ -14,6 +14,49 @@ export interface PublishedCall {
 
 export type CallStatus = "reached" | "not-reached" | "open";
 
+export interface SuggestionRates {
+  reached: number;
+  notReached: number;
+  open: number;
+  /** Reached divided by settled rows. Null when every row is still open. */
+  settled: number | null;
+  /** Reached divided by every row. Null when the log is empty. */
+  share: number | null;
+}
+
+/** Hit rates from the rows on the table. Open calls stay out of the settled denominator. */
+export function suggestionRates(calls: ReadonlyArray<{ status: CallStatus }>): SuggestionRates {
+  const reached = calls.filter((call) => call.status === "reached").length;
+  const notReached = calls.filter((call) => call.status === "not-reached").length;
+  const open = calls.filter((call) => call.status === "open").length;
+  const settledTotal = reached + notReached;
+  const all = settledTotal + open;
+  return {
+    reached,
+    notReached,
+    open,
+    settled: settledTotal === 0 ? null : reached / settledTotal,
+    share: all === 0 ? null : reached / all,
+  };
+}
+
+export function formatRate(rate: number): string {
+  const tenths = Math.round(rate * 1000) / 10;
+  return Number.isInteger(tenths) ? `${tenths.toFixed(0)}%` : `${tenths.toFixed(1)}%`;
+}
+
+export function settledHitLabel(rates: SuggestionRates): string {
+  const total = rates.reached + rates.notReached;
+  if (rates.settled == null) return "Settled hit rate: no settled calls yet";
+  return `Settled hit rate: ${formatRate(rates.settled)} (${rates.reached} of ${total} reached)`;
+}
+
+export function shareOfSuggestionsLabel(rates: SuggestionRates): string {
+  const total = rates.reached + rates.notReached + rates.open;
+  if (rates.share == null) return "Share of all suggestions: no suggestions yet";
+  return `Share of all suggestions: ${formatRate(rates.share)} (${rates.reached} of ${total} reached)`;
+}
+
 export interface TrackedCall extends PublishedCall {
   status: CallStatus;
   /** Original pace date. Unchanged after the call is published. */
