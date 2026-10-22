@@ -125,6 +125,41 @@
       "target": 301.26,
       "stop": 335.89,
       "asOf": "2026-10-22"
+    },
+    {
+      "symbol": "WMT",
+      "side": "long",
+      "target": 138,
+      "stop": 118.6,
+      "asOf": "2026-10-22"
+    },
+    {
+      "symbol": "AMD",
+      "side": "short",
+      "target": 386.28,
+      "stop": 537.05,
+      "asOf": "2026-10-22"
+    },
+    {
+      "symbol": "MU",
+      "side": "short",
+      "target": 660.32,
+      "stop": 905.67,
+      "asOf": "2026-10-22"
+    },
+    {
+      "symbol": "NVDA",
+      "side": "short",
+      "target": 181.69,
+      "stop": 218.36,
+      "asOf": "2026-10-22"
+    },
+    {
+      "symbol": "MSFT",
+      "side": "short",
+      "target": 494.36,
+      "stop": 532.46,
+      "asOf": "2026-10-22"
     }
   ]
 }
