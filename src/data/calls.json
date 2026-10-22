@@ -104,6 +104,27 @@
       "target": 429.45,
       "stop": 374.54,
       "asOf": "2026-10-21"
+    },
+    {
+      "symbol": "DIS",
+      "side": "long",
+      "target": 123.14,
+      "stop": 111.25,
+      "asOf": "2026-10-22"
+    },
+    {
+      "symbol": "AMD",
+      "side": "short",
+      "target": 391.2,
+      "stop": 541.55,
+      "asOf": "2026-10-22"
+    },
+    {
+      "symbol": "GOOGL",
+      "side": "short",
+      "target": 301.26,
+      "stop": 335.89,
+      "asOf": "2026-10-22"
     }
   ]
 }
