@@ -167,6 +167,20 @@
       "target": 199.01,
       "stop": 179.05,
       "asOf": "2026-10-23"
+    },
+    {
+      "symbol": "XOM",
+      "side": "long",
+      "target": 199.25,
+      "stop": 179.28,
+      "asOf": "2026-10-23"
+    },
+    {
+      "symbol": "NVDA",
+      "side": "short",
+      "target": 194.91,
+      "stop": 216.94,
+      "asOf": "2026-10-23"
     }
   ]
 }
