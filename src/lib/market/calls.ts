@@ -40,6 +40,17 @@ export function suggestionRates(calls: ReadonlyArray<{ status: CallStatus }>): S
   };
 }
 
+/** Table order: reached, then not reached, then open. Order inside a block stays as published. */
+export function groupCalls<T extends { status: CallStatus }>(
+  calls: readonly T[],
+): Array<{ status: CallStatus; calls: T[] }> {
+  const order: CallStatus[] = ["reached", "not-reached", "open"];
+  return order.map((status) => ({
+    status,
+    calls: calls.filter((call) => call.status === status),
+  }));
+}
+
 export function formatRate(rate: number): string {
   const tenths = Math.round(rate * 1000) / 10;
   return Number.isInteger(tenths) ? `${tenths.toFixed(0)}%` : `${tenths.toFixed(1)}%`;

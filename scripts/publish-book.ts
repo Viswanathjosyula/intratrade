@@ -2,7 +2,7 @@ import { renameSync, writeFileSync } from "node:fs";
 
 import { earningsRead, price, rewardRisk, sentimentLabel, sideLabel, stanceLabel } from "@/lib/format";
 import { trackBook, type TrackedBook } from "@/lib/market/call-log";
-import { settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
+import { groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
 import { rankIdeas } from "@/lib/market/engine";
 import { loadPublicSession } from "@/lib/market/live";
 import { estimatedReach, formatSessionDate, reachLabel } from "@/lib/market/reach";
@@ -22,14 +22,8 @@ function statusText(status: CallStatus): string {
   return "Open";
 }
 
-function renderTargets(tracked: TrackedBook): string {
-  const rates = suggestionRates(tracked.calls);
-  const rows =
-    tracked.calls.length === 0
-      ? `<tr><td colspan="7">No published consider call is in the log yet.</td></tr>`
-      : tracked.calls
-          .map(
-            (call) => `<tr>
+function renderCallRow(call: TrackedBook["calls"][number]): string {
+  return `<tr>
           <td class="sym">${escapeHtml(call.symbol)}</td>
           <td>${escapeHtml(sideLabel(call.side))}</td>
           <td>${price(call.target)}</td>
@@ -37,8 +31,23 @@ function renderTargets(tracked: TrackedBook): string {
           <td>${call.paceDate ? escapeHtml(formatSessionDate(call.paceDate)) : ""}</td>
           <td>${call.nextPaceDate ? escapeHtml(formatSessionDate(call.nextPaceDate)) : ""}</td>
           <td class="${call.status}">${statusText(call.status)}</td>
-        </tr>`,
-          )
+        </tr>`;
+}
+
+function renderTargets(tracked: TrackedBook): string {
+  const rates = suggestionRates(tracked.calls);
+  const rows =
+    tracked.calls.length === 0
+      ? `<tr><td colspan="7">No published consider call is in the log yet.</td></tr>`
+      : groupCalls(tracked.calls)
+          .map((group) => {
+            const body =
+              group.calls.length === 0
+                ? `<tr class="empty"><td colspan="7">None</td></tr>`
+                : group.calls.map((call) => renderCallRow(call)).join("\n");
+            return `<tr class="group ${group.status}"><td colspan="7">${escapeHtml(statusText(group.status))} · ${group.calls.length}</td></tr>
+${body}`;
+          })
           .join("\n");
   const checked = tracked.through
     ? `Checked against Yahoo regular-session bars through ${formatSessionDate(tracked.through)}.`
@@ -196,7 +205,9 @@ function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: Tracked
     .targets-scroll { max-height: 9.5rem; overflow: auto; border-top: 1px solid #44403c; }
     .targets table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
     .targets th, .targets td { text-align: left; padding: 0.22rem 0.55rem; border-top: 1px solid #44403c; }
-    .targets th { position: sticky; top: 0; background: #292524; color: #a8a29e; font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    .targets th { position: sticky; top: 0; z-index: 1; background: #292524; color: #a8a29e; font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    .targets tr.group td { font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 650; background: #1c1917; }
+    .targets tr.empty td { color: #a8a29e; }
     .targets .sym { font-family: ui-monospace, monospace; font-weight: 650; }
     .targets td:nth-child(3), .targets td:nth-child(4) { font-family: ui-monospace, monospace; }
     .reached { color: #6ee7b7; }
