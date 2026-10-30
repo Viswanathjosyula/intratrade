@@ -209,6 +209,20 @@
       "target": 244.6,
       "stop": 294.6,
       "asOf": "2026-10-29"
+    },
+    {
+      "symbol": "WMT",
+      "side": "long",
+      "target": 136.75,
+      "stop": 121.2,
+      "asOf": "2026-10-30"
+    },
+    {
+      "symbol": "NVDA",
+      "side": "short",
+      "target": 191.03,
+      "stop": 211.73,
+      "asOf": "2026-10-30"
     }
   ]
 }
