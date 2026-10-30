@@ -65,7 +65,10 @@
       .plans { order: 2; }
       .plan { max-height: none; }
     }
-    #pick-AMZN:checked ~ .board .plan-AMZN,
+    #pick-GOOGL:checked ~ .board .plan-GOOGL,
+#pick-GOOGL:checked ~ .board .keys-GOOGL { display: flex; }
+#pick-GOOGL:checked ~ .board label[for="pick-GOOGL"] { outline: 2px solid #6ee7b7; }
+#pick-AMZN:checked ~ .board .plan-AMZN,
 #pick-AMZN:checked ~ .board .keys-AMZN { display: flex; }
 #pick-AMZN:checked ~ .board label[for="pick-AMZN"] { outline: 2px solid #6ee7b7; }
 #pick-MSFT:checked ~ .board .plan-MSFT,
@@ -77,9 +80,9 @@
 #pick-AVGO:checked ~ .board .plan-AVGO,
 #pick-AVGO:checked ~ .board .keys-AVGO { display: flex; }
 #pick-AVGO:checked ~ .board label[for="pick-AVGO"] { outline: 2px solid #fde68a; }
-#pick-GOOGL:checked ~ .board .plan-GOOGL,
-#pick-GOOGL:checked ~ .board .keys-GOOGL { display: flex; }
-#pick-GOOGL:checked ~ .board label[for="pick-GOOGL"] { outline: 2px solid #fde68a; }
+#pick-XOM:checked ~ .board .plan-XOM,
+#pick-XOM:checked ~ .board .keys-XOM { display: flex; }
+#pick-XOM:checked ~ .board label[for="pick-XOM"] { outline: 2px solid #fde68a; }
 #pick-QCOM:checked ~ .board .plan-QCOM,
 #pick-QCOM:checked ~ .board .keys-QCOM { display: flex; }
 #pick-QCOM:checked ~ .board label[for="pick-QCOM"] { outline: 2px solid #fde68a; }
@@ -104,21 +107,18 @@
 #pick-BA:checked ~ .board .plan-BA,
 #pick-BA:checked ~ .board .keys-BA { display: flex; }
 #pick-BA:checked ~ .board label[for="pick-BA"] { outline: 2px solid #fde68a; }
-#pick-XOM:checked ~ .board .plan-XOM,
-#pick-XOM:checked ~ .board .keys-XOM { display: flex; }
-#pick-XOM:checked ~ .board label[for="pick-XOM"] { outline: 2px solid #fde68a; }
 #pick-ORCL:checked ~ .board .plan-ORCL,
 #pick-ORCL:checked ~ .board .keys-ORCL { display: flex; }
 #pick-ORCL:checked ~ .board label[for="pick-ORCL"] { outline: 2px solid #fde68a; }
+#pick-AAPL:checked ~ .board .plan-AAPL,
+#pick-AAPL:checked ~ .board .keys-AAPL { display: flex; }
+#pick-AAPL:checked ~ .board label[for="pick-AAPL"] { outline: 2px solid #fde68a; }
 #pick-NVDA:checked ~ .board .plan-NVDA,
 #pick-NVDA:checked ~ .board .keys-NVDA { display: flex; }
 #pick-NVDA:checked ~ .board label[for="pick-NVDA"] { outline: 2px solid #fde68a; }
 #pick-JPM:checked ~ .board .plan-JPM,
 #pick-JPM:checked ~ .board .keys-JPM { display: flex; }
 #pick-JPM:checked ~ .board label[for="pick-JPM"] { outline: 2px solid #fde68a; }
-#pick-AAPL:checked ~ .board .plan-AAPL,
-#pick-AAPL:checked ~ .board .keys-AAPL { display: flex; }
-#pick-AAPL:checked ~ .board label[for="pick-AAPL"] { outline: 2px solid #fde68a; }
 #pick-NFLX:checked ~ .board .plan-NFLX,
 #pick-NFLX:checked ~ .board .keys-NFLX { display: flex; }
 #pick-NFLX:checked ~ .board label[for="pick-NFLX"] { outline: 2px solid #fde68a; }
@@ -133,15 +133,15 @@
       <h1>Intratrade</h1>
       <p class="meta">Yahoo Finance regular-session prices, as of Thu, Oct 29, 4:04 PM EDT. The cash session is closed, so this is the closing print rather than a fresh tick. Not a broker feed. · Cash session is closed. Prices are the regular-session print, not after-hours trading. High-impact USD events on this session: Advance GDP q/q, Core PCE Price Index m/m. Nothing on this desk sends an order.</p>
     </div>
-    <p class="counts"><span class="consider-count">1 consider</span> · <span class="aside-count">19 stand aside</span></p>
+    <p class="counts"><span class="consider-count">2 consider</span> · <span class="aside-count">18 stand aside</span></p>
   </header>
   <section class="targets" aria-label="Target tracking">
     <div class="targets-head">
       <h2>Targets</h2>
       <div class="rates">
-        <p><span class="reached">5 reached</span> · <span class="not-reached">21 not reached</span> · <span class="open">3 open</span></p>
+        <p><span class="reached">5 reached</span> · <span class="not-reached">21 not reached</span> · <span class="open">4 open</span></p>
         <p>Settled hit rate: 19.2% (5 of 26 reached)</p>
-        <p>Share of all suggestions: 17.2% (5 of 29 reached)</p>
+        <p>Share of all suggestions: 16.7% (5 of 30 reached)</p>
       </div>
     </div>
     <div class="targets-scroll">
@@ -383,7 +383,7 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr class="group open"><td colspan="7">Open · 3</td></tr>
+<tr class="group open"><td colspan="7">Open · 4</td></tr>
 <tr>
           <td class="sym">XOM</td>
           <td>Long</td>
@@ -410,16 +410,26 @@
           <td>Wed, Nov 4, 2026</td>
           <td></td>
           <td class="open">Open</td>
+        </tr>
+<tr>
+          <td class="sym">GOOGL</td>
+          <td>Short</td>
+          <td>244.60</td>
+          <td>Thu, Oct 29, 2026</td>
+          <td>Wed, Nov 4, 2026</td>
+          <td></td>
+          <td class="open">Open</td>
         </tr></tbody>
       </table>
     </div>
     <p class="targets-note">Checked against Yahoo regular-session bars through Thu, Oct 29, 2026. This table does not send an order.</p>
   </section>
-  <input class="pick" type="radio" name="book" id="pick-AMZN" checked>
+  <input class="pick" type="radio" name="book" id="pick-GOOGL" checked>
+<input class="pick" type="radio" name="book" id="pick-AMZN">
 <input class="pick" type="radio" name="book" id="pick-MSFT">
 <input class="pick" type="radio" name="book" id="pick-CRM">
 <input class="pick" type="radio" name="book" id="pick-AVGO">
-<input class="pick" type="radio" name="book" id="pick-GOOGL">
+<input class="pick" type="radio" name="book" id="pick-XOM">
 <input class="pick" type="radio" name="book" id="pick-QCOM">
 <input class="pick" type="radio" name="book" id="pick-DIS">
 <input class="pick" type="radio" name="book" id="pick-COST">
@@ -428,15 +438,24 @@
 <input class="pick" type="radio" name="book" id="pick-MU">
 <input class="pick" type="radio" name="book" id="pick-TSLA">
 <input class="pick" type="radio" name="book" id="pick-BA">
-<input class="pick" type="radio" name="book" id="pick-XOM">
 <input class="pick" type="radio" name="book" id="pick-ORCL">
+<input class="pick" type="radio" name="book" id="pick-AAPL">
 <input class="pick" type="radio" name="book" id="pick-NVDA">
 <input class="pick" type="radio" name="book" id="pick-JPM">
-<input class="pick" type="radio" name="book" id="pick-AAPL">
 <input class="pick" type="radio" name="book" id="pick-NFLX">
 <input class="pick" type="radio" name="book" id="pick-AMD">
   <main class="board">
-    <div class="mobile-keys"><article class="keys keys-AMZN">
+    <div class="mobile-keys"><article class="keys keys-GOOGL">
+        <div class="keys-top"><strong>GOOGL</strong><span>Short · Consider</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>283.82</dd></div>
+          <div><dt>Target</dt><dd>244.60</dd></div>
+          <div><dt>Stop</dt><dd>294.60</dd></div>
+          <div><dt>R:R</dt><dd>3.64:1</dd></div>
+        </dl>
+        <p>4 sessions</p>
+      </article>
+<article class="keys keys-AMZN">
         <div class="keys-top"><strong>AMZN</strong><span>Short · Consider</span></div>
         <dl>
           <div><dt>Last</dt><dd>243.79</dd></div>
@@ -476,15 +495,15 @@
         </dl>
         <p>1 session</p>
       </article>
-<article class="keys keys-GOOGL">
-        <div class="keys-top"><strong>GOOGL</strong><span>Short · Stand aside</span></div>
+<article class="keys keys-XOM">
+        <div class="keys-top"><strong>XOM</strong><span>Long · Stand aside</span></div>
         <dl>
-          <div><dt>Last</dt><dd>283.82</dd></div>
-          <div><dt>Target</dt><dd>244.60</dd></div>
-          <div><dt>Stop</dt><dd>294.60</dd></div>
-          <div><dt>R:R</dt><dd>3.64:1</dd></div>
+          <div><dt>Last</dt><dd>183.29</dd></div>
+          <div><dt>Target</dt><dd>195.03</dd></div>
+          <div><dt>Stop</dt><dd>179.27</dd></div>
+          <div><dt>R:R</dt><dd>2.92:1</dd></div>
         </dl>
-        <p>4 sessions</p>
+        <p>3 sessions</p>
       </article>
 <article class="keys keys-QCOM">
         <div class="keys-top"><strong>QCOM</strong><span>Long · Stand aside</span></div>
@@ -510,9 +529,9 @@
         <div class="keys-top"><strong>COST</strong><span>Long · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>996.08</dd></div>
-          <div><dt>Target</dt><dd>1,002.34</dd></div>
+          <div><dt>Target</dt><dd>1,001.53</dd></div>
           <div><dt>Stop</dt><dd>979.38</dd></div>
-          <div><dt>R:R</dt><dd>0.37:1</dd></div>
+          <div><dt>R:R</dt><dd>0.33:1</dd></div>
         </dl>
         <p>1 session</p>
       </article>
@@ -566,16 +585,6 @@
         </dl>
         <p>1 session</p>
       </article>
-<article class="keys keys-XOM">
-        <div class="keys-top"><strong>XOM</strong><span>Long · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>183.29</dd></div>
-          <div><dt>Target</dt><dd>195.03</dd></div>
-          <div><dt>Stop</dt><dd>179.27</dd></div>
-          <div><dt>R:R</dt><dd>2.92:1</dd></div>
-        </dl>
-        <p>3 sessions</p>
-      </article>
 <article class="keys keys-ORCL">
         <div class="keys-top"><strong>ORCL</strong><span>Short · Stand aside</span></div>
         <dl>
@@ -585,6 +594,16 @@
           <div><dt>R:R</dt><dd>2.41:1</dd></div>
         </dl>
         <p>3 sessions</p>
+      </article>
+<article class="keys keys-AAPL">
+        <div class="keys-top"><strong>AAPL</strong><span>Long · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>348.91</dd></div>
+          <div><dt>Target</dt><dd>359.80</dd></div>
+          <div><dt>Stop</dt><dd>342.85</dd></div>
+          <div><dt>R:R</dt><dd>1.80:1</dd></div>
+        </dl>
+        <p>2 sessions</p>
       </article>
 <article class="keys keys-NVDA">
         <div class="keys-top"><strong>NVDA</strong><span>Long · Stand aside</span></div>
@@ -606,16 +625,6 @@
         </dl>
         <p>10 sessions</p>
       </article>
-<article class="keys keys-AAPL">
-        <div class="keys-top"><strong>AAPL</strong><span>Long · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>348.91</dd></div>
-          <div><dt>Target</dt><dd>359.80</dd></div>
-          <div><dt>Stop</dt><dd>342.85</dd></div>
-          <div><dt>R:R</dt><dd>1.80:1</dd></div>
-        </dl>
-        <p>2 sessions</p>
-      </article>
 <article class="keys keys-NFLX">
         <div class="keys-top"><strong>NFLX</strong><span>Short · Stand aside</span></div>
         <dl>
@@ -636,11 +645,12 @@
         </dl>
         <p>9 sessions</p>
       </article></div>
-    <div class="grid" role="listbox" aria-label="Liquid book"><label class="box consider" for="pick-AMZN"><span class="sym">AMZN</span><span class="sub">Short · 243.79</span></label>
+    <div class="grid" role="listbox" aria-label="Liquid book"><label class="box consider" for="pick-GOOGL"><span class="sym">GOOGL</span><span class="sub">Short · 283.82</span></label>
+<label class="box consider" for="pick-AMZN"><span class="sym">AMZN</span><span class="sub">Short · 243.79</span></label>
 <label class="box aside" for="pick-MSFT"><span class="sym">MSFT</span><span class="sub">Long · 530.14</span></label>
 <label class="box aside" for="pick-CRM"><span class="sym">CRM</span><span class="sub">Long · 230.90</span></label>
 <label class="box aside" for="pick-AVGO"><span class="sym">AVGO</span><span class="sub">Long · 345.00</span></label>
-<label class="box aside" for="pick-GOOGL"><span class="sym">GOOGL</span><span class="sub">Short · 283.82</span></label>
+<label class="box aside" for="pick-XOM"><span class="sym">XOM</span><span class="sub">Long · 183.29</span></label>
 <label class="box aside" for="pick-QCOM"><span class="sym">QCOM</span><span class="sub">Long · 185.41</span></label>
 <label class="box aside" for="pick-DIS"><span class="sym">DIS</span><span class="sub">Long · 110.91</span></label>
 <label class="box aside" for="pick-COST"><span class="sym">COST</span><span class="sub">Long · 996.08</span></label>
@@ -649,14 +659,30 @@
 <label class="box aside" for="pick-MU"><span class="sym">MU</span><span class="sub">Short · 934.27</span></label>
 <label class="box aside" for="pick-TSLA"><span class="sym">TSLA</span><span class="sub">Long · 403.30</span></label>
 <label class="box aside" for="pick-BA"><span class="sym">BA</span><span class="sub">Short · 172.65</span></label>
-<label class="box aside" for="pick-XOM"><span class="sym">XOM</span><span class="sub">Long · 183.29</span></label>
 <label class="box aside" for="pick-ORCL"><span class="sym">ORCL</span><span class="sub">Short · 139.56</span></label>
+<label class="box aside" for="pick-AAPL"><span class="sym">AAPL</span><span class="sub">Long · 348.91</span></label>
 <label class="box aside" for="pick-NVDA"><span class="sym">NVDA</span><span class="sub">Long · 213.66</span></label>
 <label class="box aside" for="pick-JPM"><span class="sym">JPM</span><span class="sub">Long · 343.58</span></label>
-<label class="box aside" for="pick-AAPL"><span class="sym">AAPL</span><span class="sub">Long · 348.91</span></label>
 <label class="box aside" for="pick-NFLX"><span class="sym">NFLX</span><span class="sub">Short · 62.05</span></label>
 <label class="box aside" for="pick-AMD"><span class="sym">AMD</span><span class="sub">Long · 566.42</span></label></div>
-    <div class="plans"><article class="plan plan-AMZN">
+    <div class="plans"><article class="plan plan-GOOGL">
+        <header class="plan-head">
+          <div><h2>GOOGL</h2><p class="name">Alphabet Inc.</p></div>
+          <p class="badge consider">Short · Consider</p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>283.82</dd></div>
+          <div><dt>Target</dt><dd>244.60</dd></div>
+          <div><dt>Stop</dt><dd>294.60</dd></div>
+          <div><dt>Reward:risk</dt><dd>3.64:1</dd></div>
+        </dl>
+        <p class="reach">Wed, Nov 4, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
+        <p><strong>News.</strong> Neutral. Google's AI is winning. Search is paying for it.</p>
+        <p><strong>Earnings.</strong> EPS 2.12 vs 2.94 (-27.89%). $127.58B reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Bear flag, triggered. Bear flag cleared 316.60 after a 12.2% pole. The flag fails through 326.41.</p>
+        <p class="reason">Bear flag (triggered). Bear flag cleared 316.60 after a 12.2% pole. The flag fails through 326.41.</p>
+      </article>
+<article class="plan plan-AMZN">
         <header class="plan-head">
           <div><h2>AMZN</h2><p class="name">Amazon.com, Inc.</p></div>
           <p class="badge consider">Short · Consider</p>
@@ -668,8 +694,8 @@
           <div><dt>Reward:risk</dt><dd>3.09:1</dd></div>
         </dl>
         <p class="reach">Wed, Nov 4, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
-        <p><strong>News.</strong> Neutral. Amazon, Intel Earnings Drag Down US Equity Futures Pre-Bell</p>
-        <p><strong>Earnings.</strong> EPS 1.89 vs 2.01 (-5.97%). $201.94B reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>News.</strong> Neutral. AI Anxiety, French Tensions Pressure European Bourses Midday</p>
+        <p><strong>Earnings.</strong> EPS 1.88 vs 1.83 (+2.73%). $201.94B reported revenue. Quarter ended Jun 2026.</p>
         <p><strong>Pattern.</strong> Double top, triggered. Two highs near 266.45 share a neckline at 244.30. Price closed through that neckline.</p>
         <p class="reason">Double top (triggered). Two highs near 266.45 share a neckline at 244.30. Price closed through that neckline.</p>
       </article>
@@ -685,7 +711,7 @@
           <div><dt>Reward:risk</dt><dd>4.92:1</dd></div>
         </dl>
         <p class="reach">Thu, Nov 5, 2026, if price travels about one daily ATR per session toward the target (5 sessions).</p>
-        <p><strong>News.</strong> Mixed. Buy, Sell, or Hold? Today’s Top Upgrades and Downgrades: Boston Scientific, DoorDash, GE Vernova, Honeywell Aerospace, Incyte. Intel, Reddit, Rivian Automotive, and More</p>
+        <p><strong>News.</strong> Neutral. Satya Nadella Just Took a Shot at Oracle and CoreWeave</p>
         <p><strong>Earnings.</strong> EPS 4.89 vs 4.71 (+3.82%). $92.28B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, forming. Two lows near 517.24 share a neckline at 551.15. Price has not closed through 551.15.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered.</p>
@@ -720,26 +746,26 @@
         </dl>
         <p class="reach">Fri, Oct 30, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
         <p><strong>News.</strong> Positive. Arista Networks (ANET) vs. CSCO and AVGO: Is AI Data Center Expansion Creating a Long-Term Networking Winner?</p>
-        <p><strong>Earnings.</strong> EPS 3.03 vs 2.83 (+7.07%). $29.59B reported revenue. Quarter ended Jul 2026.</p>
+        <p><strong>Earnings.</strong> EPS 3.03 vs 2.83 (+7.07%). $22.19B reported revenue. Quarter ended Jul 2026.</p>
         <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 338.80–344.24, and the session closed outside that range.</p>
         <p class="reason">Stand aside. Reward to risk is 0.40:1, short of the 2.00:1 minimum.</p>
       </article>
-<article class="plan plan-GOOGL">
+<article class="plan plan-XOM">
         <header class="plan-head">
-          <div><h2>GOOGL</h2><p class="name">Alphabet Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2>XOM</h2><p class="name">ExxonMobil Holdings Corporation</p></div>
+          <p class="badge aside">Long · Stand aside</p>
         </header>
         <dl class="stats">
-          <div><dt>Last</dt><dd>283.82</dd></div>
-          <div><dt>Target</dt><dd>244.60</dd></div>
-          <div><dt>Stop</dt><dd>294.60</dd></div>
-          <div><dt>Reward:risk</dt><dd>3.64:1</dd></div>
+          <div><dt>Last</dt><dd>183.29</dd></div>
+          <div><dt>Target</dt><dd>195.03</dd></div>
+          <div><dt>Stop</dt><dd>179.27</dd></div>
+          <div><dt>Reward:risk</dt><dd>2.92:1</dd></div>
         </dl>
-        <p class="reach">Wed, Nov 4, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
-        <p><strong>News.</strong> Positive. Why Goldman Sachs Still Calls Alphabet a Top AI Pick Despite the Earnings Miss</p>
-        <p><strong>Earnings.</strong> EPS 2.12 vs 2.94 (-27.89%). $127.58B reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Bear flag, triggered. Bear flag cleared 316.60 after a 12.2% pole. The flag fails through 326.41.</p>
-        <p class="reason">Stand aside. News fights the short: the headline sentiment is positive.</p>
+        <p class="reach">Tue, Nov 3, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
+        <p><strong>News.</strong> Positive. Exxon Mobil Holdings (XOM) Q3 Earnings and Revenues Beat Estimates</p>
+        <p><strong>Earnings.</strong> EPS 3.52 vs 3.68 (-4.35%). $116.02B reported revenue. Quarter ended Jun 2026.</p>
+        <p><strong>Pattern.</strong> Bull flag, forming. Bull flag is still inside 179.77–184.88 after a 5.8% pole.</p>
+        <p class="reason">Stand aside. The chart pattern has not triggered.</p>
       </article>
 <article class="plan plan-QCOM">
         <header class="plan-head">
@@ -782,15 +808,15 @@
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>996.08</dd></div>
-          <div><dt>Target</dt><dd>1,002.34</dd></div>
+          <div><dt>Target</dt><dd>1,001.53</dd></div>
           <div><dt>Stop</dt><dd>979.38</dd></div>
-          <div><dt>Reward:risk</dt><dd>0.37:1</dd></div>
+          <div><dt>Reward:risk</dt><dd>0.33:1</dd></div>
         </dl>
         <p class="reach">Fri, Oct 30, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
         <p><strong>News.</strong> Neutral. Should Medicare Push Require Action From Costco (COST) Investors?</p>
         <p><strong>Earnings.</strong> EPS 6.60 vs 6.48 (+1.85%). $95.72B reported revenue. Quarter ended Aug 2026.</p>
-        <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 986.12–994.23, and the session closed outside that range.</p>
-        <p class="reason">Stand aside. Reward to risk is 0.37:1, short of the 2.00:1 minimum.</p>
+        <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 986.12–993.82, and the session closed outside that range.</p>
+        <p class="reason">Stand aside. Reward to risk is 0.326:1, short of the 2.00:1 minimum.</p>
       </article>
 <article class="plan plan-WMT">
         <header class="plan-head">
@@ -838,7 +864,7 @@
           <div><dt>Reward:risk</dt><dd>0.47:1</dd></div>
         </dl>
         <p class="reach">Fri, Oct 30, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        <p><strong>News.</strong> Neutral. Here's Why Micron (MU) Fell More Than Broader Market</p>
+        <p><strong>News.</strong> Neutral. Alphabet drops 12% in deepening tech and semiconductor rout</p>
         <p><strong>Earnings.</strong> EPS 33.19 vs 31.41 (+5.67%). $54.23B reported revenue. Quarter ended Aug 2026.</p>
         <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 941.11–971.01, and the session closed outside that range.</p>
         <p class="reason">Stand aside. Reward to risk is 0.467:1, short of the 2.00:1 minimum.</p>
@@ -877,23 +903,6 @@
         <p><strong>Pattern.</strong> Double top, triggered. Two highs near 195.10 share a neckline at 183.38. Price closed through that neckline.</p>
         <p class="reason">Stand aside. Price reclaimed VWAP, which fights the short. The opening range broke the other way. Reward to risk is 0.17:1, short of the 2.00:1 minimum.</p>
       </article>
-<article class="plan plan-XOM">
-        <header class="plan-head">
-          <div><h2>XOM</h2><p class="name">ExxonMobil Holdings Corporation</p></div>
-          <p class="badge aside">Long · Stand aside</p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>183.29</dd></div>
-          <div><dt>Target</dt><dd>195.03</dd></div>
-          <div><dt>Stop</dt><dd>179.27</dd></div>
-          <div><dt>Reward:risk</dt><dd>2.92:1</dd></div>
-        </dl>
-        <p class="reach">Tue, Nov 3, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
-        <p><strong>News.</strong> Neutral. Earnings from Exxon, Chevron, and BP: What to Watch</p>
-        <p><strong>Earnings.</strong> EPS 3.52 vs 3.68 (-4.35%). $116.02B reported revenue. Quarter ended Jun 2026.</p>
-        <p><strong>Pattern.</strong> Bull flag, forming. Bull flag is still inside 179.77–184.88 after a 5.8% pole.</p>
-        <p class="reason">Stand aside. The chart pattern has not triggered.</p>
-      </article>
 <article class="plan plan-ORCL">
         <header class="plan-head">
           <div><h2>ORCL</h2><p class="name">Oracle Corporation</p></div>
@@ -911,6 +920,23 @@
         <p><strong>Pattern.</strong> Double top, forming. Two highs near 143.92 share a neckline at 132.53. Price has not closed through 132.53.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered.</p>
       </article>
+<article class="plan plan-AAPL">
+        <header class="plan-head">
+          <div><h2>AAPL</h2><p class="name">Apple Inc.</p></div>
+          <p class="badge aside">Long · Stand aside</p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>348.91</dd></div>
+          <div><dt>Target</dt><dd>359.80</dd></div>
+          <div><dt>Stop</dt><dd>342.85</dd></div>
+          <div><dt>Reward:risk</dt><dd>1.80:1</dd></div>
+        </dl>
+        <p class="reach">Mon, Nov 2, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
+        <p><strong>News.</strong> Neutral. Apple Is Priced for Its Cash. Its November 2 Report Must Show Memory Costs Aren’t Eating It</p>
+        <p><strong>Earnings.</strong> EPS 1.91 vs 1.88 (+1.60%). $109.42B reported revenue. Quarter ended Jun 2026.</p>
+        <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 336.50 share a neckline at 348.15. Price closed through that neckline.</p>
+        <p class="reason">Stand aside. Reward to risk is 1.797:1, short of the 2.00:1 minimum.</p>
+      </article>
 <article class="plan plan-NVDA">
         <header class="plan-head">
           <div><h2>NVDA</h2><p class="name">NVIDIA Corporation</p></div>
@@ -923,7 +949,7 @@
           <div><dt>Reward:risk</dt><dd>10.48:1</dd></div>
         </dl>
         <p class="reach">Fri, Nov 13, 2026, if price travels about one daily ATR per session toward the target (11 sessions).</p>
-        <p><strong>News.</strong> Neutral. Nvidia Facing Questions As Suspected Chinese Intelligence Asset Got Close to Jensen Huang</p>
+        <p><strong>News.</strong> Neutral. Marvell in advanced talks to buy Nvidia-backed Lumentum – report</p>
         <p><strong>Earnings.</strong> EPS 2.22 vs 2.09 (+6.22%). $96.22B reported revenue. Quarter ended Jul 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, forming. Two lows near 210.82 share a neckline at 243.37. Price has not closed through 243.37.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered.</p>
@@ -945,23 +971,6 @@
         <p><strong>Pattern.</strong> Double bottom, forming. Two lows near 325.71 share a neckline at 366.50. Price has not closed through 366.50.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered.</p>
       </article>
-<article class="plan plan-AAPL">
-        <header class="plan-head">
-          <div><h2>AAPL</h2><p class="name">Apple Inc.</p></div>
-          <p class="badge aside">Long · Stand aside</p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>348.91</dd></div>
-          <div><dt>Target</dt><dd>359.80</dd></div>
-          <div><dt>Stop</dt><dd>342.85</dd></div>
-          <div><dt>Reward:risk</dt><dd>1.80:1</dd></div>
-        </dl>
-        <p class="reach">Mon, Nov 2, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
-        <p><strong>News.</strong> Neutral. Apple Is Priced for Its Cash. Its November 2 Report Must Show Memory Costs Aren’t Eating It</p>
-        <p><strong>Earnings.</strong> EPS 1.91 vs 1.88 (+1.60%). $111.18B reported revenue. Quarter ended Jun 2026.</p>
-        <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 336.50 share a neckline at 348.15. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Price rejected at VWAP, which fights the long. Reward to risk is 1.797:1, short of the 2.00:1 minimum.</p>
-      </article>
 <article class="plan plan-NFLX">
         <header class="plan-head">
           <div><h2>NFLX</h2><p class="name">Netflix, Inc.</p></div>
@@ -974,7 +983,7 @@
           <div><dt>Reward:risk</dt><dd>1.13:1</dd></div>
         </dl>
         <p class="reach">Mon, Nov 2, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
-        <p><strong>News.</strong> Neutral. Is Netflix (NFLX) A Bargain After Its 2026 Guidance Reset?</p>
+        <p><strong>News.</strong> Neutral. Why Did NFLX, MBLY, APP Stocks Tumble To 52-Week Lows?</p>
         <p><strong>Earnings.</strong> EPS 0.87 vs 0.82 (+6.10%). $12.87B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double top, triggered. Two highs near 73.42 share a neckline at 66.54. Price closed through that neckline.</p>
         <p class="reason">Stand aside. Price reclaimed VWAP, which fights the short. Reward to risk is 1.13:1, short of the 2.00:1 minimum.</p>

@@ -202,6 +202,13 @@
       "target": 222.15,
       "stop": 250.79,
       "asOf": "2026-10-29"
+    },
+    {
+      "symbol": "GOOGL",
+      "side": "short",
+      "target": 244.6,
+      "stop": 294.6,
+      "asOf": "2026-10-29"
     }
   ]
 }
