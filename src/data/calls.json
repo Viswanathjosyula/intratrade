@@ -223,6 +223,27 @@
       "target": 191.03,
       "stop": 211.73,
       "asOf": "2026-10-30"
+    },
+    {
+      "symbol": "XOM",
+      "side": "long",
+      "target": 198.24,
+      "stop": 183.11,
+      "asOf": "2026-10-30"
+    },
+    {
+      "symbol": "TSLA",
+      "side": "long",
+      "target": 431.19,
+      "stop": 385.58,
+      "asOf": "2026-10-30"
+    },
+    {
+      "symbol": "WMT",
+      "side": "long",
+      "target": 136.45,
+      "stop": 120.87,
+      "asOf": "2026-10-30"
     }
   ]
 }
