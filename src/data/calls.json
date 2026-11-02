@@ -251,6 +251,27 @@
       "target": 150.41,
       "stop": 174.56,
       "asOf": "2026-11-02"
+    },
+    {
+      "symbol": "ORCL",
+      "side": "short",
+      "target": 96.93,
+      "stop": 127.82,
+      "asOf": "2026-11-02"
+    },
+    {
+      "symbol": "AMD",
+      "side": "short",
+      "target": 388.63,
+      "stop": 504.48,
+      "asOf": "2026-11-02"
+    },
+    {
+      "symbol": "MU",
+      "side": "short",
+      "target": 708.52,
+      "stop": 887.61,
+      "asOf": "2026-11-02"
     }
   ]
 }
