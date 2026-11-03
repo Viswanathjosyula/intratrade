@@ -272,6 +272,20 @@
       "target": 708.52,
       "stop": 887.61,
       "asOf": "2026-11-02"
+    },
+    {
+      "symbol": "AMD",
+      "side": "short",
+      "target": 383.68,
+      "stop": 499.83,
+      "asOf": "2026-11-02"
+    },
+    {
+      "symbol": "META",
+      "side": "short",
+      "target": 475.15,
+      "stop": 630.27,
+      "asOf": "2026-11-02"
     }
   ]
 }
