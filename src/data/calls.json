@@ -293,6 +293,27 @@
       "target": 119.01,
       "stop": 112.01,
       "asOf": "2026-11-03"
+    },
+    {
+      "symbol": "MSFT",
+      "side": "long",
+      "target": 585.06,
+      "stop": 537.58,
+      "asOf": "2026-11-04"
+    },
+    {
+      "symbol": "COST",
+      "side": "long",
+      "target": 1100.47,
+      "stop": 1029.66,
+      "asOf": "2026-11-04"
+    },
+    {
+      "symbol": "JPM",
+      "side": "long",
+      "target": 362.58,
+      "stop": 342.84,
+      "asOf": "2026-11-04"
     }
   ]
 }
