@@ -84,6 +84,33 @@ export interface Snapshot {
   news: NewsPillar;
   earnings: EarningsPillar;
   pattern: PatternPillar;
+  /** Mean of the last 10 daily closes. Absent when the chart is shorter than that. */
+  shortAverage?: number;
+}
+
+export type MarketMoodName = "risk-on" | "mixed" | "risk-off";
+
+/** SPY or VIX against its short average. `supportive` is the risk-on side of that average. */
+export interface MoodLevel {
+  last: number;
+  average: number;
+  supportive: boolean;
+}
+
+export interface MarketMood {
+  name: MarketMoodName;
+  /** Sessions in the short average. */
+  window: number;
+  spy: MoodLevel | null;
+  vix: MoodLevel | null;
+  /** Names on the book whose last print is above their short average. */
+  aboveCount: number;
+  /** Names that had enough sessions to score. */
+  counted: number;
+  /** True when more names are above than below. Null on a tie or when none were scored. */
+  breadthSupportive: boolean | null;
+  /** The inputs, in one sentence. */
+  summary: string;
 }
 
 export interface SessionNote {
@@ -102,6 +129,8 @@ export interface MarketSession {
   /** Set when live quotes failed and the sample tape is on screen instead. */
   fallbackError?: string;
   note: SessionNote;
+  /** Live mood from SPY, book breadth, and VIX. Absent on the sample tape or when Yahoo returns none of those inputs. */
+  mood?: MarketMood | null;
   snapshots: Snapshot[];
 }
 

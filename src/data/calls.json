@@ -335,6 +335,34 @@
       "target": 1098.95,
       "stop": 1027.92,
       "asOf": "2026-11-04"
+    },
+    {
+      "symbol": "META",
+      "side": "short",
+      "target": 464.42,
+      "stop": 615.56,
+      "asOf": "2026-11-05"
+    },
+    {
+      "symbol": "AVGO",
+      "side": "short",
+      "target": 268.61,
+      "stop": 315.44,
+      "asOf": "2026-11-05"
+    },
+    {
+      "symbol": "NFLX",
+      "side": "short",
+      "target": 59.67,
+      "stop": 67.78,
+      "asOf": "2026-11-05"
+    },
+    {
+      "symbol": "COST",
+      "side": "long",
+      "target": 1132.93,
+      "stop": 1055.95,
+      "asOf": "2026-11-05"
     }
   ]
 }

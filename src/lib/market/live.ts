@@ -1,6 +1,7 @@
 import { sessionStamp } from "@/lib/format";
+import { buildMarketMood, levelFromCloses, roundCents, shortAverage, vixLevel } from "./mood";
 import { analyzeTape, choosePattern, type Bar } from "./patterns";
-import type { EarningsPillar, MarketSession, NewsPillar, Sentiment, Snapshot } from "./types";
+import type { EarningsPillar, MarketSession, MoodLevel, NewsPillar, Sentiment, Snapshot } from "./types";
 
 /** Liquid US names. The book keeps the ones whose tape can be read. */
 const UNIVERSE = [
@@ -64,6 +65,8 @@ async function buildSession(): Promise<MarketSession> {
     authError = errorMessage(error);
   }
 
+  const spyPromise = readMoodLevel("SPY", false);
+  const vixPromise = readMoodLevel("^VIX", true);
   const loaded = await mapPool(UNIVERSE, 4, async (symbol) => {
     try {
       return await loadSymbol(symbol, auth);
@@ -106,6 +109,15 @@ async function buildSession(): Promise<MarketSession> {
   const authNote = authError
     ? ` Yahoo earnings crumb failed (${authError}). Revenue uses the last successful Yahoo response per symbol; EPS surprise still comes from Nasdaq when that call works.`
     : "";
+  const [spy, vix] = await Promise.all([spyPromise, vixPromise]);
+  let aboveCount = 0;
+  let counted = 0;
+  for (const snapshot of snapshots) {
+    if (snapshot.shortAverage == null) continue;
+    counted += 1;
+    if (snapshot.last > snapshot.shortAverage) aboveCount += 1;
+  }
+  const mood = buildMarketMood({ spy, vix, aboveCount, counted });
 
   return {
     asOf,
@@ -127,8 +139,26 @@ async function buildSession(): Promise<MarketSession> {
             : "Prices are the latest Yahoo Finance regular-session bars."
       } ${calendar}${skipped}${authNote} Nothing on this desk sends an order.`,
     },
+    mood,
     snapshots,
   };
+}
+
+async function readMoodLevel(symbol: string, vix: boolean): Promise<MoodLevel | null> {
+  try {
+    const chart = await fetchChart(symbol, "1d", "6mo");
+    const closes = barsFromChart(chart).map((bar) => bar.close);
+    const meta = chartMeta(chart);
+    const lastClose = closes[closes.length - 1];
+    const last =
+      typeof meta.regularMarketPrice === "number" && Number.isFinite(meta.regularMarketPrice)
+        ? meta.regularMarketPrice
+        : lastClose;
+    if (last == null || !Number.isFinite(last)) return null;
+    return vix ? vixLevel(last, closes) : levelFromCloses(last, closes);
+  } catch {
+    return null;
+  }
 }
 
 async function loadSymbol(
@@ -166,6 +196,7 @@ async function loadSymbol(
       : tape.last;
   const earnings = toEarnings(fundamentals, nasdaq, sessionDate);
   const news = headline ?? quietNews(symbol, new Date(quoteMs).toISOString());
+  const average = shortAverage(daily.map((bar) => bar.close));
 
   return {
     quotedAtMs: quoteMs,
@@ -185,6 +216,7 @@ async function loadSymbol(
       news,
       earnings,
       pattern: setup.pattern,
+      ...(average == null ? {} : { shortAverage: roundCents(average) }),
     },
   };
 }

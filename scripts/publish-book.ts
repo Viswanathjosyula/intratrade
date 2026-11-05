@@ -5,8 +5,9 @@ import { trackBook, type TrackedBook } from "@/lib/market/call-log";
 import { groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
 import { rankIdeas } from "@/lib/market/engine";
 import { loadPublicSession } from "@/lib/market/live";
+import { moodLabel, timingCall } from "@/lib/market/mood";
 import { estimatedReach, formatSessionDate, reachLabel } from "@/lib/market/reach";
-import { DEFAULT_RISK, type TradeIdea } from "@/lib/market/types";
+import { DEFAULT_RISK, type MarketMood, type TradeIdea } from "@/lib/market/types";
 
 function escapeHtml(value: string): string {
   return value
@@ -72,7 +73,14 @@ ${body}`;
   </section>`;
 }
 
-function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: TrackedBook): string {
+function renderMood(mood: MarketMood | null): string {
+  if (!mood) {
+    return `<section class="mood" aria-label="Market mood"><p class="mood-name">Mood unavailable</p><p>Yahoo did not return SPY, book breadth, or VIX.</p></section>`;
+  }
+  return `<section class="mood ${mood.name}" aria-label="Market mood"><p class="mood-name">${escapeHtml(moodLabel(mood.name))}</p><p>${escapeHtml(mood.summary)}</p></section>`;
+}
+
+function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: TrackedBook, mood: MarketMood | null): string {
   const consider = ideas.filter((idea) => idea.stance === "consider").length;
   const aside = ideas.length - consider;
   const selected = ideas.find((idea) => idea.stance === "consider") ?? ideas[0];
@@ -135,6 +143,7 @@ function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: Tracked
         }),
       );
       const tone = idea.stance === "consider" ? "consider" : "aside";
+      const timing = mood && idea.stance === "consider" ? timingCall(mood.name, idea.side) : null;
       return `<article class="plan plan-${idea.symbol}">
         <header class="plan-head">
           <div><h2>${escapeHtml(idea.symbol)}</h2><p class="name">${escapeHtml(idea.name)}</p></div>
@@ -147,6 +156,7 @@ function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: Tracked
           <div><dt>Reward:risk</dt><dd>${rewardRisk(idea.riskReward)}</dd></div>
         </dl>
         <p class="reach">${escapeHtml(reach)}</p>
+        ${timing ? `<p class="timing ${timing.action}">${escapeHtml(timing.line)}</p>` : ""}
         <p><strong>News.</strong> ${escapeHtml(sentimentLabel(idea.news.sentiment))}. ${escapeHtml(idea.news.headline)}</p>
         <p><strong>Earnings.</strong> ${escapeHtml(earnings.title)}. ${escapeHtml(earnings.dollars)}. ${escapeHtml(idea.earnings.period)}.</p>
         <p><strong>Pattern.</strong> ${escapeHtml(idea.pattern.name)}, ${escapeHtml(idea.pattern.status)}. ${escapeHtml(idea.pattern.note)}</p>
@@ -214,6 +224,15 @@ function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: Tracked
     .not-reached { color: #fecdd3; }
     .open { color: #d6d3d1; }
     .targets-note { padding: 0.3rem 0.65rem 0.4rem; border-top: 1px solid #44403c; }
+    .mood { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.45rem 0.75rem; margin: 0.75rem 1rem 0; border: 1px solid #44403c; border-radius: 0.5rem; background: #292524; padding: 0.5rem 0.7rem; }
+    .mood-name { margin: 0; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+    .mood p { margin: 0; color: #d6d3d1; font-size: 0.78rem; line-height: 1.35; }
+    .mood.risk-on .mood-name { color: #6ee7b7; }
+    .mood.mixed .mood-name, .mood .mood-name { color: #fde68a; }
+    .mood.risk-off .mood-name { color: #fda4af; }
+    .timing { margin: 0.45rem 0 0; font-size: 0.78rem; font-weight: 650; line-height: 1.35; }
+    .timing.take { color: #6ee7b7; }
+    .timing.wait { color: #fde68a; }
     .mobile-keys { display: none; }
     @media (max-width: 860px) {
       .board { display: flex; flex-direction: column; min-height: 0; }
@@ -233,6 +252,7 @@ function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: Tracked
     </div>
     <p class="counts"><span class="consider-count">${consider} consider</span> · <span class="aside-count">${aside} stand aside</span></p>
   </header>
+  ${renderMood(mood)}
   ${renderTargets(tracked)}
   ${radios}
   <main class="board">
@@ -263,7 +283,7 @@ if (session.snapshots.some((snapshot) => !Number.isFinite(snapshot.last) || snap
 const ideas = rankIdeas(session.snapshots, DEFAULT_RISK);
 const tracked = await trackBook(session);
 const meta = `${session.delayLabel}${session.note.title ? ` · ${session.note.title}.` : ""}${session.note.detail ? ` ${session.note.detail}` : ""}`;
-const html = render(ideas, meta, session.asOf, tracked);
+const html = render(ideas, meta, session.asOf, tracked, session.mood ?? null);
 if (/sample tape|built-in sample|sample wire/i.test(html)) {
   console.error("Refusing to publish: the rendered page looks like the sample tape.");
   process.exit(1);
