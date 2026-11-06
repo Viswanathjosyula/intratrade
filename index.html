@@ -41,28 +41,40 @@
     .keys { flex-direction: column; position: sticky; top: 0; background: rgba(18, 22, 42, 0.96); border-bottom: 2px solid rgba(129, 140, 248, 0.45); padding: 0.45rem 0.2rem 0.55rem; z-index: 2; }
     .keys-top span, .keys p { font-size: 0.7rem; }
     .targets { margin: 0.55rem 1rem 0.75rem; border: 2px solid rgba(129, 140, 248, 0.7); border-radius: 0.55rem; background: #1a2140; }
-    .targets-head { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding: 0.45rem 0.7rem; }
-    .targets-head h2, .indicators-head h2 { margin: 0; font-size: 0.95rem; font-weight: 750; letter-spacing: -0.01em; color: #f8fafc; }
-    .targets-head p, .targets-note, .indicators-note { margin: 0; color: #c7d2fe; font-size: 0.75rem; }
+    .targets-head { display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline; padding: 0.15rem 0.4rem; }
+    .targets-head h2 { margin: 0; font-size: 0.75rem; font-weight: 750; letter-spacing: -0.01em; color: #f8fafc; }
+    .indicators-head h2 { margin: 0; font-size: 0.95rem; font-weight: 750; letter-spacing: -0.01em; color: #f8fafc; }
+    .targets-head p, .targets-note { margin: 0; color: #c7d2fe; font-size: 0.62rem; line-height: 1.15; }
+    .indicators-note { margin: 0; color: #c7d2fe; font-size: 0.75rem; }
     .rates { text-align: right; }
-    .targets-scroll { max-height: 9.5rem; overflow: auto; border-top: 1px solid rgba(255,255,255,0.08); }
-    .targets table, .indicators table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
-    .targets th, .targets td, .indicators th, .indicators td { text-align: left; padding: 0.22rem 0.55rem; border-top: 1px solid rgba(255,255,255,0.08); vertical-align: top; }
-    .targets th, .indicators th { color: #c7d2fe; font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; }
-    .targets th { position: sticky; top: 0; z-index: 1; background: #1a2140; }
-    .targets tr.group td { font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; background: #12162a; }
+    .targets-scroll { border-top: 1px solid rgba(255,255,255,0.08); overflow: visible; }
+    .targets table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 10px; line-height: 12px; }
+    .indicators table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+    .targets th, .targets td { text-align: left; padding: 0 1px; border: 0; vertical-align: middle; white-space: nowrap; }
+    .targets tbody tr { box-shadow: inset 0 -1px 0 rgba(255,255,255,0.08); }
+    .indicators th, .indicators td { text-align: left; padding: 0.22rem 0.55rem; border-top: 1px solid rgba(255,255,255,0.08); vertical-align: top; }
+    .targets th { color: #c7d2fe; font-size: 9px; line-height: 11px; letter-spacing: 0.02em; text-transform: uppercase; font-weight: 750; white-space: normal; }
+    .indicators th { color: #c7d2fe; font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; }
+    .targets tr.group td { font-size: 9px; line-height: 12px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; background: #12162a; }
     .targets tr.empty td { color: #a1a1aa; }
-    .targets .sym { font-family: ui-monospace, monospace; font-weight: 750; }
+    .targets .sym { font-family: ui-monospace, monospace; font-weight: 750; font-size: inherit; }
     .long { color: #34d399; }
     .short { color: #ef4444; }
-    .targets tr.side-long { box-shadow: inset 3px 0 0 #34d399; }
-    .targets tr.side-short { box-shadow: inset 3px 0 0 #ef4444; }
+    .targets tr.side-long { box-shadow: inset 3px 0 0 #34d399, inset 0 -1px 0 rgba(255,255,255,0.08); }
+    .targets tr.side-short { box-shadow: inset 3px 0 0 #ef4444, inset 0 -1px 0 rgba(255,255,255,0.08); }
     .plan-side { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-weight: 750; }
-    .targets td:nth-child(3), .targets td:nth-child(4), .targets td:nth-child(5) { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+    .targets td:nth-child(3), .targets td:nth-child(4) { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+    .targets col.c1 { width: 9%; } .targets col.c2 { width: 11%; } .targets col.c3 { width: 16%; } .targets col.c4 { width: 15%; }
+    .targets col.c5 { width: 11%; } .targets col.c6 { width: 11%; } .targets col.c7 { width: 11%; } .targets col.c8 { width: 16%; }
+    @media (max-width: 640px) {
+      .targets { margin-left: 0.4rem; margin-right: 0.4rem; }
+      .targets table { font-size: 9px; line-height: 11px; }
+      .targets th, .targets tr.group td { font-size: 8px; line-height: 10px; }
+    }
     .reached { color: #34d399; font-weight: 750; }
     .not-reached { color: #fb7185; font-weight: 750; }
     .open { color: #38bdf8; font-weight: 750; }
-    .targets-note { padding: 0.3rem 0.65rem 0.4rem; border-top: 1px solid rgba(255,255,255,0.12); }
+    .targets-note { padding: 0.1rem 0.4rem 0.15rem; border-top: 1px solid rgba(255,255,255,0.12); }
     .mood { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin: 0.6rem 1rem 0; border: 2px solid #818cf8; border-radius: 0.55rem; background: #1a2140; padding: 0.5rem 0.7rem; }
     .mood-name { margin: 0; border-radius: 0.35rem; padding: 0.2rem 0.5rem; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; }
     .mood p { margin: 0; color: #f8fafc; font-size: 0.88rem; line-height: 1.4; font-weight: 550; }
@@ -223,6 +235,7 @@
     </div>
     <div class="targets-scroll">
       <table>
+        <colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"><col class="c5"><col class="c6"><col class="c7"><col class="c8"></colgroup>
         <thead><tr><th>Name</th><th>Side</th><th>Added at</th><th>Target</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
         <tbody><tr class="group reached"><td colspan="8">Reached · 11</td></tr>
 <tr class="side-long">
@@ -230,9 +243,9 @@
           <td class="long">Long</td>
           <td>107.02</td>
           <td>111.40</td>
-          <td>Thu, Oct 8, 2026</td>
-          <td>Tue, Oct 13, 2026</td>
-          <td></td>
+          <td title="Thu, Oct 8, 2026">Oct 8</td>
+          <td title="Tue, Oct 13, 2026">Oct 13</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="side-long">
@@ -240,9 +253,9 @@
           <td class="long">Long</td>
           <td>111.35</td>
           <td>119.69</td>
-          <td>Fri, Oct 9, 2026</td>
-          <td>Thu, Oct 15, 2026</td>
-          <td></td>
+          <td title="Fri, Oct 9, 2026">Oct 9</td>
+          <td title="Thu, Oct 15, 2026">Oct 15</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="side-long">
@@ -250,9 +263,9 @@
           <td class="long">Long</td>
           <td>172.15</td>
           <td>183.69</td>
-          <td>Mon, Oct 12, 2026</td>
-          <td>Fri, Oct 16, 2026</td>
-          <td></td>
+          <td title="Mon, Oct 12, 2026">Oct 12</td>
+          <td title="Fri, Oct 16, 2026">Oct 16</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="side-long">
@@ -260,9 +273,9 @@
           <td class="long">Long</td>
           <td>989.11</td>
           <td>1,069.60</td>
-          <td>Fri, Oct 16, 2026</td>
-          <td>Mon, Oct 26, 2026</td>
-          <td></td>
+          <td title="Fri, Oct 16, 2026">Oct 16</td>
+          <td title="Mon, Oct 26, 2026">Oct 26</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="side-short">
@@ -270,9 +283,9 @@
           <td class="short">Short</td>
           <td>709.33</td>
           <td>647.81</td>
-          <td>Fri, Oct 16, 2026</td>
-          <td>Wed, Oct 21, 2026</td>
-          <td></td>
+          <td title="Fri, Oct 16, 2026">Oct 16</td>
+          <td title="Wed, Oct 21, 2026">Oct 21</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="side-long">
@@ -280,9 +293,9 @@
           <td class="long">Long</td>
           <td>109.59</td>
           <td>116.77</td>
-          <td>Mon, Oct 19, 2026</td>
-          <td>Fri, Oct 23, 2026</td>
-          <td></td>
+          <td title="Mon, Oct 19, 2026">Oct 19</td>
+          <td title="Fri, Oct 23, 2026">Oct 23</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="side-short">
@@ -290,9 +303,9 @@
           <td class="short">Short</td>
           <td>324.22</td>
           <td>301.26</td>
-          <td>Thu, Oct 22, 2026</td>
-          <td>Tue, Oct 27, 2026</td>
-          <td></td>
+          <td title="Thu, Oct 22, 2026">Oct 22</td>
+          <td title="Tue, Oct 27, 2026">Oct 27</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="side-short">
@@ -300,9 +313,9 @@
           <td class="short">Short</td>
           <td>204.64</td>
           <td>191.03</td>
-          <td>Fri, Oct 30, 2026</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td></td>
+          <td title="Fri, Oct 30, 2026">Oct 30</td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="side-short">
@@ -310,9 +323,9 @@
           <td class="short">Short</td>
           <td>162.08</td>
           <td>150.41</td>
-          <td>Mon, Nov 2, 2026</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td></td>
+          <td title="Mon, Nov 2, 2026">Nov 2</td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="side-short">
@@ -320,9 +333,9 @@
           <td class="short">Short</td>
           <td>833.59</td>
           <td>708.52</td>
-          <td>Mon, Nov 2, 2026</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td></td>
+          <td title="Mon, Nov 2, 2026">Nov 2</td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="side-long">
@@ -330,9 +343,9 @@
           <td class="long">Long</td>
           <td>114.18</td>
           <td>119.01</td>
-          <td>Tue, Nov 3, 2026</td>
-          <td>Fri, Nov 6, 2026</td>
-          <td></td>
+          <td title="Tue, Nov 3, 2026">Nov 3</td>
+          <td title="Fri, Nov 6, 2026">Nov 6</td>
+          <td title=""></td>
           <td class="reached">Reached</td>
         </tr>
 <tr class="group not-reached"><td colspan="8">Not reached · 36</td></tr>
@@ -341,9 +354,9 @@
           <td class="long">Long</td>
           <td>262.43</td>
           <td>274.46</td>
-          <td>Fri, Oct 9, 2026</td>
-          <td>Wed, Oct 14, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
+          <td title="Fri, Oct 9, 2026">Oct 9</td>
+          <td title="Wed, Oct 14, 2026">Oct 14</td>
+          <td title="Tue, Nov 10, 2026">Nov 10</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -351,9 +364,9 @@
           <td class="short">Short</td>
           <td>137.39</td>
           <td>124.20</td>
-          <td>Mon, Oct 12, 2026</td>
-          <td>Thu, Oct 15, 2026</td>
-          <td></td>
+          <td title="Mon, Oct 12, 2026">Oct 12</td>
+          <td title="Thu, Oct 15, 2026">Oct 15</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -361,9 +374,9 @@
           <td class="short">Short</td>
           <td>334.30</td>
           <td>317.23</td>
-          <td>Mon, Oct 12, 2026</td>
-          <td>Fri, Oct 16, 2026</td>
-          <td>Wed, Nov 11, 2026</td>
+          <td title="Mon, Oct 12, 2026">Oct 12</td>
+          <td title="Fri, Oct 16, 2026">Oct 16</td>
+          <td title="Wed, Nov 11, 2026">Nov 11</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -371,9 +384,9 @@
           <td class="short">Short</td>
           <td>130.55</td>
           <td>115.34</td>
-          <td>Wed, Oct 14, 2026</td>
-          <td>Mon, Oct 19, 2026</td>
-          <td></td>
+          <td title="Wed, Oct 14, 2026">Oct 14</td>
+          <td title="Mon, Oct 19, 2026">Oct 19</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -381,9 +394,9 @@
           <td class="long">Long</td>
           <td>72.61</td>
           <td>78.17</td>
-          <td>Thu, Oct 15, 2026</td>
-          <td>Wed, Oct 21, 2026</td>
-          <td>Tue, Nov 17, 2026</td>
+          <td title="Thu, Oct 15, 2026">Oct 15</td>
+          <td title="Wed, Oct 21, 2026">Oct 21</td>
+          <td title="Tue, Nov 17, 2026">Nov 17</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -391,9 +404,9 @@
           <td class="short">Short</td>
           <td>528.75</td>
           <td>464.54</td>
-          <td>Fri, Oct 16, 2026</td>
-          <td>Wed, Oct 21, 2026</td>
-          <td></td>
+          <td title="Fri, Oct 16, 2026">Oct 16</td>
+          <td title="Wed, Oct 21, 2026">Oct 21</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -401,9 +414,9 @@
           <td class="long">Long</td>
           <td>242.45</td>
           <td>258.17</td>
-          <td>Mon, Oct 19, 2026</td>
-          <td>Wed, Oct 21, 2026</td>
-          <td>Fri, Nov 13, 2026</td>
+          <td title="Mon, Oct 19, 2026">Oct 19</td>
+          <td title="Wed, Oct 21, 2026">Oct 21</td>
+          <td title="Fri, Nov 13, 2026">Nov 13</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -411,9 +424,9 @@
           <td class="short">Short</td>
           <td>334.59</td>
           <td>291.39</td>
-          <td>Mon, Oct 19, 2026</td>
-          <td>Fri, Oct 23, 2026</td>
-          <td></td>
+          <td title="Mon, Oct 19, 2026">Oct 19</td>
+          <td title="Fri, Oct 23, 2026">Oct 23</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -421,9 +434,9 @@
           <td class="long">Long</td>
           <td>386.47</td>
           <td>429.45</td>
-          <td>Wed, Oct 21, 2026</td>
-          <td>Tue, Oct 27, 2026</td>
-          <td>Thu, Nov 12, 2026</td>
+          <td title="Wed, Oct 21, 2026">Oct 21</td>
+          <td title="Tue, Oct 27, 2026">Oct 27</td>
+          <td title="Thu, Nov 12, 2026">Nov 12</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -431,9 +444,9 @@
           <td class="long">Long</td>
           <td>113.13</td>
           <td>123.14</td>
-          <td>Thu, Oct 22, 2026</td>
-          <td>Thu, Oct 29, 2026</td>
-          <td>Wed, Nov 11, 2026</td>
+          <td title="Thu, Oct 22, 2026">Oct 22</td>
+          <td title="Thu, Oct 29, 2026">Oct 29</td>
+          <td title="Wed, Nov 11, 2026">Nov 11</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -441,9 +454,9 @@
           <td class="short">Short</td>
           <td>507.93</td>
           <td>391.20</td>
-          <td>Thu, Oct 22, 2026</td>
-          <td>Thu, Oct 29, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
+          <td title="Thu, Oct 22, 2026">Oct 22</td>
+          <td title="Thu, Oct 29, 2026">Oct 29</td>
+          <td title="Tue, Nov 10, 2026">Nov 10</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -451,9 +464,9 @@
           <td class="long">Long</td>
           <td>121.12</td>
           <td>138.00</td>
-          <td>Thu, Oct 22, 2026</td>
-          <td>Mon, Nov 2, 2026</td>
-          <td>Thu, Nov 12, 2026</td>
+          <td title="Thu, Oct 22, 2026">Oct 22</td>
+          <td title="Mon, Nov 2, 2026">Nov 2</td>
+          <td title="Thu, Nov 12, 2026">Nov 12</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -461,9 +474,9 @@
           <td class="short">Short</td>
           <td>507.93</td>
           <td>386.28</td>
-          <td>Thu, Oct 22, 2026</td>
-          <td>Thu, Oct 29, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
+          <td title="Thu, Oct 22, 2026">Oct 22</td>
+          <td title="Thu, Oct 29, 2026">Oct 29</td>
+          <td title="Tue, Nov 10, 2026">Nov 10</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -471,9 +484,9 @@
           <td class="short">Short</td>
           <td>856.49</td>
           <td>660.32</td>
-          <td>Thu, Oct 22, 2026</td>
-          <td>Wed, Oct 28, 2026</td>
-          <td></td>
+          <td title="Thu, Oct 22, 2026">Oct 22</td>
+          <td title="Wed, Oct 28, 2026">Oct 28</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -481,9 +494,9 @@
           <td class="short">Short</td>
           <td>212.21</td>
           <td>181.69</td>
-          <td>Thu, Oct 22, 2026</td>
-          <td>Thu, Oct 29, 2026</td>
-          <td></td>
+          <td title="Thu, Oct 22, 2026">Oct 22</td>
+          <td title="Thu, Oct 29, 2026">Oct 29</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -491,9 +504,9 @@
           <td class="short">Short</td>
           <td>521.08</td>
           <td>494.36</td>
-          <td>Thu, Oct 22, 2026</td>
-          <td>Tue, Oct 27, 2026</td>
-          <td>Wed, Nov 11, 2026</td>
+          <td title="Thu, Oct 22, 2026">Oct 22</td>
+          <td title="Tue, Oct 27, 2026">Oct 27</td>
+          <td title="Wed, Nov 11, 2026">Nov 11</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -501,9 +514,9 @@
           <td class="long">Long</td>
           <td>183.21</td>
           <td>199.01</td>
-          <td>Fri, Oct 23, 2026</td>
-          <td>Fri, Oct 30, 2026</td>
-          <td>Tue, Nov 17, 2026</td>
+          <td title="Fri, Oct 23, 2026">Oct 23</td>
+          <td title="Fri, Oct 30, 2026">Oct 30</td>
+          <td title="Tue, Nov 17, 2026">Nov 17</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -511,9 +524,9 @@
           <td class="long">Long</td>
           <td>183.21</td>
           <td>199.25</td>
-          <td>Fri, Oct 23, 2026</td>
-          <td>Fri, Oct 30, 2026</td>
-          <td>Tue, Nov 17, 2026</td>
+          <td title="Fri, Oct 23, 2026">Oct 23</td>
+          <td title="Fri, Oct 30, 2026">Oct 30</td>
+          <td title="Tue, Nov 17, 2026">Nov 17</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -521,9 +534,9 @@
           <td class="short">Short</td>
           <td>210.96</td>
           <td>194.91</td>
-          <td>Fri, Oct 23, 2026</td>
-          <td>Wed, Oct 28, 2026</td>
-          <td></td>
+          <td title="Fri, Oct 23, 2026">Oct 23</td>
+          <td title="Wed, Oct 28, 2026">Oct 28</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -531,9 +544,9 @@
           <td class="long">Long</td>
           <td>1,005.16</td>
           <td>1,062.05</td>
-          <td>Mon, Oct 26, 2026</td>
-          <td>Fri, Oct 30, 2026</td>
-          <td></td>
+          <td title="Mon, Oct 26, 2026">Oct 26</td>
+          <td title="Fri, Oct 30, 2026">Oct 30</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -541,9 +554,9 @@
           <td class="long">Long</td>
           <td>184.54</td>
           <td>200.29</td>
-          <td>Mon, Oct 26, 2026</td>
-          <td>Mon, Nov 2, 2026</td>
-          <td>Tue, Nov 17, 2026</td>
+          <td title="Mon, Oct 26, 2026">Oct 26</td>
+          <td title="Mon, Nov 2, 2026">Nov 2</td>
+          <td title="Tue, Nov 17, 2026">Nov 17</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -551,9 +564,9 @@
           <td class="short">Short</td>
           <td>243.79</td>
           <td>222.15</td>
-          <td>Thu, Oct 29, 2026</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td>Thu, Nov 12, 2026</td>
+          <td title="Thu, Oct 29, 2026">Oct 29</td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title="Thu, Nov 12, 2026">Nov 12</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -561,9 +574,9 @@
           <td class="short">Short</td>
           <td>283.82</td>
           <td>244.60</td>
-          <td>Thu, Oct 29, 2026</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td>Thu, Nov 12, 2026</td>
+          <td title="Thu, Oct 29, 2026">Oct 29</td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title="Thu, Nov 12, 2026">Nov 12</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -571,9 +584,9 @@
           <td class="long">Long</td>
           <td>187.25</td>
           <td>198.24</td>
-          <td>Fri, Oct 30, 2026</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td>Tue, Nov 17, 2026</td>
+          <td title="Fri, Oct 30, 2026">Oct 30</td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title="Tue, Nov 17, 2026">Nov 17</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -581,9 +594,9 @@
           <td class="long">Long</td>
           <td>399.81</td>
           <td>431.19</td>
-          <td>Fri, Oct 30, 2026</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td>Fri, Nov 13, 2026</td>
+          <td title="Fri, Oct 30, 2026">Oct 30</td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title="Fri, Nov 13, 2026">Nov 13</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -591,9 +604,9 @@
           <td class="long">Long</td>
           <td>123.51</td>
           <td>136.45</td>
-          <td>Fri, Oct 30, 2026</td>
-          <td>Fri, Nov 6, 2026</td>
-          <td>Thu, Nov 12, 2026</td>
+          <td title="Fri, Oct 30, 2026">Oct 30</td>
+          <td title="Fri, Nov 6, 2026">Nov 6</td>
+          <td title="Thu, Nov 12, 2026">Nov 12</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -601,9 +614,9 @@
           <td class="short">Short</td>
           <td>119.22</td>
           <td>96.93</td>
-          <td>Mon, Nov 2, 2026</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Wed, Nov 11, 2026</td>
+          <td title="Mon, Nov 2, 2026">Nov 2</td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Wed, Nov 11, 2026">Nov 11</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -611,9 +624,9 @@
           <td class="short">Short</td>
           <td>466.84</td>
           <td>388.63</td>
-          <td>Mon, Nov 2, 2026</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
+          <td title="Mon, Nov 2, 2026">Nov 2</td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Tue, Nov 10, 2026">Nov 10</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -621,9 +634,9 @@
           <td class="short">Short</td>
           <td>466.84</td>
           <td>383.68</td>
-          <td>Mon, Nov 2, 2026</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
+          <td title="Mon, Nov 2, 2026">Nov 2</td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Tue, Nov 10, 2026">Nov 10</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -631,9 +644,9 @@
           <td class="short">Short</td>
           <td>606.73</td>
           <td>475.15</td>
-          <td>Mon, Nov 2, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
-          <td></td>
+          <td title="Mon, Nov 2, 2026">Nov 2</td>
+          <td title="Tue, Nov 10, 2026">Nov 10</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -641,9 +654,9 @@
           <td class="long">Long</td>
           <td>555.80</td>
           <td>585.06</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td>Fri, Nov 6, 2026</td>
-          <td>Thu, Nov 12, 2026</td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title="Fri, Nov 6, 2026">Nov 6</td>
+          <td title="Thu, Nov 12, 2026">Nov 12</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -651,9 +664,9 @@
           <td class="long">Long</td>
           <td>352.11</td>
           <td>362.58</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td>Fri, Nov 6, 2026</td>
-          <td>Thu, Nov 12, 2026</td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title="Fri, Nov 6, 2026">Nov 6</td>
+          <td title="Thu, Nov 12, 2026">Nov 12</td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -661,9 +674,9 @@
           <td class="short">Short</td>
           <td>605.08</td>
           <td>464.42</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Fri, Nov 13, 2026</td>
-          <td></td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Fri, Nov 13, 2026">Nov 13</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-long">
@@ -671,9 +684,9 @@
           <td class="long">Long</td>
           <td>1,065.59</td>
           <td>1,132.93</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Wed, Nov 11, 2026</td>
-          <td></td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Wed, Nov 11, 2026">Nov 11</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -681,9 +694,9 @@
           <td class="short">Short</td>
           <td>291.53</td>
           <td>262.34</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
-          <td></td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Tue, Nov 10, 2026">Nov 10</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="side-short">
@@ -691,9 +704,9 @@
           <td class="short">Short</td>
           <td>291.53</td>
           <td>258.43</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
-          <td></td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Tue, Nov 10, 2026">Nov 10</td>
+          <td title=""></td>
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="group open"><td colspan="8">Open · 9</td></tr>
@@ -702,9 +715,9 @@
           <td class="long">Long</td>
           <td>123.51</td>
           <td>136.75</td>
-          <td>Fri, Oct 30, 2026</td>
-          <td>Mon, Nov 9, 2026</td>
-          <td></td>
+          <td title="Fri, Oct 30, 2026">Oct 30</td>
+          <td title="Mon, Nov 9, 2026">Nov 9</td>
+          <td title=""></td>
           <td class="open">Open</td>
         </tr>
 <tr class="side-long">
@@ -712,9 +725,9 @@
           <td class="long">Long</td>
           <td>1,046.47</td>
           <td>1,100.47</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td>Mon, Nov 9, 2026</td>
-          <td></td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title="Mon, Nov 9, 2026">Nov 9</td>
+          <td title=""></td>
           <td class="open">Open</td>
         </tr>
 <tr class="side-long">
@@ -722,9 +735,9 @@
           <td class="long">Long</td>
           <td>1,046.47</td>
           <td>1,103.99</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
-          <td></td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title="Tue, Nov 10, 2026">Nov 10</td>
+          <td title=""></td>
           <td class="open">Open</td>
         </tr>
 <tr class="side-long">
@@ -732,9 +745,9 @@
           <td class="long">Long</td>
           <td>1,046.47</td>
           <td>1,101.64</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td>Mon, Nov 9, 2026</td>
-          <td></td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title="Mon, Nov 9, 2026">Nov 9</td>
+          <td title=""></td>
           <td class="open">Open</td>
         </tr>
 <tr class="side-long">
@@ -742,9 +755,9 @@
           <td class="long">Long</td>
           <td>1,046.47</td>
           <td>1,098.95</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td>Mon, Nov 9, 2026</td>
-          <td></td>
+          <td title="Wed, Nov 4, 2026">Nov 4</td>
+          <td title="Mon, Nov 9, 2026">Nov 9</td>
+          <td title=""></td>
           <td class="open">Open</td>
         </tr>
 <tr class="side-short">
@@ -752,9 +765,9 @@
           <td class="short">Short</td>
           <td>291.53</td>
           <td>268.61</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Mon, Nov 9, 2026</td>
-          <td></td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Mon, Nov 9, 2026">Nov 9</td>
+          <td title=""></td>
           <td class="open">Open</td>
         </tr>
 <tr class="side-short">
@@ -762,9 +775,9 @@
           <td class="short">Short</td>
           <td>65.56</td>
           <td>59.67</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
-          <td></td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Tue, Nov 10, 2026">Nov 10</td>
+          <td title=""></td>
           <td class="open">Open</td>
         </tr>
 <tr class="side-short">
@@ -772,9 +785,9 @@
           <td class="short">Short</td>
           <td>115.16</td>
           <td>89.44</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Wed, Nov 11, 2026</td>
-          <td></td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Wed, Nov 11, 2026">Nov 11</td>
+          <td title=""></td>
           <td class="open">Open</td>
         </tr>
 <tr class="side-short">
@@ -782,9 +795,9 @@
           <td class="short">Short</td>
           <td>605.08</td>
           <td>476.85</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Fri, Nov 13, 2026</td>
-          <td></td>
+          <td title="Thu, Nov 5, 2026">Nov 5</td>
+          <td title="Fri, Nov 13, 2026">Nov 13</td>
+          <td title=""></td>
           <td class="open">Open</td>
         </tr></tbody>
       </table>
@@ -1081,7 +1094,7 @@
         </dl>
         <p class="reach">Thu, Nov 12, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
         
-        <p><strong>News.</strong> Neutral. Dow Jones Futures: Market Needs Repair But Sandisk, Micron Broken; Apple, Amazon, Microsoft Strong</p>
+        <p><strong>News.</strong> Neutral. Dow Jones Futures: Market Needs Repair But Sandisk, Micron Look Broken; Apple, Amazon, Microsoft Strong</p>
         <p><strong>Earnings.</strong> EPS 1.89 vs 2.01 (-5.97%). $201.94B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double top, forming. Two highs near 266.45 share a neckline at 244.30. Price has not closed through 244.30.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered.</p>
@@ -1261,7 +1274,7 @@
         </dl>
         <p class="reach">Mon, Nov 23, 2026, if price travels about one daily ATR per session toward the target (11 sessions).</p>
         
-        <p><strong>News.</strong> Neutral. Dow Jones Futures: Market Needs Repair But Sandisk, Micron Broken; Apple, Amazon, Microsoft Strong</p>
+        <p><strong>News.</strong> Neutral. Dow Jones Futures: Market Needs Repair But Sandisk, Micron Look Broken; Apple, Amazon, Microsoft Strong</p>
         <p><strong>Earnings.</strong> EPS 2.05 vs 1.98 (+3.54%). $114.48B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double top, forming. Two highs near 348.00 share a neckline at 300.00. Price has not closed through 300.00.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered. The EPS print is fresh (reported 4 sessions ago) and beat by 3.54%, which fights a short.</p>
