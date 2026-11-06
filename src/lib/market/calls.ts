@@ -45,6 +45,28 @@ export function suggestionRates(calls: ReadonlyArray<{ status: CallStatus }>): S
   };
 }
 
+/**
+ * One unresolved row per symbol: the latest open or not-reached call.
+ * Reached calls stay, so a name can be picked again after a target prints.
+ * Prices on the kept row are the stored added price and target.
+ */
+export function ledgerRows<T extends { symbol: string; status: CallStatus; asOf: string }>(
+  calls: readonly T[],
+): T[] {
+  const latestUnresolved = new Map<string, { index: number; call: T }>();
+  calls.forEach((call, index) => {
+    if (call.status === "reached") return;
+    const previous = latestUnresolved.get(call.symbol);
+    const later =
+      !previous ||
+      call.asOf > previous.call.asOf ||
+      (call.asOf === previous.call.asOf && index > previous.index);
+    if (later) latestUnresolved.set(call.symbol, { index, call });
+  });
+  const active = new Set([...latestUnresolved.values()].map((item) => item.call));
+  return calls.filter((call) => call.status === "reached" || active.has(call));
+}
+
 /** Table order: reached, then not reached, then open. Order inside a block stays as published. */
 export function groupCalls<T extends { status: CallStatus }>(
   calls: readonly T[],

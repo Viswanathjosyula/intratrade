@@ -6,7 +6,7 @@ import { groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, 
 import { rankIdeas } from "@/lib/market/engine";
 import { loadPublicSession } from "@/lib/market/live";
 import { moodLabel, timingCall } from "@/lib/market/mood";
-import { compactSessionDate, estimatedReach, formatSessionDate, reachLabel } from "@/lib/market/reach";
+import { estimatedReach, formatSessionDate, reachLabel } from "@/lib/market/reach";
 import { DEFAULT_RISK, type IndicatorBoard, type MarketMood, type TradeIdea } from "@/lib/market/types";
 
 function escapeHtml(value: string): string {
@@ -29,9 +29,9 @@ function renderCallRow(call: TrackedBook["calls"][number]): string {
           <td class="${call.side}">${escapeHtml(sideLabel(call.side))}</td>
           <td>${escapeHtml(addedPrice(call.entry))}</td>
           <td>${price(call.target)}</td>
-          <td title="${escapeHtml(formatSessionDate(call.asOf))}">${escapeHtml(compactSessionDate(call.asOf))}</td>
-          <td title="${call.paceDate ? escapeHtml(formatSessionDate(call.paceDate)) : ""}">${call.paceDate ? escapeHtml(compactSessionDate(call.paceDate)) : ""}</td>
-          <td title="${call.nextPaceDate ? escapeHtml(formatSessionDate(call.nextPaceDate)) : ""}">${call.nextPaceDate ? escapeHtml(compactSessionDate(call.nextPaceDate)) : ""}</td>
+          <td>${escapeHtml(formatSessionDate(call.asOf))}</td>
+          <td>${call.paceDate ? escapeHtml(formatSessionDate(call.paceDate)) : ""}</td>
+          <td>${call.nextPaceDate ? escapeHtml(formatSessionDate(call.nextPaceDate)) : ""}</td>
           <td class="${call.status}">${statusText(call.status)}</td>
         </tr>`;
 }
@@ -66,7 +66,6 @@ ${body}`;
     </div>
     <div class="targets-scroll">
       <table>
-        <colgroup><col class="c1"><col class="c2"><col class="c3"><col class="c4"><col class="c5"><col class="c6"><col class="c7"><col class="c8"></colgroup>
         <thead><tr><th>Name</th><th>Side</th><th>Added at</th><th>Target</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
@@ -248,40 +247,32 @@ function render(
     .keys { flex-direction: column; position: sticky; top: 0; background: rgba(18, 22, 42, 0.96); border-bottom: 2px solid rgba(129, 140, 248, 0.45); padding: 0.45rem 0.2rem 0.55rem; z-index: 2; }
     .keys-top span, .keys p { font-size: 0.7rem; }
     .targets { margin: 0.55rem 1rem 0.75rem; border: 2px solid rgba(129, 140, 248, 0.7); border-radius: 0.55rem; background: #1a2140; }
-    .targets-head { display: flex; justify-content: space-between; gap: 0.5rem; align-items: baseline; padding: 0.15rem 0.4rem; }
-    .targets-head h2 { margin: 0; font-size: 0.75rem; font-weight: 750; letter-spacing: -0.01em; color: #f8fafc; }
+    .targets-head { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding: 0.7rem 0.85rem; }
+    .targets-head h2 { margin: 0; font-size: 1.05rem; font-weight: 750; letter-spacing: -0.01em; color: #f8fafc; }
     .indicators-head h2 { margin: 0; font-size: 0.95rem; font-weight: 750; letter-spacing: -0.01em; color: #f8fafc; }
-    .targets-head p, .targets-note { margin: 0; color: #c7d2fe; font-size: 0.62rem; line-height: 1.15; }
+    .targets-head p, .targets-note { margin: 0; color: #c7d2fe; font-size: 0.85rem; line-height: 1.35; }
     .indicators-note { margin: 0; color: #c7d2fe; font-size: 0.75rem; }
     .rates { text-align: right; }
-    .targets-scroll { border-top: 1px solid rgba(255,255,255,0.08); overflow: visible; }
-    .targets table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 10px; line-height: 12px; }
+    .targets-scroll { border-top: 1px solid rgba(255,255,255,0.08); overflow-x: auto; }
+    .targets table { width: 100%; border-collapse: collapse; font-size: 0.95rem; line-height: 1.4; }
     .indicators table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
-    .targets th, .targets td { text-align: left; padding: 0 1px; border: 0; vertical-align: middle; white-space: nowrap; }
-    .targets tbody tr { box-shadow: inset 0 -1px 0 rgba(255,255,255,0.08); }
+    .targets th, .targets td { text-align: left; padding: 0.45rem 0.7rem; border-top: 1px solid rgba(255,255,255,0.08); vertical-align: middle; white-space: nowrap; }
     .indicators th, .indicators td { text-align: left; padding: 0.22rem 0.55rem; border-top: 1px solid rgba(255,255,255,0.08); vertical-align: top; }
-    .targets th { color: #c7d2fe; font-size: 9px; line-height: 11px; letter-spacing: 0.02em; text-transform: uppercase; font-weight: 750; white-space: normal; }
+    .targets th { color: #c7d2fe; font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; }
     .indicators th { color: #c7d2fe; font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; }
-    .targets tr.group td { font-size: 9px; line-height: 12px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; background: #12162a; }
+    .targets tr.group td { font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; background: #12162a; padding-top: 0.6rem; padding-bottom: 0.4rem; }
     .targets tr.empty td { color: #a1a1aa; }
     .targets .sym { font-family: ui-monospace, monospace; font-weight: 750; font-size: inherit; }
     .long { color: #34d399; }
     .short { color: #ef4444; }
-    .targets tr.side-long { box-shadow: inset 3px 0 0 #34d399, inset 0 -1px 0 rgba(255,255,255,0.08); }
-    .targets tr.side-short { box-shadow: inset 3px 0 0 #ef4444, inset 0 -1px 0 rgba(255,255,255,0.08); }
+    .targets tr.side-long { box-shadow: inset 4px 0 0 #34d399; }
+    .targets tr.side-short { box-shadow: inset 4px 0 0 #ef4444; }
     .plan-side { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-weight: 750; }
-    .targets td:nth-child(3), .targets td:nth-child(4) { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
-    .targets col.c1 { width: 9%; } .targets col.c2 { width: 11%; } .targets col.c3 { width: 16%; } .targets col.c4 { width: 15%; }
-    .targets col.c5 { width: 11%; } .targets col.c6 { width: 11%; } .targets col.c7 { width: 11%; } .targets col.c8 { width: 16%; }
-    @media (max-width: 640px) {
-      .targets { margin-left: 0.4rem; margin-right: 0.4rem; }
-      .targets table { font-size: 9px; line-height: 11px; }
-      .targets th, .targets tr.group td { font-size: 8px; line-height: 10px; }
-    }
+    .targets td:nth-child(3), .targets td:nth-child(4), .targets td:nth-child(5) { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
     .reached { color: #34d399; font-weight: 750; }
     .not-reached { color: #fb7185; font-weight: 750; }
     .open { color: #38bdf8; font-weight: 750; }
-    .targets-note { padding: 0.1rem 0.4rem 0.15rem; border-top: 1px solid rgba(255,255,255,0.12); }
+    .targets-note { padding: 0.45rem 0.75rem 0.55rem; border-top: 1px solid rgba(255,255,255,0.12); }
     .mood { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin: 0.6rem 1rem 0; border: 2px solid #818cf8; border-radius: 0.55rem; background: #1a2140; padding: 0.5rem 0.7rem; }
     .mood-name { margin: 0; border-radius: 0.35rem; padding: 0.2rem 0.5rem; font-size: 0.78rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; }
     .mood p { margin: 0; color: #f8fafc; font-size: 0.88rem; line-height: 1.4; font-weight: 550; }

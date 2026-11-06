@@ -6,6 +6,7 @@ import {
   levelsConfirmed,
   newYorkMinutes,
   scoreCall,
+  ledgerRows,
   mergeCalls,
   paceMark,
   trackedCall,
@@ -149,7 +150,7 @@ export async function scorePublishedCalls(calls: PublishedCall[]): Promise<Track
       ? null
       : lastDates.reduce((earliest, date) => (date < earliest ? date : earliest));
 
-  return { calls: tracked, through, incomplete };
+  return { calls: ledgerRows(tracked), through, incomplete };
 }
 
 /** Drop seed rows whose as-of session is missing or whose close is not between the levels. */
