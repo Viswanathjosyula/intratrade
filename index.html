@@ -52,7 +52,12 @@
     .targets th { position: sticky; top: 0; z-index: 1; background: #1a2140; }
     .targets tr.group td { font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; background: #12162a; }
     .targets tr.empty td { color: #a1a1aa; }
-    .targets .sym { font-family: ui-monospace, monospace; font-weight: 650; }
+    .targets .sym { font-family: ui-monospace, monospace; font-weight: 750; }
+    .long { color: #34d399; }
+    .short { color: #ef4444; }
+    .targets tr.side-long { box-shadow: inset 3px 0 0 #34d399; }
+    .targets tr.side-short { box-shadow: inset 3px 0 0 #ef4444; }
+    .plan-side { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-weight: 750; }
     .targets td:nth-child(3), .targets td:nth-child(4), .targets td:nth-child(5) { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
     .reached { color: #34d399; font-weight: 750; }
     .not-reached { color: #fb7185; font-weight: 750; }
@@ -116,6 +121,9 @@
 #pick-CRM:checked ~ .board .plan-CRM,
 #pick-CRM:checked ~ .board .keys-CRM { display: flex; }
 #pick-CRM:checked ~ .board label[for="pick-CRM"] { outline: 2px solid #fde68a; }
+#pick-ORCL:checked ~ .board .plan-ORCL,
+#pick-ORCL:checked ~ .board .keys-ORCL { display: flex; }
+#pick-ORCL:checked ~ .board label[for="pick-ORCL"] { outline: 2px solid #fde68a; }
 #pick-META:checked ~ .board .plan-META,
 #pick-META:checked ~ .board .keys-META { display: flex; }
 #pick-META:checked ~ .board label[for="pick-META"] { outline: 2px solid #fde68a; }
@@ -134,9 +142,6 @@
 #pick-QCOM:checked ~ .board .plan-QCOM,
 #pick-QCOM:checked ~ .board .keys-QCOM { display: flex; }
 #pick-QCOM:checked ~ .board label[for="pick-QCOM"] { outline: 2px solid #fde68a; }
-#pick-ORCL:checked ~ .board .plan-ORCL,
-#pick-ORCL:checked ~ .board .keys-ORCL { display: flex; }
-#pick-ORCL:checked ~ .board label[for="pick-ORCL"] { outline: 2px solid #fde68a; }
 #pick-DIS:checked ~ .board .plan-DIS,
 #pick-DIS:checked ~ .board .keys-DIS { display: flex; }
 #pick-DIS:checked ~ .board label[for="pick-DIS"] { outline: 2px solid #fde68a; }
@@ -220,9 +225,9 @@
       <table>
         <thead><tr><th>Name</th><th>Side</th><th>Added at</th><th>Target</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
         <tbody><tr class="group reached"><td colspan="8">Reached · 11</td></tr>
-<tr>
-          <td class="sym">DIS</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">DIS</td>
+          <td class="long">Long</td>
           <td>107.02</td>
           <td>111.40</td>
           <td>Thu, Oct 8, 2026</td>
@@ -230,9 +235,9 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr>
-          <td class="sym">WMT</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">WMT</td>
+          <td class="long">Long</td>
           <td>111.35</td>
           <td>119.69</td>
           <td>Fri, Oct 9, 2026</td>
@@ -240,9 +245,9 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr>
-          <td class="sym">XOM</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">XOM</td>
+          <td class="long">Long</td>
           <td>172.15</td>
           <td>183.69</td>
           <td>Mon, Oct 12, 2026</td>
@@ -250,9 +255,9 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr>
-          <td class="sym">COST</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">COST</td>
+          <td class="long">Long</td>
           <td>989.11</td>
           <td>1,069.60</td>
           <td>Fri, Oct 16, 2026</td>
@@ -260,9 +265,9 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr>
-          <td class="sym">META</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">META</td>
+          <td class="short">Short</td>
           <td>709.33</td>
           <td>647.81</td>
           <td>Fri, Oct 16, 2026</td>
@@ -270,9 +275,9 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr>
-          <td class="sym">DIS</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">DIS</td>
+          <td class="long">Long</td>
           <td>109.59</td>
           <td>116.77</td>
           <td>Mon, Oct 19, 2026</td>
@@ -280,9 +285,9 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr>
-          <td class="sym">GOOGL</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">GOOGL</td>
+          <td class="short">Short</td>
           <td>324.22</td>
           <td>301.26</td>
           <td>Thu, Oct 22, 2026</td>
@@ -290,9 +295,9 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr>
-          <td class="sym">NVDA</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">NVDA</td>
+          <td class="short">Short</td>
           <td>204.64</td>
           <td>191.03</td>
           <td>Fri, Oct 30, 2026</td>
@@ -300,9 +305,9 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr>
-          <td class="sym">QCOM</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">QCOM</td>
+          <td class="short">Short</td>
           <td>162.08</td>
           <td>150.41</td>
           <td>Mon, Nov 2, 2026</td>
@@ -310,9 +315,9 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr>
-          <td class="sym">MU</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">MU</td>
+          <td class="short">Short</td>
           <td>833.59</td>
           <td>708.52</td>
           <td>Mon, Nov 2, 2026</td>
@@ -320,9 +325,9 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr>
-          <td class="sym">DIS</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">DIS</td>
+          <td class="long">Long</td>
           <td>114.18</td>
           <td>119.01</td>
           <td>Tue, Nov 3, 2026</td>
@@ -331,9 +336,9 @@
           <td class="reached">Reached</td>
         </tr>
 <tr class="group not-reached"><td colspan="8">Not reached · 36</td></tr>
-<tr>
-          <td class="sym">AMZN</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">AMZN</td>
+          <td class="long">Long</td>
           <td>262.43</td>
           <td>274.46</td>
           <td>Fri, Oct 9, 2026</td>
@@ -341,9 +346,9 @@
           <td>Tue, Nov 10, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">ORCL</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">ORCL</td>
+          <td class="short">Short</td>
           <td>137.39</td>
           <td>124.20</td>
           <td>Mon, Oct 12, 2026</td>
@@ -351,9 +356,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">JPM</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">JPM</td>
+          <td class="short">Short</td>
           <td>334.30</td>
           <td>317.23</td>
           <td>Mon, Oct 12, 2026</td>
@@ -361,9 +366,9 @@
           <td>Wed, Nov 11, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">ORCL</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">ORCL</td>
+          <td class="short">Short</td>
           <td>130.55</td>
           <td>115.34</td>
           <td>Wed, Oct 14, 2026</td>
@@ -371,9 +376,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">NFLX</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">NFLX</td>
+          <td class="long">Long</td>
           <td>72.61</td>
           <td>78.17</td>
           <td>Thu, Oct 15, 2026</td>
@@ -381,9 +386,9 @@
           <td>Tue, Nov 17, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">AMD</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">AMD</td>
+          <td class="short">Short</td>
           <td>528.75</td>
           <td>464.54</td>
           <td>Fri, Oct 16, 2026</td>
@@ -391,9 +396,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">CRM</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">CRM</td>
+          <td class="long">Long</td>
           <td>242.45</td>
           <td>258.17</td>
           <td>Mon, Oct 19, 2026</td>
@@ -401,9 +406,9 @@
           <td>Fri, Nov 13, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">AVGO</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">AVGO</td>
+          <td class="short">Short</td>
           <td>334.59</td>
           <td>291.39</td>
           <td>Mon, Oct 19, 2026</td>
@@ -411,9 +416,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">TSLA</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">TSLA</td>
+          <td class="long">Long</td>
           <td>386.47</td>
           <td>429.45</td>
           <td>Wed, Oct 21, 2026</td>
@@ -421,9 +426,9 @@
           <td>Thu, Nov 12, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">DIS</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">DIS</td>
+          <td class="long">Long</td>
           <td>113.13</td>
           <td>123.14</td>
           <td>Thu, Oct 22, 2026</td>
@@ -431,9 +436,9 @@
           <td>Wed, Nov 11, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">AMD</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">AMD</td>
+          <td class="short">Short</td>
           <td>507.93</td>
           <td>391.20</td>
           <td>Thu, Oct 22, 2026</td>
@@ -441,9 +446,9 @@
           <td>Tue, Nov 10, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">WMT</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">WMT</td>
+          <td class="long">Long</td>
           <td>121.12</td>
           <td>138.00</td>
           <td>Thu, Oct 22, 2026</td>
@@ -451,9 +456,9 @@
           <td>Thu, Nov 12, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">AMD</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">AMD</td>
+          <td class="short">Short</td>
           <td>507.93</td>
           <td>386.28</td>
           <td>Thu, Oct 22, 2026</td>
@@ -461,9 +466,9 @@
           <td>Tue, Nov 10, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">MU</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">MU</td>
+          <td class="short">Short</td>
           <td>856.49</td>
           <td>660.32</td>
           <td>Thu, Oct 22, 2026</td>
@@ -471,9 +476,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">NVDA</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">NVDA</td>
+          <td class="short">Short</td>
           <td>212.21</td>
           <td>181.69</td>
           <td>Thu, Oct 22, 2026</td>
@@ -481,9 +486,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">MSFT</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">MSFT</td>
+          <td class="short">Short</td>
           <td>521.08</td>
           <td>494.36</td>
           <td>Thu, Oct 22, 2026</td>
@@ -491,9 +496,9 @@
           <td>Wed, Nov 11, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">XOM</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">XOM</td>
+          <td class="long">Long</td>
           <td>183.21</td>
           <td>199.01</td>
           <td>Fri, Oct 23, 2026</td>
@@ -501,9 +506,9 @@
           <td>Tue, Nov 17, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">XOM</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">XOM</td>
+          <td class="long">Long</td>
           <td>183.21</td>
           <td>199.25</td>
           <td>Fri, Oct 23, 2026</td>
@@ -511,9 +516,9 @@
           <td>Tue, Nov 17, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">NVDA</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">NVDA</td>
+          <td class="short">Short</td>
           <td>210.96</td>
           <td>194.91</td>
           <td>Fri, Oct 23, 2026</td>
@@ -521,9 +526,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">COST</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">COST</td>
+          <td class="long">Long</td>
           <td>1,005.16</td>
           <td>1,062.05</td>
           <td>Mon, Oct 26, 2026</td>
@@ -531,9 +536,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">XOM</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">XOM</td>
+          <td class="long">Long</td>
           <td>184.54</td>
           <td>200.29</td>
           <td>Mon, Oct 26, 2026</td>
@@ -541,9 +546,9 @@
           <td>Tue, Nov 17, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">AMZN</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">AMZN</td>
+          <td class="short">Short</td>
           <td>243.79</td>
           <td>222.15</td>
           <td>Thu, Oct 29, 2026</td>
@@ -551,9 +556,9 @@
           <td>Thu, Nov 12, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">GOOGL</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">GOOGL</td>
+          <td class="short">Short</td>
           <td>283.82</td>
           <td>244.60</td>
           <td>Thu, Oct 29, 2026</td>
@@ -561,9 +566,9 @@
           <td>Thu, Nov 12, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">XOM</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">XOM</td>
+          <td class="long">Long</td>
           <td>187.25</td>
           <td>198.24</td>
           <td>Fri, Oct 30, 2026</td>
@@ -571,9 +576,9 @@
           <td>Tue, Nov 17, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">TSLA</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">TSLA</td>
+          <td class="long">Long</td>
           <td>399.81</td>
           <td>431.19</td>
           <td>Fri, Oct 30, 2026</td>
@@ -581,9 +586,9 @@
           <td>Fri, Nov 13, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">WMT</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">WMT</td>
+          <td class="long">Long</td>
           <td>123.51</td>
           <td>136.45</td>
           <td>Fri, Oct 30, 2026</td>
@@ -591,9 +596,9 @@
           <td>Thu, Nov 12, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">ORCL</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">ORCL</td>
+          <td class="short">Short</td>
           <td>119.22</td>
           <td>96.93</td>
           <td>Mon, Nov 2, 2026</td>
@@ -601,9 +606,9 @@
           <td>Wed, Nov 11, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">AMD</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">AMD</td>
+          <td class="short">Short</td>
           <td>466.84</td>
           <td>388.63</td>
           <td>Mon, Nov 2, 2026</td>
@@ -611,9 +616,9 @@
           <td>Tue, Nov 10, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">AMD</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">AMD</td>
+          <td class="short">Short</td>
           <td>466.84</td>
           <td>383.68</td>
           <td>Mon, Nov 2, 2026</td>
@@ -621,9 +626,9 @@
           <td>Tue, Nov 10, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">META</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">META</td>
+          <td class="short">Short</td>
           <td>606.73</td>
           <td>475.15</td>
           <td>Mon, Nov 2, 2026</td>
@@ -631,9 +636,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">MSFT</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">MSFT</td>
+          <td class="long">Long</td>
           <td>555.80</td>
           <td>585.06</td>
           <td>Wed, Nov 4, 2026</td>
@@ -641,9 +646,9 @@
           <td>Thu, Nov 12, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">JPM</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">JPM</td>
+          <td class="long">Long</td>
           <td>352.11</td>
           <td>362.58</td>
           <td>Wed, Nov 4, 2026</td>
@@ -651,9 +656,9 @@
           <td>Thu, Nov 12, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">META</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">META</td>
+          <td class="short">Short</td>
           <td>605.08</td>
           <td>464.42</td>
           <td>Thu, Nov 5, 2026</td>
@@ -661,9 +666,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">COST</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">COST</td>
+          <td class="long">Long</td>
           <td>1,065.59</td>
           <td>1,132.93</td>
           <td>Thu, Nov 5, 2026</td>
@@ -671,9 +676,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">AVGO</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">AVGO</td>
+          <td class="short">Short</td>
           <td>291.53</td>
           <td>262.34</td>
           <td>Thu, Nov 5, 2026</td>
@@ -681,9 +686,9 @@
           <td></td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr>
-          <td class="sym">AVGO</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">AVGO</td>
+          <td class="short">Short</td>
           <td>291.53</td>
           <td>258.43</td>
           <td>Thu, Nov 5, 2026</td>
@@ -692,9 +697,9 @@
           <td class="not-reached">Not reached</td>
         </tr>
 <tr class="group open"><td colspan="8">Open · 9</td></tr>
-<tr>
-          <td class="sym">WMT</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">WMT</td>
+          <td class="long">Long</td>
           <td>123.51</td>
           <td>136.75</td>
           <td>Fri, Oct 30, 2026</td>
@@ -702,9 +707,9 @@
           <td></td>
           <td class="open">Open</td>
         </tr>
-<tr>
-          <td class="sym">COST</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">COST</td>
+          <td class="long">Long</td>
           <td>1,046.47</td>
           <td>1,100.47</td>
           <td>Wed, Nov 4, 2026</td>
@@ -712,9 +717,9 @@
           <td></td>
           <td class="open">Open</td>
         </tr>
-<tr>
-          <td class="sym">COST</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">COST</td>
+          <td class="long">Long</td>
           <td>1,046.47</td>
           <td>1,103.99</td>
           <td>Wed, Nov 4, 2026</td>
@@ -722,9 +727,9 @@
           <td></td>
           <td class="open">Open</td>
         </tr>
-<tr>
-          <td class="sym">COST</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">COST</td>
+          <td class="long">Long</td>
           <td>1,046.47</td>
           <td>1,101.64</td>
           <td>Wed, Nov 4, 2026</td>
@@ -732,9 +737,9 @@
           <td></td>
           <td class="open">Open</td>
         </tr>
-<tr>
-          <td class="sym">COST</td>
-          <td>Long</td>
+<tr class="side-long">
+          <td class="sym long">COST</td>
+          <td class="long">Long</td>
           <td>1,046.47</td>
           <td>1,098.95</td>
           <td>Wed, Nov 4, 2026</td>
@@ -742,9 +747,9 @@
           <td></td>
           <td class="open">Open</td>
         </tr>
-<tr>
-          <td class="sym">AVGO</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">AVGO</td>
+          <td class="short">Short</td>
           <td>291.53</td>
           <td>268.61</td>
           <td>Thu, Nov 5, 2026</td>
@@ -752,9 +757,9 @@
           <td></td>
           <td class="open">Open</td>
         </tr>
-<tr>
-          <td class="sym">NFLX</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">NFLX</td>
+          <td class="short">Short</td>
           <td>65.56</td>
           <td>59.67</td>
           <td>Thu, Nov 5, 2026</td>
@@ -762,9 +767,9 @@
           <td></td>
           <td class="open">Open</td>
         </tr>
-<tr>
-          <td class="sym">ORCL</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">ORCL</td>
+          <td class="short">Short</td>
           <td>115.16</td>
           <td>89.44</td>
           <td>Thu, Nov 5, 2026</td>
@@ -772,9 +777,9 @@
           <td></td>
           <td class="open">Open</td>
         </tr>
-<tr>
-          <td class="sym">META</td>
-          <td>Short</td>
+<tr class="side-short">
+          <td class="sym short">META</td>
+          <td class="short">Short</td>
           <td>605.08</td>
           <td>476.85</td>
           <td>Thu, Nov 5, 2026</td>
@@ -795,20 +800,20 @@
 <input class="pick" type="radio" name="book" id="pick-NFLX">
 <input class="pick" type="radio" name="book" id="pick-TSLA">
 <input class="pick" type="radio" name="book" id="pick-CRM">
+<input class="pick" type="radio" name="book" id="pick-ORCL">
 <input class="pick" type="radio" name="book" id="pick-META">
 <input class="pick" type="radio" name="book" id="pick-NVDA">
 <input class="pick" type="radio" name="book" id="pick-AAPL">
 <input class="pick" type="radio" name="book" id="pick-WMT">
 <input class="pick" type="radio" name="book" id="pick-COST">
 <input class="pick" type="radio" name="book" id="pick-QCOM">
-<input class="pick" type="radio" name="book" id="pick-ORCL">
 <input class="pick" type="radio" name="book" id="pick-DIS">
 <input class="pick" type="radio" name="book" id="pick-XOM">
 <input class="pick" type="radio" name="book" id="pick-AMD">
 <input class="pick" type="radio" name="book" id="pick-BA">
   <main class="board">
     <div class="mobile-keys"><article class="keys keys-JPM">
-        <div class="keys-top"><strong>JPM</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">JPM</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>334.49</dd></div>
           <div><dt>Target</dt><dd>301.65</dd></div>
@@ -818,7 +823,7 @@
         <p>5 sessions</p>
       </article>
 <article class="keys keys-AVGO">
-        <div class="keys-top"><strong>AVGO</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">AVGO</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>293.69</dd></div>
           <div><dt>Target</dt><dd>300.18</dd></div>
@@ -828,7 +833,7 @@
         <p>1 session</p>
       </article>
 <article class="keys keys-AMZN">
-        <div class="keys-top"><strong>AMZN</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">AMZN</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>259.30</dd></div>
           <div><dt>Target</dt><dd>222.15</dd></div>
@@ -838,7 +843,7 @@
         <p>4 sessions</p>
       </article>
 <article class="keys keys-GOOGL">
-        <div class="keys-top"><strong>GOOGL</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">GOOGL</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>284.78</dd></div>
           <div><dt>Target</dt><dd>212.51</dd></div>
@@ -848,7 +853,7 @@
         <p>7 sessions</p>
       </article>
 <article class="keys keys-MSFT">
-        <div class="keys-top"><strong>MSFT</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">MSFT</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>530.61</dd></div>
           <div><dt>Target</dt><dd>454.77</dd></div>
@@ -858,7 +863,7 @@
         <p>5 sessions</p>
       </article>
 <article class="keys keys-MU">
-        <div class="keys-top"><strong>MU</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">MU</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>690.00</dd></div>
           <div><dt>Target</dt><dd>610.53</dd></div>
@@ -868,7 +873,7 @@
         <p>2 sessions</p>
       </article>
 <article class="keys keys-NFLX">
-        <div class="keys-top"><strong>NFLX</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">NFLX</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>63.41</dd></div>
           <div><dt>Target</dt><dd>62.66</dd></div>
@@ -878,7 +883,7 @@
         <p>1 session</p>
       </article>
 <article class="keys keys-TSLA">
-        <div class="keys-top"><strong>TSLA</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">TSLA</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>358.22</dd></div>
           <div><dt>Target</dt><dd>181.34</dd></div>
@@ -888,7 +893,7 @@
         <p>10 sessions</p>
       </article>
 <article class="keys keys-CRM">
-        <div class="keys-top"><strong>CRM</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">CRM</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>213.65</dd></div>
           <div><dt>Target</dt><dd>194.77</dd></div>
@@ -897,8 +902,18 @@
         </dl>
         <p>2 sessions</p>
       </article>
+<article class="keys keys-ORCL">
+        <div class="keys-top"><strong class="short">ORCL</strong><span><span class="short">Short</span> · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>116.10</dd></div>
+          <div><dt>Target</dt><dd>96.93</dd></div>
+          <div><dt>Stop</dt><dd>124.98</dd></div>
+          <div><dt>R:R</dt><dd>2.16:1</dd></div>
+        </dl>
+        <p>3 sessions</p>
+      </article>
 <article class="keys keys-META">
-        <div class="keys-top"><strong>META</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">META</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>610.15</dd></div>
           <div><dt>Target</dt><dd>464.52</dd></div>
@@ -908,7 +923,7 @@
         <p>7 sessions</p>
       </article>
 <article class="keys keys-NVDA">
-        <div class="keys-top"><strong>NVDA</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">NVDA</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>186.64</dd></div>
           <div><dt>Target</dt><dd>191.03</dd></div>
@@ -918,7 +933,7 @@
         <p>1 session</p>
       </article>
 <article class="keys keys-AAPL">
-        <div class="keys-top"><strong>AAPL</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">AAPL</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>342.37</dd></div>
           <div><dt>Target</dt><dd>252.00</dd></div>
@@ -928,7 +943,7 @@
         <p>11 sessions</p>
       </article>
 <article class="keys keys-WMT">
-        <div class="keys-top"><strong>WMT</strong><span>Long · Stand aside</span></div>
+        <div class="keys-top"><strong class="long">WMT</strong><span><span class="long">Long</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>125.52</dd></div>
           <div><dt>Target</dt><dd>128.80</dd></div>
@@ -938,7 +953,7 @@
         <p>2 sessions</p>
       </article>
 <article class="keys keys-COST">
-        <div class="keys-top"><strong>COST</strong><span>Long · Stand aside</span></div>
+        <div class="keys-top"><strong class="long">COST</strong><span><span class="long">Long</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>1,053.56</dd></div>
           <div><dt>Target</dt><dd>1,210.26</dd></div>
@@ -948,7 +963,7 @@
         <p>8 sessions</p>
       </article>
 <article class="keys keys-QCOM">
-        <div class="keys-top"><strong>QCOM</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">QCOM</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>165.41</dd></div>
           <div><dt>Target</dt><dd>150.41</dd></div>
@@ -957,18 +972,8 @@
         </dl>
         <p>2 sessions</p>
       </article>
-<article class="keys keys-ORCL">
-        <div class="keys-top"><strong>ORCL</strong><span>Short · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>116.10</dd></div>
-          <div><dt>Target</dt><dd>96.93</dd></div>
-          <div><dt>Stop</dt><dd>124.98</dd></div>
-          <div><dt>R:R</dt><dd>2.16:1</dd></div>
-        </dl>
-        <p>3 sessions</p>
-      </article>
 <article class="keys keys-DIS">
-        <div class="keys-top"><strong>DIS</strong><span>Long · Stand aside</span></div>
+        <div class="keys-top"><strong class="long">DIS</strong><span><span class="long">Long</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>116.75</dd></div>
           <div><dt>Target</dt><dd>119.01</dd></div>
@@ -978,7 +983,7 @@
         <p>1 session</p>
       </article>
 <article class="keys keys-XOM">
-        <div class="keys-top"><strong>XOM</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">XOM</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>165.87</dd></div>
           <div><dt>Target</dt><dd>165.89</dd></div>
@@ -988,7 +993,7 @@
         <p>1 session</p>
       </article>
 <article class="keys keys-AMD">
-        <div class="keys-top"><strong>AMD</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">AMD</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>449.04</dd></div>
           <div><dt>Target</dt><dd>296.45</dd></div>
@@ -998,7 +1003,7 @@
         <p>5 sessions</p>
       </article>
 <article class="keys keys-BA">
-        <div class="keys-top"><strong>BA</strong><span>Short · Stand aside</span></div>
+        <div class="keys-top"><strong class="short">BA</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>173.40</dd></div>
           <div><dt>Target</dt><dd>171.66</dd></div>
@@ -1007,30 +1012,30 @@
         </dl>
         <p>1 session</p>
       </article></div>
-    <div class="grid" role="listbox" aria-label="Liquid book"><label class="box aside" for="pick-JPM"><span class="sym">JPM</span><span class="sub">Short · 334.49</span></label>
-<label class="box aside" for="pick-AVGO"><span class="sym">AVGO</span><span class="sub">Short · 293.69</span></label>
-<label class="box aside" for="pick-AMZN"><span class="sym">AMZN</span><span class="sub">Short · 259.30</span></label>
-<label class="box aside" for="pick-GOOGL"><span class="sym">GOOGL</span><span class="sub">Short · 284.78</span></label>
-<label class="box aside" for="pick-MSFT"><span class="sym">MSFT</span><span class="sub">Short · 530.61</span></label>
-<label class="box aside" for="pick-MU"><span class="sym">MU</span><span class="sub">Short · 690.00</span></label>
-<label class="box aside" for="pick-NFLX"><span class="sym">NFLX</span><span class="sub">Short · 63.41</span></label>
-<label class="box aside" for="pick-TSLA"><span class="sym">TSLA</span><span class="sub">Short · 358.22</span></label>
-<label class="box aside" for="pick-CRM"><span class="sym">CRM</span><span class="sub">Short · 213.65</span></label>
-<label class="box aside" for="pick-META"><span class="sym">META</span><span class="sub">Short · 610.15</span></label>
-<label class="box aside" for="pick-NVDA"><span class="sym">NVDA</span><span class="sub">Short · 186.64</span></label>
-<label class="box aside" for="pick-AAPL"><span class="sym">AAPL</span><span class="sub">Short · 342.37</span></label>
-<label class="box aside" for="pick-WMT"><span class="sym">WMT</span><span class="sub">Long · 125.52</span></label>
-<label class="box aside" for="pick-COST"><span class="sym">COST</span><span class="sub">Long · 1,053.56</span></label>
-<label class="box aside" for="pick-QCOM"><span class="sym">QCOM</span><span class="sub">Short · 165.41</span></label>
-<label class="box aside" for="pick-ORCL"><span class="sym">ORCL</span><span class="sub">Short · 116.10</span></label>
-<label class="box aside" for="pick-DIS"><span class="sym">DIS</span><span class="sub">Long · 116.75</span></label>
-<label class="box aside" for="pick-XOM"><span class="sym">XOM</span><span class="sub">Short · 165.87</span></label>
-<label class="box aside" for="pick-AMD"><span class="sym">AMD</span><span class="sub">Short · 449.04</span></label>
-<label class="box aside" for="pick-BA"><span class="sym">BA</span><span class="sub">Short · 173.40</span></label></div>
+    <div class="grid" role="listbox" aria-label="Liquid book"><label class="box aside" for="pick-JPM"><span class="sym short">JPM</span><span class="sub"><span class="short">Short</span> · 334.49</span></label>
+<label class="box aside" for="pick-AVGO"><span class="sym short">AVGO</span><span class="sub"><span class="short">Short</span> · 293.69</span></label>
+<label class="box aside" for="pick-AMZN"><span class="sym short">AMZN</span><span class="sub"><span class="short">Short</span> · 259.30</span></label>
+<label class="box aside" for="pick-GOOGL"><span class="sym short">GOOGL</span><span class="sub"><span class="short">Short</span> · 284.78</span></label>
+<label class="box aside" for="pick-MSFT"><span class="sym short">MSFT</span><span class="sub"><span class="short">Short</span> · 530.61</span></label>
+<label class="box aside" for="pick-MU"><span class="sym short">MU</span><span class="sub"><span class="short">Short</span> · 690.00</span></label>
+<label class="box aside" for="pick-NFLX"><span class="sym short">NFLX</span><span class="sub"><span class="short">Short</span> · 63.41</span></label>
+<label class="box aside" for="pick-TSLA"><span class="sym short">TSLA</span><span class="sub"><span class="short">Short</span> · 358.22</span></label>
+<label class="box aside" for="pick-CRM"><span class="sym short">CRM</span><span class="sub"><span class="short">Short</span> · 213.65</span></label>
+<label class="box aside" for="pick-ORCL"><span class="sym short">ORCL</span><span class="sub"><span class="short">Short</span> · 116.10</span></label>
+<label class="box aside" for="pick-META"><span class="sym short">META</span><span class="sub"><span class="short">Short</span> · 610.15</span></label>
+<label class="box aside" for="pick-NVDA"><span class="sym short">NVDA</span><span class="sub"><span class="short">Short</span> · 186.64</span></label>
+<label class="box aside" for="pick-AAPL"><span class="sym short">AAPL</span><span class="sub"><span class="short">Short</span> · 342.37</span></label>
+<label class="box aside" for="pick-WMT"><span class="sym long">WMT</span><span class="sub"><span class="long">Long</span> · 125.52</span></label>
+<label class="box aside" for="pick-COST"><span class="sym long">COST</span><span class="sub"><span class="long">Long</span> · 1,053.56</span></label>
+<label class="box aside" for="pick-QCOM"><span class="sym short">QCOM</span><span class="sub"><span class="short">Short</span> · 165.41</span></label>
+<label class="box aside" for="pick-DIS"><span class="sym long">DIS</span><span class="sub"><span class="long">Long</span> · 116.75</span></label>
+<label class="box aside" for="pick-XOM"><span class="sym short">XOM</span><span class="sub"><span class="short">Short</span> · 165.87</span></label>
+<label class="box aside" for="pick-AMD"><span class="sym short">AMD</span><span class="sub"><span class="short">Short</span> · 449.04</span></label>
+<label class="box aside" for="pick-BA"><span class="sym short">BA</span><span class="sub"><span class="short">Short</span> · 173.40</span></label></div>
     <div class="plans"><article class="plan plan-JPM">
         <header class="plan-head">
-          <div><h2>JPM</h2><p class="name">JPMorgan Chase &amp; Co.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">JPM</h2><p class="name">JPMorgan Chase &amp; Co.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>334.49</dd></div>
@@ -1047,8 +1052,8 @@
       </article>
 <article class="plan plan-AVGO">
         <header class="plan-head">
-          <div><h2>AVGO</h2><p class="name">Broadcom Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">AVGO</h2><p class="name">Broadcom Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>293.69</dd></div>
@@ -1065,8 +1070,8 @@
       </article>
 <article class="plan plan-AMZN">
         <header class="plan-head">
-          <div><h2>AMZN</h2><p class="name">Amazon.com, Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">AMZN</h2><p class="name">Amazon.com, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>259.30</dd></div>
@@ -1083,8 +1088,8 @@
       </article>
 <article class="plan plan-GOOGL">
         <header class="plan-head">
-          <div><h2>GOOGL</h2><p class="name">Alphabet Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">GOOGL</h2><p class="name">Alphabet Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>284.78</dd></div>
@@ -1101,8 +1106,8 @@
       </article>
 <article class="plan plan-MSFT">
         <header class="plan-head">
-          <div><h2>MSFT</h2><p class="name">Microsoft Corporation</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">MSFT</h2><p class="name">Microsoft Corporation</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>530.61</dd></div>
@@ -1119,8 +1124,8 @@
       </article>
 <article class="plan plan-MU">
         <header class="plan-head">
-          <div><h2>MU</h2><p class="name">Micron Technology, Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">MU</h2><p class="name">Micron Technology, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>690.00</dd></div>
@@ -1137,8 +1142,8 @@
       </article>
 <article class="plan plan-NFLX">
         <header class="plan-head">
-          <div><h2>NFLX</h2><p class="name">Netflix, Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">NFLX</h2><p class="name">Netflix, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>63.41</dd></div>
@@ -1155,8 +1160,8 @@
       </article>
 <article class="plan plan-TSLA">
         <header class="plan-head">
-          <div><h2>TSLA</h2><p class="name">Tesla, Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">TSLA</h2><p class="name">Tesla, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>358.22</dd></div>
@@ -1166,15 +1171,15 @@
         </dl>
         <p class="reach">Fri, Nov 20, 2026, if price travels about one daily ATR per session toward the target (10 sessions).</p>
         
-        <p><strong>News.</strong> Neutral. Elon Musk announces Tesla will wind down Cybertruck production at Texas factory to make room for Cybercab</p>
+        <p><strong>News.</strong> Neutral. Musk's futuristic Cybertruck rolls toward exit</p>
         <p><strong>Earnings.</strong> EPS 0.20 vs 0.22 (-9.09%). $28.05B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double top, forming. Two highs near 413.43 share a neckline at 297.38. Price has not closed through 297.38.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered. The opening range broke the other way.</p>
       </article>
 <article class="plan plan-CRM">
         <header class="plan-head">
-          <div><h2>CRM</h2><p class="name">Salesforce, Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">CRM</h2><p class="name">Salesforce, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>213.65</dd></div>
@@ -1189,10 +1194,28 @@
         <p><strong>Pattern.</strong> Breakdown, triggered. Closed through the prior 20-session low at 214.67.</p>
         <p class="reason">Stand aside. Reward to risk is 1.987:1, short of the 2.00:1 minimum.</p>
       </article>
+<article class="plan plan-ORCL">
+        <header class="plan-head">
+          <div><h2 class="short">ORCL</h2><p class="name">Oracle Corporation</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>116.10</dd></div>
+          <div><dt>Target</dt><dd>96.93</dd></div>
+          <div><dt>Stop</dt><dd>124.98</dd></div>
+          <div><dt>Reward:risk</dt><dd>2.16:1</dd></div>
+        </dl>
+        <p class="reach">Wed, Nov 11, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
+        
+        <p><strong>News.</strong> Neutral. Oracle (ORCL) Ranks Sixth Among the Cheapest AI Data Center Stocks</p>
+        <p><strong>Earnings.</strong> EPS 1.63 vs 1.39 (+17.27%). $19.34B reported revenue. Quarter ended Aug 2026.</p>
+        <p><strong>Pattern.</strong> Double top, triggered. Two highs near 148.59 share a neckline at 122.76. Price closed through that neckline.</p>
+        <p class="reason">Stand aside. Price reclaimed VWAP, which fights the short.</p>
+      </article>
 <article class="plan plan-META">
         <header class="plan-head">
-          <div><h2>META</h2><p class="name">Meta Platforms, Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">META</h2><p class="name">Meta Platforms, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>610.15</dd></div>
@@ -1209,8 +1232,8 @@
       </article>
 <article class="plan plan-NVDA">
         <header class="plan-head">
-          <div><h2>NVDA</h2><p class="name">NVIDIA Corporation</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">NVDA</h2><p class="name">NVIDIA Corporation</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>186.64</dd></div>
@@ -1227,8 +1250,8 @@
       </article>
 <article class="plan plan-AAPL">
         <header class="plan-head">
-          <div><h2>AAPL</h2><p class="name">Apple Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">AAPL</h2><p class="name">Apple Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>342.37</dd></div>
@@ -1245,8 +1268,8 @@
       </article>
 <article class="plan plan-WMT">
         <header class="plan-head">
-          <div><h2>WMT</h2><p class="name">Walmart Inc.</p></div>
-          <p class="badge aside">Long · Stand aside</p>
+          <div><h2 class="long">WMT</h2><p class="name">Walmart Inc.</p></div>
+          <p class="plan-side"><span class="long">Long</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>125.52</dd></div>
@@ -1256,15 +1279,15 @@
         </dl>
         <p class="reach">Tue, Nov 10, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
         
-        <p><strong>News.</strong> Neutral. Yahoo Finance returned no recent headline for WMT.</p>
+        <p><strong>News.</strong> Neutral. 54 ETFs Add to Walmart (WMT) on Wednesday</p>
         <p><strong>Earnings.</strong> EPS 0.81 vs 0.73 (+10.96%). $187.94B reported revenue. Quarter ended Jul 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 117.08 share a neckline at 122.94. Price closed through that neckline.</p>
         <p class="reason">Stand aside. Reward to risk is 1.019:1, short of the 2.00:1 minimum.</p>
       </article>
 <article class="plan plan-COST">
         <header class="plan-head">
-          <div><h2>COST</h2><p class="name">Costco Wholesale Corporation</p></div>
-          <p class="badge aside">Long · Stand aside</p>
+          <div><h2 class="long">COST</h2><p class="name">Costco Wholesale Corporation</p></div>
+          <p class="plan-side"><span class="long">Long</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>1,053.56</dd></div>
@@ -1281,8 +1304,8 @@
       </article>
 <article class="plan plan-QCOM">
         <header class="plan-head">
-          <div><h2>QCOM</h2><p class="name">QUALCOMM Incorporated</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">QCOM</h2><p class="name">QUALCOMM Incorporated</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>165.41</dd></div>
@@ -1297,28 +1320,10 @@
         <p><strong>Pattern.</strong> Double top, triggered. Two highs near 187.27 share a neckline at 168.84. Price closed through that neckline.</p>
         <p class="reason">Stand aside. Price reclaimed VWAP, which fights the short. The opening range broke the other way. Reward to risk is 1.648:1, short of the 2.00:1 minimum.</p>
       </article>
-<article class="plan plan-ORCL">
-        <header class="plan-head">
-          <div><h2>ORCL</h2><p class="name">Oracle Corporation</p></div>
-          <p class="badge aside">Short · Stand aside</p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>116.10</dd></div>
-          <div><dt>Target</dt><dd>96.93</dd></div>
-          <div><dt>Stop</dt><dd>124.98</dd></div>
-          <div><dt>Reward:risk</dt><dd>2.16:1</dd></div>
-        </dl>
-        <p class="reach">Wed, Nov 11, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
-        
-        <p><strong>News.</strong> Positive. ORACLE'S ANNUAL MEETING OF STOCKHOLDERS TO BE HELD NOVEMBER 18, 2026</p>
-        <p><strong>Earnings.</strong> EPS 1.63 vs 1.39 (+17.27%). $19.34B reported revenue. Quarter ended Aug 2026.</p>
-        <p><strong>Pattern.</strong> Double top, triggered. Two highs near 148.59 share a neckline at 122.76. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. News fights the short: the headline sentiment is positive. Price reclaimed VWAP, which fights the short.</p>
-      </article>
 <article class="plan plan-DIS">
         <header class="plan-head">
-          <div><h2>DIS</h2><p class="name">The Walt Disney Company</p></div>
-          <p class="badge aside">Long · Stand aside</p>
+          <div><h2 class="long">DIS</h2><p class="name">The Walt Disney Company</p></div>
+          <p class="plan-side"><span class="long">Long</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>116.75</dd></div>
@@ -1335,8 +1340,8 @@
       </article>
 <article class="plan plan-XOM">
         <header class="plan-head">
-          <div><h2>XOM</h2><p class="name">ExxonMobil Holdings Corporation</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">XOM</h2><p class="name">ExxonMobil Holdings Corporation</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>165.87</dd></div>
@@ -1353,8 +1358,8 @@
       </article>
 <article class="plan plan-AMD">
         <header class="plan-head">
-          <div><h2>AMD</h2><p class="name">Advanced Micro Devices, Inc.</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">AMD</h2><p class="name">Advanced Micro Devices, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>449.04</dd></div>
@@ -1371,8 +1376,8 @@
       </article>
 <article class="plan plan-BA">
         <header class="plan-head">
-          <div><h2>BA</h2><p class="name">The Boeing Company</p></div>
-          <p class="badge aside">Short · Stand aside</p>
+          <div><h2 class="short">BA</h2><p class="name">The Boeing Company</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>173.40</dd></div>

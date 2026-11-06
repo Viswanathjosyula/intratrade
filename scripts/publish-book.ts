@@ -24,9 +24,9 @@ function statusText(status: CallStatus): string {
 }
 
 function renderCallRow(call: TrackedBook["calls"][number]): string {
-  return `<tr>
-          <td class="sym">${escapeHtml(call.symbol)}</td>
-          <td>${escapeHtml(sideLabel(call.side))}</td>
+  return `<tr class="side-${call.side}">
+          <td class="sym ${call.side}">${escapeHtml(call.symbol)}</td>
+          <td class="${call.side}">${escapeHtml(sideLabel(call.side))}</td>
           <td>${escapeHtml(addedPrice(call.entry))}</td>
           <td>${price(call.target)}</td>
           <td>${escapeHtml(formatSessionDate(call.asOf))}</td>
@@ -150,7 +150,7 @@ function render(
       });
       const sessions = reach ? (reach.sessions === 1 ? "1 session" : `${reach.sessions} sessions`) : "Reach date unavailable";
       return `<article class="keys keys-${idea.symbol}">
-        <div class="keys-top"><strong>${escapeHtml(idea.symbol)}</strong><span>${escapeHtml(sideLabel(idea.side))} · ${escapeHtml(stanceLabel(idea.stance))}</span></div>
+        <div class="keys-top"><strong class="${idea.side}">${escapeHtml(idea.symbol)}</strong><span><span class="${idea.side}">${escapeHtml(sideLabel(idea.side))}</span> · ${escapeHtml(stanceLabel(idea.stance))}</span></div>
         <dl>
           <div><dt>Last</dt><dd>${price(idea.last)}</dd></div>
           <div><dt>Target</dt><dd>${price(idea.target)}</dd></div>
@@ -165,7 +165,7 @@ function render(
   const boxes = ideas
     .map(
       (idea) =>
-        `<label class="box ${idea.stance === "consider" ? "consider" : "aside"}" for="pick-${idea.symbol}"><span class="sym">${escapeHtml(idea.symbol)}</span><span class="sub">${escapeHtml(sideLabel(idea.side))} · ${price(idea.last)}</span></label>`,
+        `<label class="box ${idea.stance === "consider" ? "consider" : "aside"}" for="pick-${idea.symbol}"><span class="sym ${idea.side}">${escapeHtml(idea.symbol)}</span><span class="sub"><span class="${idea.side}">${escapeHtml(sideLabel(idea.side))}</span> · ${price(idea.last)}</span></label>`,
     )
     .join("\n");
 
@@ -185,8 +185,8 @@ function render(
       const timing = mood && idea.stance === "consider" ? timingCall(mood.name, idea.side) : null;
       return `<article class="plan plan-${idea.symbol}">
         <header class="plan-head">
-          <div><h2>${escapeHtml(idea.symbol)}</h2><p class="name">${escapeHtml(idea.name)}</p></div>
-          <p class="badge ${tone}">${escapeHtml(sideLabel(idea.side))} · ${escapeHtml(stanceLabel(idea.stance))}</p>
+          <div><h2 class="${idea.side}">${escapeHtml(idea.symbol)}</h2><p class="name">${escapeHtml(idea.name)}</p></div>
+          <p class="plan-side"><span class="${idea.side}">${escapeHtml(sideLabel(idea.side))}</span> <span class="badge ${tone}">${escapeHtml(stanceLabel(idea.stance))}</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>${price(idea.last)}</dd></div>
@@ -258,7 +258,12 @@ function render(
     .targets th { position: sticky; top: 0; z-index: 1; background: #1a2140; }
     .targets tr.group td { font-size: 0.68rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; background: #12162a; }
     .targets tr.empty td { color: #a1a1aa; }
-    .targets .sym { font-family: ui-monospace, monospace; font-weight: 650; }
+    .targets .sym { font-family: ui-monospace, monospace; font-weight: 750; }
+    .long { color: #34d399; }
+    .short { color: #ef4444; }
+    .targets tr.side-long { box-shadow: inset 3px 0 0 #34d399; }
+    .targets tr.side-short { box-shadow: inset 3px 0 0 #ef4444; }
+    .plan-side { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-weight: 750; }
     .targets td:nth-child(3), .targets td:nth-child(4), .targets td:nth-child(5) { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
     .reached { color: #34d399; font-weight: 750; }
     .not-reached { color: #fb7185; font-weight: 750; }
