@@ -16,6 +16,12 @@ export function price(value: number): string {
   });
 }
 
+/** Price stored when a call was published. Missing history stays unlabeled. */
+export function addedPrice(entry: number | null | undefined): string {
+  if (typeof entry !== "number" || !Number.isFinite(entry) || entry <= 0) return "Not stored";
+  return price(entry);
+}
+
 export function revenue(value: number): string {
   const abs = Math.abs(value);
   const sign = value < 0 ? "-" : "";

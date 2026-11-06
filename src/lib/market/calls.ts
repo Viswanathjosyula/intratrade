@@ -8,6 +8,11 @@ export interface PublishedCall {
   side: Side;
   target: number;
   stop: number;
+  /**
+   * Last price stored when the call was published. Absent on rows written
+   * before that price was kept. Never backfilled.
+   */
+  entry?: number;
   /** New York session date the call was published, YYYY-MM-DD. */
   asOf: string;
 }

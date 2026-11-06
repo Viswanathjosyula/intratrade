@@ -48,7 +48,7 @@ interface YahooChart {
 export function readCallLog(): PublishedCall[] {
   const parsed = JSON.parse(readFileSync(LOG_PATH, "utf8")) as { calls?: unknown };
   if (!Array.isArray(parsed.calls)) return [];
-  return parsed.calls.filter(isPublishedCall);
+  return parsed.calls.filter(isPublishedCall).map(withStoredEntry);
 }
 
 export function writeCallLog(calls: PublishedCall[]): void {
@@ -67,13 +67,18 @@ export function appendLiveConsiders(existing: PublishedCall[], session: MarketSe
   if (!asOf) return existing;
   const incoming = rankIdeas(session.snapshots, DEFAULT_RISK)
     .filter((idea) => idea.stance === "consider")
-    .map((idea) => ({
-      symbol: idea.symbol,
-      side: idea.side,
-      target: roundCents(idea.target),
-      stop: roundCents(idea.stop),
-      asOf,
-    }));
+    .map((idea) => {
+      const call: PublishedCall = {
+        symbol: idea.symbol,
+        side: idea.side,
+        target: roundCents(idea.target),
+        stop: roundCents(idea.stop),
+        asOf,
+      };
+      const entry = roundCents(idea.last);
+      if (entry > 0) call.entry = entry;
+      return call;
+    });
   return mergeCalls(existing, incoming);
 }
 
@@ -192,6 +197,17 @@ export async function fetchIntradaySessions(symbol: string): Promise<IntradayPri
 
 function roundCents(value: number): number {
   return Math.round(value * 100) / 100;
+}
+
+/** Keep a stored entry price. Drop anything else so a bad value cannot look like a print. */
+function withStoredEntry(call: PublishedCall): PublishedCall {
+  const raw = (call as { entry?: unknown }).entry;
+  if (typeof raw === "number" && Number.isFinite(raw) && raw > 0) {
+    return { ...call, entry: roundCents(raw) };
+  }
+  if (!("entry" in call)) return call;
+  const { entry: _ignored, ...rest } = call;
+  return rest;
 }
 
 function isPublishedCall(value: unknown): value is PublishedCall {

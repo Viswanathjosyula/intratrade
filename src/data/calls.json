@@ -370,6 +370,22 @@
       "target": 262.34,
       "stop": 309.65,
       "asOf": "2026-11-05"
+    },
+    {
+      "symbol": "AVGO",
+      "side": "short",
+      "target": 258.43,
+      "stop": 305.93,
+      "asOf": "2026-11-05",
+      "entry": 291.53
+    },
+    {
+      "symbol": "ORCL",
+      "side": "short",
+      "target": 89.44,
+      "stop": 123.53,
+      "asOf": "2026-11-05",
+      "entry": 115.16
     }
   ]
 }

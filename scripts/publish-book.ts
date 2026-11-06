@@ -1,6 +1,6 @@
 import { renameSync, writeFileSync } from "node:fs";
 
-import { earningsRead, price, rewardRisk, sentimentLabel, sideLabel, stanceLabel } from "@/lib/format";
+import { addedPrice, earningsRead, price, rewardRisk, sentimentLabel, sideLabel, stanceLabel } from "@/lib/format";
 import { trackBook, type TrackedBook } from "@/lib/market/call-log";
 import { groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
 import { rankIdeas } from "@/lib/market/engine";
@@ -28,6 +28,7 @@ function renderCallRow(call: TrackedBook["calls"][number]): string {
           <td class="sym">${escapeHtml(call.symbol)}</td>
           <td>${escapeHtml(sideLabel(call.side))}</td>
           <td>${price(call.target)}</td>
+          <td>${escapeHtml(addedPrice(call.entry))}</td>
           <td>${escapeHtml(formatSessionDate(call.asOf))}</td>
           <td>${call.paceDate ? escapeHtml(formatSessionDate(call.paceDate)) : ""}</td>
           <td>${call.nextPaceDate ? escapeHtml(formatSessionDate(call.nextPaceDate)) : ""}</td>
@@ -39,14 +40,14 @@ function renderTargets(tracked: TrackedBook): string {
   const rates = suggestionRates(tracked.calls);
   const rows =
     tracked.calls.length === 0
-      ? `<tr><td colspan="7">No published consider call is in the log yet.</td></tr>`
+      ? `<tr><td colspan="8">No published consider call is in the log yet.</td></tr>`
       : groupCalls(tracked.calls)
           .map((group) => {
             const body =
               group.calls.length === 0
-                ? `<tr class="empty"><td colspan="7">None</td></tr>`
+                ? `<tr class="empty"><td colspan="8">None</td></tr>`
                 : group.calls.map((call) => renderCallRow(call)).join("\n");
-            return `<tr class="group ${group.status}"><td colspan="7">${escapeHtml(statusText(group.status))} · ${group.calls.length}</td></tr>
+            return `<tr class="group ${group.status}"><td colspan="8">${escapeHtml(statusText(group.status))} · ${group.calls.length}</td></tr>
 ${body}`;
           })
           .join("\n");
@@ -65,11 +66,11 @@ ${body}`;
     </div>
     <div class="targets-scroll">
       <table>
-        <thead><tr><th>Name</th><th>Side</th><th>Target</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Side</th><th>Target</th><th>Added at</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="targets-note">${escapeHtml(`${checked}${gap}`)} This table does not send an order.</p>
+    <p class="targets-note">${escapeHtml(`${checked}${gap}`)} Added at is the price stored when the call was published. This table does not send an order.</p>
   </section>`;
 }
 
@@ -219,7 +220,7 @@ function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: Tracked
     .targets tr.group td { font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 650; background: #1c1917; }
     .targets tr.empty td { color: #a8a29e; }
     .targets .sym { font-family: ui-monospace, monospace; font-weight: 650; }
-    .targets td:nth-child(3), .targets td:nth-child(4) { font-family: ui-monospace, monospace; }
+    .targets td:nth-child(3), .targets td:nth-child(4), .targets td:nth-child(5) { font-family: ui-monospace, monospace; }
     .reached { color: #6ee7b7; }
     .not-reached { color: #fecdd3; }
     .open { color: #d6d3d1; }
