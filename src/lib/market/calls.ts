@@ -67,14 +67,16 @@ export function ledgerRows<T extends { symbol: string; status: CallStatus; asOf:
   return calls.filter((call) => call.status === "reached" || active.has(call));
 }
 
-/** Table order: reached, then not reached, then open. Order inside a block stays as published. */
-export function groupCalls<T extends { status: CallStatus }>(
+/** Table order: reached, then not reached, then open. Inside a block, newest as-of day first. */
+export function groupCalls<T extends { status: CallStatus; asOf?: string }>(
   calls: readonly T[],
 ): Array<{ status: CallStatus; calls: T[] }> {
   const order: CallStatus[] = ["reached", "not-reached", "open"];
   return order.map((status) => ({
     status,
-    calls: calls.filter((call) => call.status === status),
+    calls: calls
+      .filter((call) => call.status === status)
+      .sort((a, b) => (b.asOf ?? "").localeCompare(a.asOf ?? "")),
   }));
 }
 
