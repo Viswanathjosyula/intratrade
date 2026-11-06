@@ -113,6 +113,30 @@ export interface MarketMood {
   summary: string;
 }
 
+export type IndicatorAlignment = "with" | "against";
+
+/** S&P versus its 10-session average. That is the tape the rows line up with. */
+export interface IndicatorTape {
+  side: "up" | "down";
+  last: number;
+  average: number;
+  relation: "above" | "below" | "equal to";
+}
+
+export interface IndicatorRow {
+  factor: string;
+  period: string;
+  statistic: string;
+  alignment: IndicatorAlignment;
+}
+
+export interface IndicatorBoard {
+  tape: IndicatorTape | null;
+  rows: IndicatorRow[];
+  /** Series that were requested and did not produce a row. */
+  omitted: string[];
+}
+
 export interface SessionNote {
   title: string;
   detail: string;
@@ -131,6 +155,8 @@ export interface MarketSession {
   note: SessionNote;
   /** Live mood from SPY, book breadth, and VIX. Absent on the sample tape or when Yahoo returns none of those inputs. */
   mood?: MarketMood | null;
+  /** How public series line up with the S&P tape. Absent on the sample tape. */
+  indicators?: IndicatorBoard | null;
   snapshots: Snapshot[];
 }
 

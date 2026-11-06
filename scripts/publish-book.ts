@@ -7,7 +7,7 @@ import { rankIdeas } from "@/lib/market/engine";
 import { loadPublicSession } from "@/lib/market/live";
 import { moodLabel, timingCall } from "@/lib/market/mood";
 import { estimatedReach, formatSessionDate, reachLabel } from "@/lib/market/reach";
-import { DEFAULT_RISK, type MarketMood, type TradeIdea } from "@/lib/market/types";
+import { DEFAULT_RISK, type IndicatorBoard, type MarketMood, type TradeIdea } from "@/lib/market/types";
 
 function escapeHtml(value: string): string {
   return value
@@ -74,6 +74,37 @@ ${body}`;
   </section>`;
 }
 
+function renderIndicators(board: IndicatorBoard | null): string {
+  if (!board) return "";
+  const tape = board.tape
+    ? `S&P ${price(board.tape.last)} is ${board.tape.relation} its 10-session average of ${price(board.tape.average)}.`
+    : "S&P versus its 10-session average did not come back.";
+  const body =
+    board.rows.length === 0
+      ? ""
+      : `<div class="indicators-scroll"><table>
+        <thead><tr><th>Factor</th><th>Period</th><th>Statistic</th><th>Tape</th></tr></thead>
+        <tbody>${board.rows
+          .map(
+            (row) => `<tr>
+          <td>${escapeHtml(row.factor)}</td>
+          <td>${escapeHtml(row.period)}</td>
+          <td class="stat">${escapeHtml(row.statistic)}</td>
+          <td class="${row.alignment}">${row.alignment === "with" ? "With" : "Against"}</td>
+        </tr>`,
+          )
+          .join("")}</tbody>
+      </table></div>`;
+  const omitted =
+    board.omitted.length > 0
+      ? `<p class="indicators-note">Omitted: ${escapeHtml(board.omitted.join("; "))}.</p>`
+      : "";
+  return `<section class="indicators" aria-label="Tape indicators">
+    <div class="indicators-head"><h2>Indicators</h2><p>${escapeHtml(tape)}</p></div>
+    ${body}${omitted}
+  </section>`;
+}
+
 function renderMood(mood: MarketMood | null): string {
   if (!mood) {
     return `<section class="mood" aria-label="Market mood"><p class="mood-name">Mood unavailable</p><p>Yahoo did not return SPY, book breadth, or VIX.</p></section>`;
@@ -81,7 +112,14 @@ function renderMood(mood: MarketMood | null): string {
   return `<section class="mood ${mood.name}" aria-label="Market mood"><p class="mood-name">${escapeHtml(moodLabel(mood.name))}</p><p>${escapeHtml(mood.summary)}</p></section>`;
 }
 
-function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: TrackedBook, mood: MarketMood | null): string {
+function render(
+  ideas: TradeIdea[],
+  meta: string,
+  asOf: string,
+  tracked: TrackedBook,
+  mood: MarketMood | null,
+  indicators: IndicatorBoard | null,
+): string {
   const consider = ideas.filter((idea) => idea.stance === "consider").length;
   const aside = ideas.length - consider;
   const selected = ideas.find((idea) => idea.stance === "consider") ?? ideas[0];
@@ -234,6 +272,18 @@ function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: Tracked
     .timing { margin: 0.45rem 0 0; font-size: 0.78rem; font-weight: 650; line-height: 1.35; }
     .timing.take { color: #6ee7b7; }
     .timing.wait { color: #fde68a; }
+    .indicators { margin: 0.55rem 1rem 0; border: 1px solid #44403c; border-radius: 0.5rem; background: #292524; }
+    .indicators-head { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding: 0.35rem 0.65rem; }
+    .indicators-head h2 { margin: 0; font-size: 0.9rem; }
+    .indicators-head p, .indicators-note { margin: 0; color: #a8a29e; font-size: 0.72rem; }
+    .indicators-scroll { max-height: 12rem; overflow: auto; border-top: 1px solid #44403c; }
+    .indicators table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+    .indicators th, .indicators td { text-align: left; padding: 0.18rem 0.55rem; border-top: 1px solid #44403c; vertical-align: top; }
+    .indicators th { position: sticky; top: 0; background: #292524; color: #a8a29e; font-size: 0.62rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    .indicators td.stat { font-family: ui-monospace, monospace; }
+    .indicators td.with { color: #6ee7b7; font-weight: 650; }
+    .indicators td.against { color: #fde68a; font-weight: 650; }
+    .indicators-note { padding: 0.3rem 0.65rem 0.4rem; border-top: 1px solid #44403c; }
     .mobile-keys { display: none; }
     @media (max-width: 860px) {
       .board { display: flex; flex-direction: column; min-height: 0; }
@@ -254,6 +304,7 @@ function render(ideas: TradeIdea[], meta: string, asOf: string, tracked: Tracked
     <p class="counts"><span class="consider-count">${consider} consider</span> · <span class="aside-count">${aside} stand aside</span></p>
   </header>
   ${renderMood(mood)}
+  ${renderIndicators(indicators)}
   ${renderTargets(tracked)}
   ${radios}
   <main class="board">
@@ -284,7 +335,7 @@ if (session.snapshots.some((snapshot) => !Number.isFinite(snapshot.last) || snap
 const ideas = rankIdeas(session.snapshots, DEFAULT_RISK);
 const tracked = await trackBook(session);
 const meta = `${session.delayLabel}${session.note.title ? ` · ${session.note.title}.` : ""}${session.note.detail ? ` ${session.note.detail}` : ""}`;
-const html = render(ideas, meta, session.asOf, tracked, session.mood ?? null);
+const html = render(ideas, meta, session.asOf, tracked, session.mood ?? null, session.indicators ?? null);
 if (/sample tape|built-in sample|sample wire/i.test(html)) {
   console.error("Refusing to publish: the rendered page looks like the sample tape.");
   process.exit(1);
@@ -296,6 +347,14 @@ renameSync("index.html.next", "index.html");
 const consider = ideas.filter((idea) => idea.stance === "consider").map((idea) => idea.symbol);
 console.log(`ASOF ${session.asOf}`);
 console.log(`DELAY ${session.delayLabel}`);
+const indicators = session.indicators;
+console.log(
+  `INDICATORS ${
+    indicators?.rows.map((row) => `${row.factor} [${row.period}] ${row.statistic} ${row.alignment}`).join(" || ") ||
+    "(none)"
+  }`,
+);
+console.log(`OMITTED ${indicators?.omitted.join(" | ") || "(none)"}`);
 console.log(`CONSIDER ${consider.join(", ") || "(none)"}`);
 console.log(`ASIDE ${ideas.length - consider.length}`);
 console.log(`THROUGH ${tracked.through ?? "(none)"}`);

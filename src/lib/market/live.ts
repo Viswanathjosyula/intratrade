@@ -1,7 +1,16 @@
 import { sessionStamp } from "@/lib/format";
+import { loadIndicators } from "./indicators";
 import { buildMarketMood, levelFromCloses, roundCents, shortAverage, vixLevel } from "./mood";
 import { analyzeTape, choosePattern, type Bar } from "./patterns";
-import type { EarningsPillar, MarketSession, MoodLevel, NewsPillar, Sentiment, Snapshot } from "./types";
+import type {
+  EarningsPillar,
+  IndicatorBoard,
+  MarketSession,
+  MoodLevel,
+  NewsPillar,
+  Sentiment,
+  Snapshot,
+} from "./types";
 
 /** Liquid US names. The book keeps the ones whose tape can be read. */
 const UNIVERSE = [
@@ -57,6 +66,7 @@ export async function loadPublicSession(options?: { apiKey?: string }): Promise<
 }
 
 async function buildSession(): Promise<MarketSession> {
+  const indicatorsPromise = loadIndicators();
   let auth: YahooAuth | null = null;
   let authError: string | null = null;
   try {
@@ -118,6 +128,9 @@ async function buildSession(): Promise<MarketSession> {
     if (snapshot.last > snapshot.shortAverage) aboveCount += 1;
   }
   const mood = buildMarketMood({ spy, vix, aboveCount, counted });
+  const indicators = await indicatorsPromise.catch(
+    (): IndicatorBoard => ({ tape: null, rows: [], omitted: ["Indicator feed"] }),
+  );
 
   return {
     asOf,
@@ -140,6 +153,7 @@ async function buildSession(): Promise<MarketSession> {
       } ${calendar}${skipped}${authNote} Nothing on this desk sends an order.`,
     },
     mood,
+    indicators,
     snapshots,
   };
 }
