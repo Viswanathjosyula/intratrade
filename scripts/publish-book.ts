@@ -27,8 +27,8 @@ function renderCallRow(call: TrackedBook["calls"][number]): string {
   return `<tr>
           <td class="sym">${escapeHtml(call.symbol)}</td>
           <td>${escapeHtml(sideLabel(call.side))}</td>
-          <td>${price(call.target)}</td>
           <td>${escapeHtml(addedPrice(call.entry))}</td>
+          <td>${price(call.target)}</td>
           <td>${escapeHtml(formatSessionDate(call.asOf))}</td>
           <td>${call.paceDate ? escapeHtml(formatSessionDate(call.paceDate)) : ""}</td>
           <td>${call.nextPaceDate ? escapeHtml(formatSessionDate(call.nextPaceDate)) : ""}</td>
@@ -66,7 +66,7 @@ ${body}`;
     </div>
     <div class="targets-scroll">
       <table>
-        <thead><tr><th>Name</th><th>Side</th><th>Target</th><th>Added at</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Side</th><th>Added at</th><th>Target</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
