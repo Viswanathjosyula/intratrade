@@ -118,6 +118,20 @@ export function sideLabel(side: Side): string {
   return side === "long" ? "Long" : "Short";
 }
 
+/** A name with no target beyond the last price is not shown as a long or a short. */
+export function setupSideLabel(qualified: boolean, side: Side): string {
+  return qualified ? sideLabel(side) : "No setup";
+}
+
+export function setupTarget(qualified: boolean, target: number): string {
+  return qualified ? price(target) : "—";
+}
+
+/** Long is green. Short is red. Status colors stay separate. */
+export function sideClass(side: Side): string {
+  return side === "long" ? "text-emerald-400" : "text-red-500";
+}
+
 export function stanceLabel(stance: Stance): string {
   return stance === "consider" ? "Consider" : "Stand aside";
 }

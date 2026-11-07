@@ -209,7 +209,6 @@ async function loadSymbol(
   if (!tape || intraday.length === 0) {
     throw new Error(`${symbol}: Yahoo chart did not include a regular session`);
   }
-  const setup = choosePattern(daily, tape);
   const meta = chartMeta(dailyChart);
   const sessionDate = nyDate(intraday[intraday.length - 1].time * 1000);
   const metaMs = meta.regularMarketTime ? meta.regularMarketTime * 1000 : 0;
@@ -222,6 +221,7 @@ async function loadSymbol(
     : typeof meta.regularMarketPrice === "number" && Number.isFinite(meta.regularMarketPrice)
       ? meta.regularMarketPrice
       : tape.last;
+  const setup = choosePattern(daily, tape, last);
   const earnings = toEarnings(fundamentals, nasdaq, sessionDate);
   const news = headline ?? quietNews(symbol, new Date(quoteMs).toISOString());
   const average = shortAverage(daily.map((bar) => bar.close));

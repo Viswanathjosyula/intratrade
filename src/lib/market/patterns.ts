@@ -106,7 +106,17 @@ export function analyzeTape(daily: Bar[], session: Bar[]): Tape | null {
   };
 }
 
-export function choosePattern(daily: Bar[], tape: Tape): {
+/** A long target has to be above the last price. A short target has to be below it. */
+export function targetBeyondLast(
+  bias: "bullish" | "bearish",
+  target: number,
+  last: number,
+): boolean {
+  if (!Number.isFinite(target) || !Number.isFinite(last)) return false;
+  return bias === "bullish" ? target > last : target < last;
+}
+
+export function choosePattern(daily: Bar[], tape: Tape, last = tape.last): {
   pattern: PatternPillar;
   measuredTarget: number;
   atr: number;
@@ -135,20 +145,24 @@ export function choosePattern(daily: Bar[], tape: Tape): {
     if (candidate.pattern.status === "triggered") candidate.score += 8;
   }
 
-  candidates.sort((a, b) => b.score - a.score);
-  const best = candidates[0];
+  const ranked = candidates
+    .filter((candidate) =>
+      targetBeyondLast(candidate.pattern.bias, round(candidate.measuredTarget), round(last)),
+    )
+    .sort((a, b) => b.score - a.score);
+  const best = ranked[0];
   if (!best) {
-    const bullish = tape.last >= tape.vwap;
+    const bullish = last >= tape.vwap;
     return {
       pattern: {
         name: "Breakout",
         bias: bullish ? "bullish" : "bearish",
         status: "forming",
-        invalidation: round(tape.last),
-        note: "No bull flag, bear flag, double top, double bottom, head and shoulders, cup and handle, breakout, breakdown, or opening-range break is on this tape.",
+        invalidation: round(last),
+        note: "No bull flag, bear flag, double top, double bottom, head and shoulders, cup and handle, breakout, breakdown, or opening-range break has a target beyond the last price.",
       },
-      measuredTarget: round(tape.last),
-      atr: saneAtr(tape.dailyAtr, tape.last),
+      measuredTarget: round(last),
+      atr: saneAtr(tape.dailyAtr, last),
       atrTimeframe: "daily",
     };
   }

@@ -59,6 +59,7 @@
     .targets .sym { font-family: ui-monospace, monospace; font-weight: 750; font-size: inherit; }
     .long { color: #34d399; }
     .short { color: #ef4444; }
+    .nosetup { color: #c7d2fe; }
     .targets tr.side-long { box-shadow: inset 4px 0 0 #34d399; }
     .targets tr.side-short { box-shadow: inset 4px 0 0 #ef4444; }
     .plan-side { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-weight: 750; }
@@ -98,27 +99,27 @@
       .grid { order: 1; grid-template-columns: repeat(4, minmax(0, 1fr)); }
       .plans { order: 2; }
     }
-    #pick-FLR:checked ~ .board .plan-FLR,
+    #pick-MORN:checked ~ .board .plan-MORN,
+#pick-MORN:checked ~ .board .keys-MORN { display: flex; }
+#pick-MORN:checked ~ .board label[for="pick-MORN"] { outline: 2px solid #6ee7b7; }
+#pick-NVDA:checked ~ .board .plan-NVDA,
+#pick-NVDA:checked ~ .board .keys-NVDA { display: flex; }
+#pick-NVDA:checked ~ .board label[for="pick-NVDA"] { outline: 2px solid #6ee7b7; }
+#pick-AVGO:checked ~ .board .plan-AVGO,
+#pick-AVGO:checked ~ .board .keys-AVGO { display: flex; }
+#pick-AVGO:checked ~ .board label[for="pick-AVGO"] { outline: 2px solid #6ee7b7; }
+#pick-META:checked ~ .board .plan-META,
+#pick-META:checked ~ .board .keys-META { display: flex; }
+#pick-META:checked ~ .board label[for="pick-META"] { outline: 2px solid #6ee7b7; }
+#pick-FLR:checked ~ .board .plan-FLR,
 #pick-FLR:checked ~ .board .keys-FLR { display: flex; }
 #pick-FLR:checked ~ .board label[for="pick-FLR"] { outline: 2px solid #fde68a; }
-#pick-LEA:checked ~ .board .plan-LEA,
-#pick-LEA:checked ~ .board .keys-LEA { display: flex; }
-#pick-LEA:checked ~ .board label[for="pick-LEA"] { outline: 2px solid #fde68a; }
+#pick-TSLA:checked ~ .board .plan-TSLA,
+#pick-TSLA:checked ~ .board .keys-TSLA { display: flex; }
+#pick-TSLA:checked ~ .board label[for="pick-TSLA"] { outline: 2px solid #fde68a; }
 #pick-JPM:checked ~ .board .plan-JPM,
 #pick-JPM:checked ~ .board .keys-JPM { display: flex; }
 #pick-JPM:checked ~ .board label[for="pick-JPM"] { outline: 2px solid #fde68a; }
-#pick-MORN:checked ~ .board .plan-MORN,
-#pick-MORN:checked ~ .board .keys-MORN { display: flex; }
-#pick-MORN:checked ~ .board label[for="pick-MORN"] { outline: 2px solid #fde68a; }
-#pick-AVGO:checked ~ .board .plan-AVGO,
-#pick-AVGO:checked ~ .board .keys-AVGO { display: flex; }
-#pick-AVGO:checked ~ .board label[for="pick-AVGO"] { outline: 2px solid #fde68a; }
-#pick-NVDA:checked ~ .board .plan-NVDA,
-#pick-NVDA:checked ~ .board .keys-NVDA { display: flex; }
-#pick-NVDA:checked ~ .board label[for="pick-NVDA"] { outline: 2px solid #fde68a; }
-#pick-SAIA:checked ~ .board .plan-SAIA,
-#pick-SAIA:checked ~ .board .keys-SAIA { display: flex; }
-#pick-SAIA:checked ~ .board label[for="pick-SAIA"] { outline: 2px solid #fde68a; }
 #pick-AMZN:checked ~ .board .plan-AMZN,
 #pick-AMZN:checked ~ .board .keys-AMZN { display: flex; }
 #pick-AMZN:checked ~ .board label[for="pick-AMZN"] { outline: 2px solid #fde68a; }
@@ -128,63 +129,63 @@
 #pick-MSFT:checked ~ .board .plan-MSFT,
 #pick-MSFT:checked ~ .board .keys-MSFT { display: flex; }
 #pick-MSFT:checked ~ .board label[for="pick-MSFT"] { outline: 2px solid #fde68a; }
-#pick-MU:checked ~ .board .plan-MU,
-#pick-MU:checked ~ .board .keys-MU { display: flex; }
-#pick-MU:checked ~ .board label[for="pick-MU"] { outline: 2px solid #fde68a; }
-#pick-WAL:checked ~ .board .plan-WAL,
-#pick-WAL:checked ~ .board .keys-WAL { display: flex; }
-#pick-WAL:checked ~ .board label[for="pick-WAL"] { outline: 2px solid #fde68a; }
 #pick-NFLX:checked ~ .board .plan-NFLX,
 #pick-NFLX:checked ~ .board .keys-NFLX { display: flex; }
 #pick-NFLX:checked ~ .board label[for="pick-NFLX"] { outline: 2px solid #fde68a; }
-#pick-TSLA:checked ~ .board .plan-TSLA,
-#pick-TSLA:checked ~ .board .keys-TSLA { display: flex; }
-#pick-TSLA:checked ~ .board label[for="pick-TSLA"] { outline: 2px solid #fde68a; }
-#pick-TREX:checked ~ .board .plan-TREX,
-#pick-TREX:checked ~ .board .keys-TREX { display: flex; }
-#pick-TREX:checked ~ .board label[for="pick-TREX"] { outline: 2px solid #fde68a; }
+#pick-SAIA:checked ~ .board .plan-SAIA,
+#pick-SAIA:checked ~ .board .keys-SAIA { display: flex; }
+#pick-SAIA:checked ~ .board label[for="pick-SAIA"] { outline: 2px solid #fde68a; }
+#pick-MU:checked ~ .board .plan-MU,
+#pick-MU:checked ~ .board .keys-MU { display: flex; }
+#pick-MU:checked ~ .board label[for="pick-MU"] { outline: 2px solid #fde68a; }
 #pick-CRM:checked ~ .board .plan-CRM,
 #pick-CRM:checked ~ .board .keys-CRM { display: flex; }
 #pick-CRM:checked ~ .board label[for="pick-CRM"] { outline: 2px solid #fde68a; }
-#pick-ORCL:checked ~ .board .plan-ORCL,
-#pick-ORCL:checked ~ .board .keys-ORCL { display: flex; }
-#pick-ORCL:checked ~ .board label[for="pick-ORCL"] { outline: 2px solid #fde68a; }
-#pick-META:checked ~ .board .plan-META,
-#pick-META:checked ~ .board .keys-META { display: flex; }
-#pick-META:checked ~ .board label[for="pick-META"] { outline: 2px solid #fde68a; }
-#pick-AAPL:checked ~ .board .plan-AAPL,
-#pick-AAPL:checked ~ .board .keys-AAPL { display: flex; }
-#pick-AAPL:checked ~ .board label[for="pick-AAPL"] { outline: 2px solid #fde68a; }
-#pick-WMT:checked ~ .board .plan-WMT,
-#pick-WMT:checked ~ .board .keys-WMT { display: flex; }
-#pick-WMT:checked ~ .board label[for="pick-WMT"] { outline: 2px solid #fde68a; }
+#pick-WAL:checked ~ .board .plan-WAL,
+#pick-WAL:checked ~ .board .keys-WAL { display: flex; }
+#pick-WAL:checked ~ .board label[for="pick-WAL"] { outline: 2px solid #fde68a; }
 #pick-COST:checked ~ .board .plan-COST,
 #pick-COST:checked ~ .board .keys-COST { display: flex; }
 #pick-COST:checked ~ .board label[for="pick-COST"] { outline: 2px solid #fde68a; }
+#pick-ORCL:checked ~ .board .plan-ORCL,
+#pick-ORCL:checked ~ .board .keys-ORCL { display: flex; }
+#pick-ORCL:checked ~ .board label[for="pick-ORCL"] { outline: 2px solid #fde68a; }
+#pick-AAPL:checked ~ .board .plan-AAPL,
+#pick-AAPL:checked ~ .board .keys-AAPL { display: flex; }
+#pick-AAPL:checked ~ .board label[for="pick-AAPL"] { outline: 2px solid #fde68a; }
+#pick-LEA:checked ~ .board .plan-LEA,
+#pick-LEA:checked ~ .board .keys-LEA { display: flex; }
+#pick-LEA:checked ~ .board label[for="pick-LEA"] { outline: 2px solid #fde68a; }
+#pick-XOM:checked ~ .board .plan-XOM,
+#pick-XOM:checked ~ .board .keys-XOM { display: flex; }
+#pick-XOM:checked ~ .board label[for="pick-XOM"] { outline: 2px solid #fde68a; }
+#pick-WMT:checked ~ .board .plan-WMT,
+#pick-WMT:checked ~ .board .keys-WMT { display: flex; }
+#pick-WMT:checked ~ .board label[for="pick-WMT"] { outline: 2px solid #fde68a; }
 #pick-CROX:checked ~ .board .plan-CROX,
 #pick-CROX:checked ~ .board .keys-CROX { display: flex; }
 #pick-CROX:checked ~ .board label[for="pick-CROX"] { outline: 2px solid #fde68a; }
+#pick-TREX:checked ~ .board .plan-TREX,
+#pick-TREX:checked ~ .board .keys-TREX { display: flex; }
+#pick-TREX:checked ~ .board label[for="pick-TREX"] { outline: 2px solid #fde68a; }
 #pick-QCOM:checked ~ .board .plan-QCOM,
 #pick-QCOM:checked ~ .board .keys-QCOM { display: flex; }
 #pick-QCOM:checked ~ .board label[for="pick-QCOM"] { outline: 2px solid #fde68a; }
+#pick-CGNX:checked ~ .board .plan-CGNX,
+#pick-CGNX:checked ~ .board .keys-CGNX { display: flex; }
+#pick-CGNX:checked ~ .board label[for="pick-CGNX"] { outline: 2px solid #fde68a; }
 #pick-BLDR:checked ~ .board .plan-BLDR,
 #pick-BLDR:checked ~ .board .keys-BLDR { display: flex; }
 #pick-BLDR:checked ~ .board label[for="pick-BLDR"] { outline: 2px solid #fde68a; }
 #pick-OC:checked ~ .board .plan-OC,
 #pick-OC:checked ~ .board .keys-OC { display: flex; }
 #pick-OC:checked ~ .board label[for="pick-OC"] { outline: 2px solid #fde68a; }
-#pick-DIS:checked ~ .board .plan-DIS,
-#pick-DIS:checked ~ .board .keys-DIS { display: flex; }
-#pick-DIS:checked ~ .board label[for="pick-DIS"] { outline: 2px solid #fde68a; }
-#pick-CGNX:checked ~ .board .plan-CGNX,
-#pick-CGNX:checked ~ .board .keys-CGNX { display: flex; }
-#pick-CGNX:checked ~ .board label[for="pick-CGNX"] { outline: 2px solid #fde68a; }
-#pick-XOM:checked ~ .board .plan-XOM,
-#pick-XOM:checked ~ .board .keys-XOM { display: flex; }
-#pick-XOM:checked ~ .board label[for="pick-XOM"] { outline: 2px solid #fde68a; }
 #pick-AMD:checked ~ .board .plan-AMD,
 #pick-AMD:checked ~ .board .keys-AMD { display: flex; }
 #pick-AMD:checked ~ .board label[for="pick-AMD"] { outline: 2px solid #fde68a; }
+#pick-DIS:checked ~ .board .plan-DIS,
+#pick-DIS:checked ~ .board .keys-DIS { display: flex; }
+#pick-DIS:checked ~ .board label[for="pick-DIS"] { outline: 2px solid #fde68a; }
 #pick-BA:checked ~ .board .plan-BA,
 #pick-BA:checked ~ .board .keys-BA { display: flex; }
 #pick-BA:checked ~ .board label[for="pick-BA"] { outline: 2px solid #fde68a; }
@@ -196,22 +197,22 @@
       <h1>Intratrade</h1>
       <p class="meta">Yahoo Finance regular-session prices, as of Fri, Nov 6, 4:03 PM EST. The cash session is closed, so this is the closing print rather than a fresh tick. Not a broker feed. · Cash session is closed. Prices are the regular-session print, not after-hours trading. High-impact USD events on this session: Average Hourly Earnings m/m, Non-Farm Employment Change, Unemployment Rate. Nothing on this desk sends an order.</p>
     </div>
-    <p class="counts"><span class="consider-count">0 consider</span> · <span class="aside-count">30 stand aside</span></p>
+    <p class="counts"><span class="consider-count">4 consider</span> · <span class="aside-count">26 stand aside</span></p>
   </header>
-  <section class="mood risk-off" aria-label="Market mood"><p class="mood-name">Risk-off</p><p>SPY 735.29 is below its 10-session average of 757.40. 10 of 30 names are above their 10-session average. VIX 25.64 is above its 10-session average of 20.19.</p></section>
+  <section class="mood risk-off" aria-label="Market mood"><p class="mood-name">Risk-off</p><p>SPY 735.29 is below its 10-session average of 759.86. 11 of 30 names are above their 10-session average. VIX 25.64 is above its 10-session average of 20.19.</p></section>
   <section class="indicators" aria-label="Tape indicators">
-    <div class="indicators-head"><h2>Indicators</h2><p>S&amp;P 735.29 is below its 10-session average of 757.40.</p></div>
+    <div class="indicators-head"><h2>Indicators</h2><p>S&amp;P 733.00 is below its 10-session average of 759.86.</p></div>
     <div class="indicators-scroll"><table>
         <thead><tr><th>Factor</th><th>Period</th><th>Statistic</th><th>Tape</th></tr></thead>
         <tbody><tr>
           <td>S&amp;P 500</td>
           <td>21 sessions</td>
-          <td class="stat">−5.0% · avg +0.8% since 1993 · range −33.1% to +25.2%</td>
+          <td class="stat">−5.7% · avg +0.8% since 1993 · range −33.1% to +25.2%</td>
           <td class="with">With</td>
         </tr><tr>
           <td>S&amp;P after elections</td>
-          <td>Nov 2–Nov 6, 2026</td>
-          <td class="stat">−2.2% over 4 sessions · avg +1.2% after 16 elections · range −5.0% to +6.0%</td>
+          <td>Nov 2–Nov 5, 2026</td>
+          <td class="stat">−2.5% over 3 sessions · avg +1.1% after 16 elections · range −6.4% to +6.1%</td>
           <td class="with">With</td>
         </tr><tr>
           <td>CPI</td>
@@ -226,18 +227,18 @@
         </tr><tr>
           <td>S&amp;P 500</td>
           <td>252 sessions</td>
-          <td class="stat">+8.5%</td>
+          <td class="stat">+8.6%</td>
           <td class="against">Against</td>
         </tr><tr>
           <td>TIPS vs Treasuries</td>
           <td>21 sessions</td>
-          <td class="stat">TIP +1.7% · IEF +2.7% · spread −1.0 pt</td>
+          <td class="stat">TIP +1.9% · IEF +3.2% · spread −1.3 pt</td>
           <td class="against">Against</td>
         </tr><tr>
           <td>Dollar</td>
           <td>21 sessions</td>
-          <td class="stat">+0.5%</td>
-          <td class="with">With</td>
+          <td class="stat">−0.4%</td>
+          <td class="against">Against</td>
         </tr><tr>
           <td>Oil</td>
           <td>21 sessions</td>
@@ -250,8 +251,8 @@
     <div class="targets-head">
       <h2>Targets</h2>
       <div class="rates">
-        <p><span class="reached">11 reached</span> · <span class="not-reached">2 not reached</span> · <span class="open">3 open</span></p>
-        <p>Settled hit rate: 84.6% (11 of 13 reached)</p>
+        <p><span class="reached">11 reached</span> · <span class="not-reached">1 not reached</span> · <span class="open">4 open</span></p>
+        <p>Settled hit rate: 91.7% (11 of 12 reached)</p>
         <p>Share of all suggestions: 68.8% (11 of 16 reached)</p>
       </div>
     </div>
@@ -380,36 +381,36 @@
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr class="group not-reached"><td colspan="9">Not reached · 2</td></tr>
+<tr class="group not-reached"><td colspan="9">Not reached · 1</td></tr>
+<tr class="side-short">
+          <td class="sym short">MU</td>
+          <td class="short">Short</td>
+          <td>856.49</td>
+          <td>660.32</td>
+          <td class="conf">55%</td>
+          <td>Thu, Oct 22, 2026</td>
+          <td>Wed, Oct 28, 2026</td>
+          <td></td>
+          <td class="not-reached">Not reached</td>
+        </tr>
+<tr class="group open"><td colspan="9">Open · 4</td></tr>
+<tr class="side-short">
+          <td class="sym short">NFLX</td>
+          <td class="short">Short</td>
+          <td>65.56</td>
+          <td>59.67</td>
+          <td class="conf">64%</td>
+          <td>Thu, Nov 5, 2026</td>
+          <td>Tue, Nov 10, 2026</td>
+          <td></td>
+          <td class="open">Open</td>
+        </tr>
 <tr class="side-short">
           <td class="sym short">AVGO</td>
           <td class="short">Short</td>
           <td>291.53</td>
           <td>258.43</td>
           <td class="conf">65%</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
-          <td></td>
-          <td class="not-reached">Not reached</td>
-        </tr>
-<tr class="side-short">
-          <td class="sym short">NVDA</td>
-          <td class="short">Short</td>
-          <td>210.96</td>
-          <td>194.91</td>
-          <td class="conf">57%</td>
-          <td>Fri, Oct 23, 2026</td>
-          <td>Wed, Oct 28, 2026</td>
-          <td></td>
-          <td class="not-reached">Not reached</td>
-        </tr>
-<tr class="group open"><td colspan="9">Open · 3</td></tr>
-<tr class="side-short">
-          <td class="sym short">NFLX</td>
-          <td class="short">Short</td>
-          <td>65.56</td>
-          <td>59.67</td>
-          <td class="conf">66%</td>
           <td>Thu, Nov 5, 2026</td>
           <td>Tue, Nov 10, 2026</td>
           <td></td>
@@ -439,56 +440,96 @@
         </tr></tbody>
       </table>
     </div>
-    <p class="targets-note">Checked against Yahoo regular-session bars through Fri, Nov 6, 2026. Added at is the price stored when the call was published. Confidence is 100% when the target has been reached. Otherwise it is the average of four equal readings from this book: risk/(risk+reward) for tagging the target before the stop, 1/(1+daily ATRs still left), 100 if the pace date is still ahead and 0 if it has been missed, and 100, 50, or 0 when the side agrees with the mood, the mood is mixed, or the side fights it. A row is listed only when that percent is above 50. This table does not send an order.</p>
+    <p class="targets-note">Checked against Yahoo regular-session bars through Thu, Nov 5, 2026. Added at is the price stored when the call was published. Confidence is 100% when the target has been reached. Otherwise it is the average of four equal readings from this book: risk/(risk+reward) for tagging the target before the stop, 1/(1+daily ATRs still left), 100 if the pace date is still ahead and 0 if it has been missed, and 100, 50, or 0 when the side agrees with the mood, the mood is mixed, or the side fights it. A row is listed only when that percent is above 50. This table does not send an order.</p>
   </section>
-  <input class="pick" type="radio" name="book" id="pick-FLR" checked>
-<input class="pick" type="radio" name="book" id="pick-LEA">
-<input class="pick" type="radio" name="book" id="pick-JPM">
-<input class="pick" type="radio" name="book" id="pick-MORN">
-<input class="pick" type="radio" name="book" id="pick-AVGO">
+  <input class="pick" type="radio" name="book" id="pick-MORN" checked>
 <input class="pick" type="radio" name="book" id="pick-NVDA">
-<input class="pick" type="radio" name="book" id="pick-SAIA">
+<input class="pick" type="radio" name="book" id="pick-AVGO">
+<input class="pick" type="radio" name="book" id="pick-META">
+<input class="pick" type="radio" name="book" id="pick-FLR">
+<input class="pick" type="radio" name="book" id="pick-TSLA">
+<input class="pick" type="radio" name="book" id="pick-JPM">
 <input class="pick" type="radio" name="book" id="pick-AMZN">
 <input class="pick" type="radio" name="book" id="pick-GOOGL">
 <input class="pick" type="radio" name="book" id="pick-MSFT">
-<input class="pick" type="radio" name="book" id="pick-MU">
-<input class="pick" type="radio" name="book" id="pick-WAL">
 <input class="pick" type="radio" name="book" id="pick-NFLX">
-<input class="pick" type="radio" name="book" id="pick-TSLA">
-<input class="pick" type="radio" name="book" id="pick-TREX">
+<input class="pick" type="radio" name="book" id="pick-SAIA">
+<input class="pick" type="radio" name="book" id="pick-MU">
 <input class="pick" type="radio" name="book" id="pick-CRM">
-<input class="pick" type="radio" name="book" id="pick-ORCL">
-<input class="pick" type="radio" name="book" id="pick-META">
-<input class="pick" type="radio" name="book" id="pick-AAPL">
-<input class="pick" type="radio" name="book" id="pick-WMT">
+<input class="pick" type="radio" name="book" id="pick-WAL">
 <input class="pick" type="radio" name="book" id="pick-COST">
+<input class="pick" type="radio" name="book" id="pick-ORCL">
+<input class="pick" type="radio" name="book" id="pick-AAPL">
+<input class="pick" type="radio" name="book" id="pick-LEA">
+<input class="pick" type="radio" name="book" id="pick-XOM">
+<input class="pick" type="radio" name="book" id="pick-WMT">
 <input class="pick" type="radio" name="book" id="pick-CROX">
+<input class="pick" type="radio" name="book" id="pick-TREX">
 <input class="pick" type="radio" name="book" id="pick-QCOM">
+<input class="pick" type="radio" name="book" id="pick-CGNX">
 <input class="pick" type="radio" name="book" id="pick-BLDR">
 <input class="pick" type="radio" name="book" id="pick-OC">
-<input class="pick" type="radio" name="book" id="pick-DIS">
-<input class="pick" type="radio" name="book" id="pick-CGNX">
-<input class="pick" type="radio" name="book" id="pick-XOM">
 <input class="pick" type="radio" name="book" id="pick-AMD">
+<input class="pick" type="radio" name="book" id="pick-DIS">
 <input class="pick" type="radio" name="book" id="pick-BA">
   <main class="board">
-    <div class="mobile-keys"><article class="keys keys-FLR">
+    <div class="mobile-keys"><article class="keys keys-MORN">
+        <div class="keys-top"><strong class="long">MORN</strong><span><span class="long">Long</span> · Consider</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>244.15</dd></div>
+          <div><dt>Target</dt><dd>270.36</dd></div>
+          <div><dt>Stop</dt><dd>236.93</dd></div>
+          <div><dt>R:R</dt><dd>3.63:1</dd></div>
+        </dl>
+        <p>4 sessions</p>
+      </article>
+<article class="keys keys-NVDA">
+        <div class="keys-top"><strong class="short">NVDA</strong><span><span class="short">Short</span> · Consider</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>186.64</dd></div>
+          <div><dt>Target</dt><dd>160.33</dd></div>
+          <div><dt>Stop</dt><dd>194.10</dd></div>
+          <div><dt>R:R</dt><dd>3.53:1</dd></div>
+        </dl>
+        <p>4 sessions</p>
+      </article>
+<article class="keys keys-AVGO">
+        <div class="keys-top"><strong class="short">AVGO</strong><span><span class="short">Short</span> · Consider</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>293.69</dd></div>
+          <div><dt>Target</dt><dd>258.43</dd></div>
+          <div><dt>Stop</dt><dd>308.09</dd></div>
+          <div><dt>R:R</dt><dd>2.45:1</dd></div>
+        </dl>
+        <p>3 sessions</p>
+      </article>
+<article class="keys keys-META">
+        <div class="keys-top"><strong class="short">META</strong><span><span class="short">Short</span> · Consider</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>610.15</dd></div>
+          <div><dt>Target</dt><dd>476.85</dd></div>
+          <div><dt>Stop</dt><dd>633.62</dd></div>
+          <div><dt>R:R</dt><dd>5.68:1</dd></div>
+        </dl>
+        <p>6 sessions</p>
+      </article>
+<article class="keys keys-FLR">
         <div class="keys-top"><strong class="long">FLR</strong><span><span class="long">Long</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>46.48</dd></div>
           <div><dt>Target</dt><dd>47.26</dd></div>
-          <div><dt>Stop</dt><dd>44.34</dd></div>
-          <div><dt>R:R</dt><dd>0.36:1</dd></div>
+          <div><dt>Stop</dt><dd>44.53</dd></div>
+          <div><dt>R:R</dt><dd>0.40:1</dd></div>
         </dl>
         <p>1 session</p>
       </article>
-<article class="keys keys-LEA">
-        <div class="keys-top"><strong class="short">LEA</strong><span><span class="short">Short</span> · Stand aside</span></div>
+<article class="keys keys-TSLA">
+        <div class="keys-top"><strong class="short">TSLA</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
-          <div><dt>Last</dt><dd>110.28</dd></div>
-          <div><dt>Target</dt><dd>102.39</dd></div>
-          <div><dt>Stop</dt><dd>114.05</dd></div>
-          <div><dt>R:R</dt><dd>2.09:1</dd></div>
+          <div><dt>Last</dt><dd>358.22</dd></div>
+          <div><dt>Target</dt><dd>311.24</dd></div>
+          <div><dt>Stop</dt><dd>375.85</dd></div>
+          <div><dt>R:R</dt><dd>2.66:1</dd></div>
         </dl>
         <p>3 sessions</p>
       </article>
@@ -497,48 +538,8 @@
         <dl>
           <div><dt>Last</dt><dd>334.49</dd></div>
           <div><dt>Target</dt><dd>301.65</dd></div>
-          <div><dt>Stop</dt><dd>342.37</dd></div>
-          <div><dt>R:R</dt><dd>4.17:1</dd></div>
-        </dl>
-        <p>5 sessions</p>
-      </article>
-<article class="keys keys-MORN">
-        <div class="keys-top"><strong class="long">MORN</strong><span><span class="long">Long</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>244.15</dd></div>
-          <div><dt>Target</dt><dd>240.55</dd></div>
-          <div><dt>Stop</dt><dd>236.65</dd></div>
-          <div><dt>R:R</dt><dd>-0.48:1</dd></div>
-        </dl>
-        <p>1 session</p>
-      </article>
-<article class="keys keys-AVGO">
-        <div class="keys-top"><strong class="short">AVGO</strong><span><span class="short">Short</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>293.69</dd></div>
-          <div><dt>Target</dt><dd>300.18</dd></div>
-          <div><dt>Stop</dt><dd>308.83</dd></div>
-          <div><dt>R:R</dt><dd>-0.43:1</dd></div>
-        </dl>
-        <p>1 session</p>
-      </article>
-<article class="keys keys-NVDA">
-        <div class="keys-top"><strong class="short">NVDA</strong><span><span class="short">Short</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>186.64</dd></div>
-          <div><dt>Target</dt><dd>191.03</dd></div>
-          <div><dt>Stop</dt><dd>194.66</dd></div>
-          <div><dt>R:R</dt><dd>-0.55:1</dd></div>
-        </dl>
-        <p>1 session</p>
-      </article>
-<article class="keys keys-SAIA">
-        <div class="keys-top"><strong class="long">SAIA</strong><span><span class="long">Long</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>331.90</dd></div>
-          <div><dt>Target</dt><dd>400.52</dd></div>
-          <div><dt>Stop</dt><dd>316.03</dd></div>
-          <div><dt>R:R</dt><dd>4.32:1</dd></div>
+          <div><dt>Stop</dt><dd>342.30</dd></div>
+          <div><dt>R:R</dt><dd>4.20:1</dd></div>
         </dl>
         <p>5 sessions</p>
       </article>
@@ -547,8 +548,8 @@
         <dl>
           <div><dt>Last</dt><dd>259.30</dd></div>
           <div><dt>Target</dt><dd>222.15</dd></div>
-          <div><dt>Stop</dt><dd>269.06</dd></div>
-          <div><dt>R:R</dt><dd>3.81:1</dd></div>
+          <div><dt>Stop</dt><dd>269.64</dd></div>
+          <div><dt>R:R</dt><dd>3.59:1</dd></div>
         </dl>
         <p>4 sessions</p>
       </article>
@@ -557,8 +558,8 @@
         <dl>
           <div><dt>Last</dt><dd>284.78</dd></div>
           <div><dt>Target</dt><dd>212.51</dd></div>
-          <div><dt>Stop</dt><dd>296.08</dd></div>
-          <div><dt>R:R</dt><dd>6.40:1</dd></div>
+          <div><dt>Stop</dt><dd>295.94</dd></div>
+          <div><dt>R:R</dt><dd>6.48:1</dd></div>
         </dl>
         <p>7 sessions</p>
       </article>
@@ -566,9 +567,29 @@
         <div class="keys-top"><strong class="short">MSFT</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>530.61</dd></div>
-          <div><dt>Target</dt><dd>454.77</dd></div>
-          <div><dt>Stop</dt><dd>546.47</dd></div>
-          <div><dt>R:R</dt><dd>4.78:1</dd></div>
+          <div><dt>Target</dt><dd>485.18</dd></div>
+          <div><dt>Stop</dt><dd>546.03</dd></div>
+          <div><dt>R:R</dt><dd>2.95:1</dd></div>
+        </dl>
+        <p>3 sessions</p>
+      </article>
+<article class="keys keys-NFLX">
+        <div class="keys-top"><strong class="short">NFLX</strong><span><span class="short">Short</span> · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>63.41</dd></div>
+          <div><dt>Target</dt><dd>59.67</dd></div>
+          <div><dt>Stop</dt><dd>65.56</dd></div>
+          <div><dt>R:R</dt><dd>1.74:1</dd></div>
+        </dl>
+        <p>2 sessions</p>
+      </article>
+<article class="keys keys-SAIA">
+        <div class="keys-top"><strong class="long">SAIA</strong><span><span class="long">Long</span> · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>331.90</dd></div>
+          <div><dt>Target</dt><dd>400.52</dd></div>
+          <div><dt>Stop</dt><dd>316.08</dd></div>
+          <div><dt>R:R</dt><dd>4.34:1</dd></div>
         </dl>
         <p>5 sessions</p>
       </article>
@@ -577,128 +598,128 @@
         <dl>
           <div><dt>Last</dt><dd>690.00</dd></div>
           <div><dt>Target</dt><dd>610.53</dd></div>
-          <div><dt>Stop</dt><dd>748.85</dd></div>
-          <div><dt>R:R</dt><dd>1.35:1</dd></div>
+          <div><dt>Stop</dt><dd>747.39</dd></div>
+          <div><dt>R:R</dt><dd>1.38:1</dd></div>
         </dl>
         <p>2 sessions</p>
-      </article>
-<article class="keys keys-WAL">
-        <div class="keys-top"><strong class="short">WAL</strong><span><span class="short">Short</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>75.55</dd></div>
-          <div><dt>Target</dt><dd>61.24</dd></div>
-          <div><dt>Stop</dt><dd>78.09</dd></div>
-          <div><dt>R:R</dt><dd>5.63:1</dd></div>
-        </dl>
-        <p>6 sessions</p>
-      </article>
-<article class="keys keys-NFLX">
-        <div class="keys-top"><strong class="short">NFLX</strong><span><span class="short">Short</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>63.41</dd></div>
-          <div><dt>Target</dt><dd>62.66</dd></div>
-          <div><dt>Stop</dt><dd>65.62</dd></div>
-          <div><dt>R:R</dt><dd>0.34:1</dd></div>
-        </dl>
-        <p>1 session</p>
-      </article>
-<article class="keys keys-TSLA">
-        <div class="keys-top"><strong class="short">TSLA</strong><span><span class="short">Short</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>358.22</dd></div>
-          <div><dt>Target</dt><dd>181.34</dd></div>
-          <div><dt>Stop</dt><dd>376.20</dd></div>
-          <div><dt>R:R</dt><dd>9.84:1</dd></div>
-        </dl>
-        <p>10 sessions</p>
-      </article>
-<article class="keys keys-TREX">
-        <div class="keys-top"><strong class="long">TREX</strong><span><span class="long">Long</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>54.74</dd></div>
-          <div><dt>Target</dt><dd>53.84</dd></div>
-          <div><dt>Stop</dt><dd>52.32</dd></div>
-          <div><dt>R:R</dt><dd>-0.37:1</dd></div>
-        </dl>
-        <p>1 session</p>
       </article>
 <article class="keys keys-CRM">
         <div class="keys-top"><strong class="short">CRM</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>213.65</dd></div>
-          <div><dt>Target</dt><dd>194.77</dd></div>
-          <div><dt>Stop</dt><dd>223.15</dd></div>
-          <div><dt>R:R</dt><dd>1.99:1</dd></div>
+          <div><dt>Target</dt><dd>209.03</dd></div>
+          <div><dt>Stop</dt><dd>222.77</dd></div>
+          <div><dt>R:R</dt><dd>0.51:1</dd></div>
         </dl>
-        <p>2 sessions</p>
+        <p>1 session</p>
+      </article>
+<article class="keys keys-WAL">
+        <div class="keys-top"><strong class="short">WAL</strong><span><span class="short">Short</span> · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>75.55</dd></div>
+          <div><dt>Target</dt><dd>64.75</dd></div>
+          <div><dt>Stop</dt><dd>78.09</dd></div>
+          <div><dt>R:R</dt><dd>4.25:1</dd></div>
+        </dl>
+        <p>5 sessions</p>
+      </article>
+<article class="keys keys-COST">
+        <div class="keys-top"><strong class="long">COST</strong><span><span class="long">Long</span> · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>1,053.56</dd></div>
+          <div><dt>Target</dt><dd>1,122.62</dd></div>
+          <div><dt>Stop</dt><dd>1,033.58</dd></div>
+          <div><dt>R:R</dt><dd>3.46:1</dd></div>
+        </dl>
+        <p>4 sessions</p>
       </article>
 <article class="keys keys-ORCL">
         <div class="keys-top"><strong class="short">ORCL</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>116.10</dd></div>
-          <div><dt>Target</dt><dd>96.93</dd></div>
-          <div><dt>Stop</dt><dd>124.98</dd></div>
-          <div><dt>R:R</dt><dd>2.16:1</dd></div>
+          <div><dt>Target</dt><dd>89.44</dd></div>
+          <div><dt>Stop</dt><dd>124.47</dd></div>
+          <div><dt>R:R</dt><dd>3.19:1</dd></div>
         </dl>
-        <p>3 sessions</p>
-      </article>
-<article class="keys keys-META">
-        <div class="keys-top"><strong class="short">META</strong><span><span class="short">Short</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>610.15</dd></div>
-          <div><dt>Target</dt><dd>464.52</dd></div>
-          <div><dt>Stop</dt><dd>633.97</dd></div>
-          <div><dt>R:R</dt><dd>6.11:1</dd></div>
-        </dl>
-        <p>7 sessions</p>
+        <p>4 sessions</p>
       </article>
 <article class="keys keys-AAPL">
         <div class="keys-top"><strong class="short">AAPL</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>342.37</dd></div>
           <div><dt>Target</dt><dd>252.00</dd></div>
-          <div><dt>Stop</dt><dd>351.39</dd></div>
-          <div><dt>R:R</dt><dd>10.02:1</dd></div>
+          <div><dt>Stop</dt><dd>351.27</dd></div>
+          <div><dt>R:R</dt><dd>10.15:1</dd></div>
         </dl>
         <p>11 sessions</p>
+      </article>
+<article class="keys keys-LEA">
+        <div class="keys-top"><strong class="short">LEA</strong><span><span class="short">Short</span> · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>110.28</dd></div>
+          <div><dt>Target</dt><dd>109.13</dd></div>
+          <div><dt>Stop</dt><dd>113.91</dd></div>
+          <div><dt>R:R</dt><dd>0.32:1</dd></div>
+        </dl>
+        <p>1 session</p>
+      </article>
+<article class="keys keys-XOM">
+        <div class="keys-top"><strong class="short">XOM</strong><span><span class="short">Short</span> · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>165.87</dd></div>
+          <div><dt>Target</dt><dd>154.41</dd></div>
+          <div><dt>Stop</dt><dd>170.98</dd></div>
+          <div><dt>R:R</dt><dd>2.24:1</dd></div>
+        </dl>
+        <p>3 sessions</p>
       </article>
 <article class="keys keys-WMT">
         <div class="keys-top"><strong class="long">WMT</strong><span><span class="long">Long</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>125.52</dd></div>
           <div><dt>Target</dt><dd>128.80</dd></div>
-          <div><dt>Stop</dt><dd>122.30</dd></div>
-          <div><dt>R:R</dt><dd>1.02:1</dd></div>
+          <div><dt>Stop</dt><dd>122.54</dd></div>
+          <div><dt>R:R</dt><dd>1.10:1</dd></div>
         </dl>
         <p>2 sessions</p>
-      </article>
-<article class="keys keys-COST">
-        <div class="keys-top"><strong class="long">COST</strong><span><span class="long">Long</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>1,053.56</dd></div>
-          <div><dt>Target</dt><dd>1,210.26</dd></div>
-          <div><dt>Stop</dt><dd>1,032.86</dd></div>
-          <div><dt>R:R</dt><dd>7.57:1</dd></div>
-        </dl>
-        <p>8 sessions</p>
       </article>
 <article class="keys keys-CROX">
         <div class="keys-top"><strong class="long">CROX</strong><span><span class="long">Long</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>151.86</dd></div>
           <div><dt>Target</dt><dd>165.31</dd></div>
-          <div><dt>Stop</dt><dd>144.87</dd></div>
-          <div><dt>R:R</dt><dd>1.92:1</dd></div>
+          <div><dt>Stop</dt><dd>144.95</dd></div>
+          <div><dt>R:R</dt><dd>1.95:1</dd></div>
         </dl>
         <p>2 sessions</p>
+      </article>
+<article class="keys keys-TREX">
+        <div class="keys-top"><strong class="short">TREX</strong><span><span class="short">Short</span> · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>54.74</dd></div>
+          <div><dt>Target</dt><dd>53.56</dd></div>
+          <div><dt>Stop</dt><dd>57.14</dd></div>
+          <div><dt>R:R</dt><dd>0.49:1</dd></div>
+        </dl>
+        <p>1 session</p>
       </article>
 <article class="keys keys-QCOM">
         <div class="keys-top"><strong class="short">QCOM</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>165.41</dd></div>
           <div><dt>Target</dt><dd>150.41</dd></div>
-          <div><dt>Stop</dt><dd>174.51</dd></div>
-          <div><dt>R:R</dt><dd>1.65:1</dd></div>
+          <div><dt>Stop</dt><dd>174.16</dd></div>
+          <div><dt>R:R</dt><dd>1.71:1</dd></div>
+        </dl>
+        <p>2 sessions</p>
+      </article>
+<article class="keys keys-CGNX">
+        <div class="keys-top"><strong class="short">CGNX</strong><span><span class="short">Short</span> · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>47.78</dd></div>
+          <div><dt>Target</dt><dd>41.64</dd></div>
+          <div><dt>Stop</dt><dd>51.10</dd></div>
+          <div><dt>R:R</dt><dd>1.85:1</dd></div>
         </dl>
         <p>2 sessions</p>
       </article>
@@ -707,8 +728,8 @@
         <dl>
           <div><dt>Last</dt><dd>62.54</dd></div>
           <div><dt>Target</dt><dd>64.32</dd></div>
-          <div><dt>Stop</dt><dd>58.95</dd></div>
-          <div><dt>R:R</dt><dd>0.50:1</dd></div>
+          <div><dt>Stop</dt><dd>59.02</dd></div>
+          <div><dt>R:R</dt><dd>0.51:1</dd></div>
         </dl>
         <p>1 session</p>
       </article>
@@ -717,92 +738,144 @@
         <dl>
           <div><dt>Last</dt><dd>121.31</dd></div>
           <div><dt>Target</dt><dd>128.59</dd></div>
-          <div><dt>Stop</dt><dd>115.68</dd></div>
-          <div><dt>R:R</dt><dd>1.29:1</dd></div>
+          <div><dt>Stop</dt><dd>115.86</dd></div>
+          <div><dt>R:R</dt><dd>1.34:1</dd></div>
         </dl>
         <p>2 sessions</p>
+      </article>
+<article class="keys keys-AMD">
+        <div class="keys-top"><strong class="short">AMD</strong><span><span class="short">Short</span> · Stand aside</span></div>
+        <dl>
+          <div><dt>Last</dt><dd>449.04</dd></div>
+          <div><dt>Target</dt><dd>317.43</dd></div>
+          <div><dt>Stop</dt><dd>484.94</dd></div>
+          <div><dt>R:R</dt><dd>3.67:1</dd></div>
+        </dl>
+        <p>4 sessions</p>
       </article>
 <article class="keys keys-DIS">
         <div class="keys-top"><strong class="long">DIS</strong><span><span class="long">Long</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>116.75</dd></div>
           <div><dt>Target</dt><dd>119.01</dd></div>
-          <div><dt>Stop</dt><dd>114.23</dd></div>
-          <div><dt>R:R</dt><dd>0.90:1</dd></div>
+          <div><dt>Stop</dt><dd>114.41</dd></div>
+          <div><dt>R:R</dt><dd>0.97:1</dd></div>
         </dl>
         <p>1 session</p>
-      </article>
-<article class="keys keys-CGNX">
-        <div class="keys-top"><strong class="short">CGNX</strong><span><span class="short">Short</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>47.78</dd></div>
-          <div><dt>Target</dt><dd>47.72</dd></div>
-          <div><dt>Stop</dt><dd>51.09</dd></div>
-          <div><dt>R:R</dt><dd>0.02:1</dd></div>
-        </dl>
-        <p>1 session</p>
-      </article>
-<article class="keys keys-XOM">
-        <div class="keys-top"><strong class="short">XOM</strong><span><span class="short">Short</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>165.87</dd></div>
-          <div><dt>Target</dt><dd>165.89</dd></div>
-          <div><dt>Stop</dt><dd>171.07</dd></div>
-          <div><dt>R:R</dt><dd>-0.00:1</dd></div>
-        </dl>
-        <p>1 session</p>
-      </article>
-<article class="keys keys-AMD">
-        <div class="keys-top"><strong class="short">AMD</strong><span><span class="short">Short</span> · Stand aside</span></div>
-        <dl>
-          <div><dt>Last</dt><dd>449.04</dd></div>
-          <div><dt>Target</dt><dd>296.45</dd></div>
-          <div><dt>Stop</dt><dd>487.06</dd></div>
-          <div><dt>R:R</dt><dd>4.01:1</dd></div>
-        </dl>
-        <p>5 sessions</p>
       </article>
 <article class="keys keys-BA">
         <div class="keys-top"><strong class="short">BA</strong><span><span class="short">Short</span> · Stand aside</span></div>
         <dl>
           <div><dt>Last</dt><dd>173.40</dd></div>
           <div><dt>Target</dt><dd>171.66</dd></div>
-          <div><dt>Stop</dt><dd>179.72</dd></div>
+          <div><dt>Stop</dt><dd>179.67</dd></div>
           <div><dt>R:R</dt><dd>0.28:1</dd></div>
         </dl>
         <p>1 session</p>
       </article></div>
-    <div class="grid" role="listbox" aria-label="Liquid book"><label class="box aside" for="pick-FLR"><span class="sym long">FLR</span><span class="sub"><span class="long">Long</span> · 46.48</span></label>
-<label class="box aside" for="pick-LEA"><span class="sym short">LEA</span><span class="sub"><span class="short">Short</span> · 110.28</span></label>
+    <div class="grid" role="listbox" aria-label="Liquid book"><label class="box consider" for="pick-MORN"><span class="sym long">MORN</span><span class="sub"><span class="long">Long</span> · 244.15</span></label>
+<label class="box consider" for="pick-NVDA"><span class="sym short">NVDA</span><span class="sub"><span class="short">Short</span> · 186.64</span></label>
+<label class="box consider" for="pick-AVGO"><span class="sym short">AVGO</span><span class="sub"><span class="short">Short</span> · 293.69</span></label>
+<label class="box consider" for="pick-META"><span class="sym short">META</span><span class="sub"><span class="short">Short</span> · 610.15</span></label>
+<label class="box aside" for="pick-FLR"><span class="sym long">FLR</span><span class="sub"><span class="long">Long</span> · 46.48</span></label>
+<label class="box aside" for="pick-TSLA"><span class="sym short">TSLA</span><span class="sub"><span class="short">Short</span> · 358.22</span></label>
 <label class="box aside" for="pick-JPM"><span class="sym short">JPM</span><span class="sub"><span class="short">Short</span> · 334.49</span></label>
-<label class="box aside" for="pick-MORN"><span class="sym long">MORN</span><span class="sub"><span class="long">Long</span> · 244.15</span></label>
-<label class="box aside" for="pick-AVGO"><span class="sym short">AVGO</span><span class="sub"><span class="short">Short</span> · 293.69</span></label>
-<label class="box aside" for="pick-NVDA"><span class="sym short">NVDA</span><span class="sub"><span class="short">Short</span> · 186.64</span></label>
-<label class="box aside" for="pick-SAIA"><span class="sym long">SAIA</span><span class="sub"><span class="long">Long</span> · 331.90</span></label>
 <label class="box aside" for="pick-AMZN"><span class="sym short">AMZN</span><span class="sub"><span class="short">Short</span> · 259.30</span></label>
 <label class="box aside" for="pick-GOOGL"><span class="sym short">GOOGL</span><span class="sub"><span class="short">Short</span> · 284.78</span></label>
 <label class="box aside" for="pick-MSFT"><span class="sym short">MSFT</span><span class="sub"><span class="short">Short</span> · 530.61</span></label>
-<label class="box aside" for="pick-MU"><span class="sym short">MU</span><span class="sub"><span class="short">Short</span> · 690.00</span></label>
-<label class="box aside" for="pick-WAL"><span class="sym short">WAL</span><span class="sub"><span class="short">Short</span> · 75.55</span></label>
 <label class="box aside" for="pick-NFLX"><span class="sym short">NFLX</span><span class="sub"><span class="short">Short</span> · 63.41</span></label>
-<label class="box aside" for="pick-TSLA"><span class="sym short">TSLA</span><span class="sub"><span class="short">Short</span> · 358.22</span></label>
-<label class="box aside" for="pick-TREX"><span class="sym long">TREX</span><span class="sub"><span class="long">Long</span> · 54.74</span></label>
+<label class="box aside" for="pick-SAIA"><span class="sym long">SAIA</span><span class="sub"><span class="long">Long</span> · 331.90</span></label>
+<label class="box aside" for="pick-MU"><span class="sym short">MU</span><span class="sub"><span class="short">Short</span> · 690.00</span></label>
 <label class="box aside" for="pick-CRM"><span class="sym short">CRM</span><span class="sub"><span class="short">Short</span> · 213.65</span></label>
-<label class="box aside" for="pick-ORCL"><span class="sym short">ORCL</span><span class="sub"><span class="short">Short</span> · 116.10</span></label>
-<label class="box aside" for="pick-META"><span class="sym short">META</span><span class="sub"><span class="short">Short</span> · 610.15</span></label>
-<label class="box aside" for="pick-AAPL"><span class="sym short">AAPL</span><span class="sub"><span class="short">Short</span> · 342.37</span></label>
-<label class="box aside" for="pick-WMT"><span class="sym long">WMT</span><span class="sub"><span class="long">Long</span> · 125.52</span></label>
+<label class="box aside" for="pick-WAL"><span class="sym short">WAL</span><span class="sub"><span class="short">Short</span> · 75.55</span></label>
 <label class="box aside" for="pick-COST"><span class="sym long">COST</span><span class="sub"><span class="long">Long</span> · 1,053.56</span></label>
+<label class="box aside" for="pick-ORCL"><span class="sym short">ORCL</span><span class="sub"><span class="short">Short</span> · 116.10</span></label>
+<label class="box aside" for="pick-AAPL"><span class="sym short">AAPL</span><span class="sub"><span class="short">Short</span> · 342.37</span></label>
+<label class="box aside" for="pick-LEA"><span class="sym short">LEA</span><span class="sub"><span class="short">Short</span> · 110.28</span></label>
+<label class="box aside" for="pick-XOM"><span class="sym short">XOM</span><span class="sub"><span class="short">Short</span> · 165.87</span></label>
+<label class="box aside" for="pick-WMT"><span class="sym long">WMT</span><span class="sub"><span class="long">Long</span> · 125.52</span></label>
 <label class="box aside" for="pick-CROX"><span class="sym long">CROX</span><span class="sub"><span class="long">Long</span> · 151.86</span></label>
+<label class="box aside" for="pick-TREX"><span class="sym short">TREX</span><span class="sub"><span class="short">Short</span> · 54.74</span></label>
 <label class="box aside" for="pick-QCOM"><span class="sym short">QCOM</span><span class="sub"><span class="short">Short</span> · 165.41</span></label>
+<label class="box aside" for="pick-CGNX"><span class="sym short">CGNX</span><span class="sub"><span class="short">Short</span> · 47.78</span></label>
 <label class="box aside" for="pick-BLDR"><span class="sym long">BLDR</span><span class="sub"><span class="long">Long</span> · 62.54</span></label>
 <label class="box aside" for="pick-OC"><span class="sym long">OC</span><span class="sub"><span class="long">Long</span> · 121.31</span></label>
-<label class="box aside" for="pick-DIS"><span class="sym long">DIS</span><span class="sub"><span class="long">Long</span> · 116.75</span></label>
-<label class="box aside" for="pick-CGNX"><span class="sym short">CGNX</span><span class="sub"><span class="short">Short</span> · 47.78</span></label>
-<label class="box aside" for="pick-XOM"><span class="sym short">XOM</span><span class="sub"><span class="short">Short</span> · 165.87</span></label>
 <label class="box aside" for="pick-AMD"><span class="sym short">AMD</span><span class="sub"><span class="short">Short</span> · 449.04</span></label>
+<label class="box aside" for="pick-DIS"><span class="sym long">DIS</span><span class="sub"><span class="long">Long</span> · 116.75</span></label>
 <label class="box aside" for="pick-BA"><span class="sym short">BA</span><span class="sub"><span class="short">Short</span> · 173.40</span></label></div>
-    <div class="plans"><article class="plan plan-FLR">
+    <div class="plans"><article class="plan plan-MORN">
+        <header class="plan-head">
+          <div><h2 class="long">MORN</h2><p class="name">Morningstar, Inc.</p></div>
+          <p class="plan-side"><span class="long">Long</span> <span class="badge consider">Consider</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>244.15</dd></div>
+          <div><dt>Target</dt><dd>270.36</dd></div>
+          <div><dt>Stop</dt><dd>236.93</dd></div>
+          <div><dt>Reward:risk</dt><dd>3.63:1</dd></div>
+        </dl>
+        <p class="reach">Thu, Nov 12, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
+        <p class="timing wait">Wait. The tape is risk-off, so this long is fighting the mood.</p>
+        <p><strong>News.</strong> Positive. Morningstar (MORN) Posted Stronger Q3 Results, Is The Stock Already Fully Valued?</p>
+        <p><strong>Earnings.</strong> EPS 3.48 vs 3.04 (+14.49%). $672.1M reported revenue. 3Q2026.</p>
+        <p><strong>Pattern.</strong> Breakout, triggered. Closed through the prior 20-session high at 245.02.</p>
+        <p class="reason">Breakout (triggered). Closed through the prior 20-session high at 245.02.</p>
+      </article>
+<article class="plan plan-NVDA">
+        <header class="plan-head">
+          <div><h2 class="short">NVDA</h2><p class="name">NVIDIA Corporation</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge consider">Consider</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>186.64</dd></div>
+          <div><dt>Target</dt><dd>160.33</dd></div>
+          <div><dt>Stop</dt><dd>194.10</dd></div>
+          <div><dt>Reward:risk</dt><dd>3.53:1</dd></div>
+        </dl>
+        <p class="reach">Thu, Nov 12, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
+        <p class="timing take">Take it. The tape is risk-off, and this name is a short.</p>
+        <p><strong>News.</strong> Neutral. Nvidia (NVDA) Tightens Chip Tracking In Southeast Asia</p>
+        <p><strong>Earnings.</strong> EPS 2.22 vs 2.09 (+6.22%). $96.22B reported revenue. Quarter ended Jul 2026.</p>
+        <p><strong>Pattern.</strong> Bear flag, triggered. Bear flag cleared 199.68 after a 10.6% pole. The flag fails through 209.98.</p>
+        <p class="reason">Bear flag (triggered). Bear flag cleared 199.68 after a 10.6% pole. The flag fails through 209.98.</p>
+      </article>
+<article class="plan plan-AVGO">
+        <header class="plan-head">
+          <div><h2 class="short">AVGO</h2><p class="name">Broadcom Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge consider">Consider</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>293.69</dd></div>
+          <div><dt>Target</dt><dd>258.43</dd></div>
+          <div><dt>Stop</dt><dd>308.09</dd></div>
+          <div><dt>Reward:risk</dt><dd>2.45:1</dd></div>
+        </dl>
+        <p class="reach">Wed, Nov 11, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
+        <p class="timing take">Take it. The tape is risk-off, and this name is a short.</p>
+        <p><strong>News.</strong> Neutral. Broadcom Is Still Down 22% in the Past Month: Is AVGO Stock Really on a Road to Recovery?</p>
+        <p><strong>Earnings.</strong> EPS 3.03 vs 2.83 (+7.07%). $22.19B reported revenue. Quarter ended Jul 2026.</p>
+        <p><strong>Pattern.</strong> Bear flag, triggered. Bear flag cleared 321.74 after a 10.4% pole. The flag fails through 335.74.</p>
+        <p class="reason">Bear flag (triggered). Bear flag cleared 321.74 after a 10.4% pole. The flag fails through 335.74.</p>
+      </article>
+<article class="plan plan-META">
+        <header class="plan-head">
+          <div><h2 class="short">META</h2><p class="name">Meta Platforms, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge consider">Consider</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>610.15</dd></div>
+          <div><dt>Target</dt><dd>476.85</dd></div>
+          <div><dt>Stop</dt><dd>633.62</dd></div>
+          <div><dt>Reward:risk</dt><dd>5.68:1</dd></div>
+        </dl>
+        <p class="reach">Mon, Nov 16, 2026, if price travels about one daily ATR per session toward the target (6 sessions).</p>
+        <p class="timing take">Take it. The tape is risk-off, and this name is a short.</p>
+        <p><strong>News.</strong> Neutral. Meta Pauses Data-Scraping Terms Following Publisher Criticism</p>
+        <p><strong>Earnings.</strong> EPS 7.40 vs 6.52 (+13.50%). $64.60B reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Bear flag, triggered. Bear flag cleared 606.41 after a 20.2% pole. The flag fails through 647.69.</p>
+        <p class="reason">Bear flag (triggered). Bear flag cleared 606.41 after a 20.2% pole. The flag fails through 647.69.</p>
+      </article>
+<article class="plan plan-FLR">
         <header class="plan-head">
           <div><h2 class="long">FLR</h2><p class="name">Fluor Corporation</p></div>
           <p class="plan-side"><span class="long">Long</span> <span class="badge aside">Stand aside</span></p>
@@ -810,33 +883,33 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>46.48</dd></div>
           <div><dt>Target</dt><dd>47.26</dd></div>
-          <div><dt>Stop</dt><dd>44.34</dd></div>
-          <div><dt>Reward:risk</dt><dd>0.36:1</dd></div>
+          <div><dt>Stop</dt><dd>44.53</dd></div>
+          <div><dt>Reward:risk</dt><dd>0.40:1</dd></div>
         </dl>
         <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
         
         <p><strong>News.</strong> Positive. Fluor Corp (FLR) Q3 2026 Earnings Call Highlights: Record $10.9 Billion in New Awards and $34. ...</p>
         <p><strong>Earnings.</strong> EPS 0.91 vs 0.73 (+24.66%). $3.72B reported revenue. Quarter ended Jun 2026.</p>
         <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 42.80–45.03, and the session closed outside that range.</p>
-        <p class="reason">Stand aside. Reward to risk is 0.36:1, short of the 2.00:1 minimum.</p>
+        <p class="reason">Stand aside. Reward to risk is 0.40:1, short of the 2.00:1 minimum.</p>
       </article>
-<article class="plan plan-LEA">
+<article class="plan plan-TSLA">
         <header class="plan-head">
-          <div><h2 class="short">LEA</h2><p class="name">Lear Corporation</p></div>
+          <div><h2 class="short">TSLA</h2><p class="name">Tesla, Inc.</p></div>
           <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
         </header>
         <dl class="stats">
-          <div><dt>Last</dt><dd>110.28</dd></div>
-          <div><dt>Target</dt><dd>102.39</dd></div>
-          <div><dt>Stop</dt><dd>114.05</dd></div>
-          <div><dt>Reward:risk</dt><dd>2.09:1</dd></div>
+          <div><dt>Last</dt><dd>358.22</dd></div>
+          <div><dt>Target</dt><dd>311.24</dd></div>
+          <div><dt>Stop</dt><dd>375.85</dd></div>
+          <div><dt>Reward:risk</dt><dd>2.66:1</dd></div>
         </dl>
         <p class="reach">Wed, Nov 11, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
         
-        <p><strong>News.</strong> Neutral. Unlocking Lear (LEA) International Revenues: Trends, Surprises, and Prospects</p>
-        <p><strong>Earnings.</strong> EPS 3.71 vs 3.32 (+11.75%). $5.77B reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Double top, triggered. Two highs near 124.11 share a neckline at 113.25. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. The EPS print is fresh (reported 5 sessions ago) and beat by 11.75%, which fights a short.</p>
+        <p><strong>News.</strong> Neutral. Musk's futuristic Cybertruck rolls toward exit</p>
+        <p><strong>Earnings.</strong> EPS 0.20 vs 0.22 (-9.09%). $28.05B reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Breakdown, triggered. Closed through the prior 20-session low at 349.33.</p>
+        <p class="reason">Stand aside. The opening range broke the other way.</p>
       </article>
 <article class="plan plan-JPM">
         <header class="plan-head">
@@ -846,86 +919,14 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>334.49</dd></div>
           <div><dt>Target</dt><dd>301.65</dd></div>
-          <div><dt>Stop</dt><dd>342.37</dd></div>
-          <div><dt>Reward:risk</dt><dd>4.17:1</dd></div>
+          <div><dt>Stop</dt><dd>342.30</dd></div>
+          <div><dt>Reward:risk</dt><dd>4.20:1</dd></div>
         </dl>
         <p class="reach">Fri, Nov 13, 2026, if price travels about one daily ATR per session toward the target (5 sessions).</p>
         
         <p><strong>News.</strong> Neutral. JPM Flags Higher Rate Risks: Can Its Balance Sheet Stay Resilient?</p>
         <p><strong>Earnings.</strong> EPS 5.75 vs 5.94 (-3.20%). $50.17B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double top, forming. Two highs near 348.49 share a neckline at 325.07. Price has not closed through 325.07.</p>
-        <p class="reason">Stand aside. The chart pattern has not triggered.</p>
-      </article>
-<article class="plan plan-MORN">
-        <header class="plan-head">
-          <div><h2 class="long">MORN</h2><p class="name">Morningstar, Inc.</p></div>
-          <p class="plan-side"><span class="long">Long</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>244.15</dd></div>
-          <div><dt>Target</dt><dd>240.55</dd></div>
-          <div><dt>Stop</dt><dd>236.65</dd></div>
-          <div><dt>Reward:risk</dt><dd>-0.48:1</dd></div>
-        </dl>
-        <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        
-        <p><strong>News.</strong> Positive. Morningstar (MORN) Posted Stronger Q3 Results, Is The Stock Already Fully Valued?</p>
-        <p><strong>Earnings.</strong> EPS 3.48 vs 3.04 (+14.49%). $672.1M reported revenue. 3Q2026.</p>
-        <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 212.03 share a neckline at 226.29. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Reward to risk is -0.480:1, short of the 2.00:1 minimum.</p>
-      </article>
-<article class="plan plan-AVGO">
-        <header class="plan-head">
-          <div><h2 class="short">AVGO</h2><p class="name">Broadcom Inc.</p></div>
-          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>293.69</dd></div>
-          <div><dt>Target</dt><dd>300.18</dd></div>
-          <div><dt>Stop</dt><dd>308.83</dd></div>
-          <div><dt>Reward:risk</dt><dd>-0.43:1</dd></div>
-        </dl>
-        <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        
-        <p><strong>News.</strong> Neutral. Broadcom Is Still Down 22% in the Past Month: Is AVGO Stock Really on a Road to Recovery?</p>
-        <p><strong>Earnings.</strong> EPS 3.03 vs 2.83 (+7.07%). $22.19B reported revenue. Quarter ended Jul 2026.</p>
-        <p><strong>Pattern.</strong> Double top, triggered. Two highs near 338.42 share a neckline at 319.30. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Reward to risk is -0.43:1, short of the 2.00:1 minimum.</p>
-      </article>
-<article class="plan plan-NVDA">
-        <header class="plan-head">
-          <div><h2 class="short">NVDA</h2><p class="name">NVIDIA Corporation</p></div>
-          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>186.64</dd></div>
-          <div><dt>Target</dt><dd>191.03</dd></div>
-          <div><dt>Stop</dt><dd>194.66</dd></div>
-          <div><dt>Reward:risk</dt><dd>-0.55:1</dd></div>
-        </dl>
-        <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        
-        <p><strong>News.</strong> Neutral. Nvidia (NVDA) Tightens Chip Tracking In Southeast Asia</p>
-        <p><strong>Earnings.</strong> EPS 2.22 vs 2.09 (+6.22%). $96.22B reported revenue. Quarter ended Jul 2026.</p>
-        <p><strong>Pattern.</strong> Double top, triggered. Two highs near 223.47 share a neckline at 207.25. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Reward to risk is -0.55:1, short of the 2.00:1 minimum.</p>
-      </article>
-<article class="plan plan-SAIA">
-        <header class="plan-head">
-          <div><h2 class="long">SAIA</h2><p class="name">Saia, Inc.</p></div>
-          <p class="plan-side"><span class="long">Long</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>331.90</dd></div>
-          <div><dt>Target</dt><dd>400.52</dd></div>
-          <div><dt>Stop</dt><dd>316.03</dd></div>
-          <div><dt>Reward:risk</dt><dd>4.32:1</dd></div>
-        </dl>
-        <p class="reach">Fri, Nov 13, 2026, if price travels about one daily ATR per session toward the target (5 sessions).</p>
-        
-        <p><strong>News.</strong> Neutral. Are Options Traders Betting on a Big Move in Saia Stock?</p>
-        <p><strong>Earnings.</strong> EPS 3.41 vs 3.31 (+3.02%). $982.5M reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Double bottom, forming. Two lows near 322.08 share a neckline at 361.30. Price has not closed through 361.30.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered.</p>
       </article>
 <article class="plan plan-AMZN">
@@ -936,8 +937,8 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>259.30</dd></div>
           <div><dt>Target</dt><dd>222.15</dd></div>
-          <div><dt>Stop</dt><dd>269.06</dd></div>
-          <div><dt>Reward:risk</dt><dd>3.81:1</dd></div>
+          <div><dt>Stop</dt><dd>269.64</dd></div>
+          <div><dt>Reward:risk</dt><dd>3.59:1</dd></div>
         </dl>
         <p class="reach">Thu, Nov 12, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
         
@@ -954,8 +955,8 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>284.78</dd></div>
           <div><dt>Target</dt><dd>212.51</dd></div>
-          <div><dt>Stop</dt><dd>296.08</dd></div>
-          <div><dt>Reward:risk</dt><dd>6.40:1</dd></div>
+          <div><dt>Stop</dt><dd>295.94</dd></div>
+          <div><dt>Reward:risk</dt><dd>6.48:1</dd></div>
         </dl>
         <p class="reach">Tue, Nov 17, 2026, if price travels about one daily ATR per session toward the target (7 sessions).</p>
         
@@ -971,15 +972,51 @@
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>530.61</dd></div>
-          <div><dt>Target</dt><dd>454.77</dd></div>
-          <div><dt>Stop</dt><dd>546.47</dd></div>
-          <div><dt>Reward:risk</dt><dd>4.78:1</dd></div>
+          <div><dt>Target</dt><dd>485.18</dd></div>
+          <div><dt>Stop</dt><dd>546.03</dd></div>
+          <div><dt>Reward:risk</dt><dd>2.95:1</dd></div>
         </dl>
-        <p class="reach">Fri, Nov 13, 2026, if price travels about one daily ATR per session toward the target (5 sessions).</p>
+        <p class="reach">Wed, Nov 11, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
         
         <p><strong>News.</strong> Neutral. The US adds in the latest  jobs report, markets try to bounce back from an awful sell-off</p>
         <p><strong>Earnings.</strong> EPS 4.89 vs 4.71 (+3.82%). $92.28B reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Double top, forming. Two highs near 555.15 share a neckline at 504.96. Price has not closed through 504.96.</p>
+        <p><strong>Pattern.</strong> Double top, forming. Two highs near 546.22 share a neckline at 515.70. Price has not closed through 515.70.</p>
+        <p class="reason">Stand aside. The chart pattern has not triggered.</p>
+      </article>
+<article class="plan plan-NFLX">
+        <header class="plan-head">
+          <div><h2 class="short">NFLX</h2><p class="name">Netflix, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>63.41</dd></div>
+          <div><dt>Target</dt><dd>59.67</dd></div>
+          <div><dt>Stop</dt><dd>65.56</dd></div>
+          <div><dt>Reward:risk</dt><dd>1.74:1</dd></div>
+        </dl>
+        <p class="reach">Tue, Nov 10, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
+        
+        <p><strong>News.</strong> Neutral. Investors Heavily Search Netflix, Inc. (NFLX): Here is What You Need to Know</p>
+        <p><strong>Earnings.</strong> EPS 0.87 vs 0.82 (+6.10%). $12.87B reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Double top, triggered. Two highs near 73.42 share a neckline at 66.54. Price closed through that neckline.</p>
+        <p class="reason">Stand aside. Reward to risk is 1.740:1, short of the 2.00:1 minimum.</p>
+      </article>
+<article class="plan plan-SAIA">
+        <header class="plan-head">
+          <div><h2 class="long">SAIA</h2><p class="name">Saia, Inc.</p></div>
+          <p class="plan-side"><span class="long">Long</span> <span class="badge aside">Stand aside</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>331.90</dd></div>
+          <div><dt>Target</dt><dd>400.52</dd></div>
+          <div><dt>Stop</dt><dd>316.08</dd></div>
+          <div><dt>Reward:risk</dt><dd>4.34:1</dd></div>
+        </dl>
+        <p class="reach">Fri, Nov 13, 2026, if price travels about one daily ATR per session toward the target (5 sessions).</p>
+        
+        <p><strong>News.</strong> Neutral. Are Options Traders Betting on a Big Move in Saia Stock?</p>
+        <p><strong>Earnings.</strong> EPS 3.41 vs 3.31 (+3.02%). $982.5M reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Double bottom, forming. Two lows near 322.08 share a neckline at 361.30. Price has not closed through 361.30.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered.</p>
       </article>
 <article class="plan plan-MU">
@@ -990,87 +1027,15 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>690.00</dd></div>
           <div><dt>Target</dt><dd>610.53</dd></div>
-          <div><dt>Stop</dt><dd>748.85</dd></div>
-          <div><dt>Reward:risk</dt><dd>1.35:1</dd></div>
+          <div><dt>Stop</dt><dd>747.39</dd></div>
+          <div><dt>Reward:risk</dt><dd>1.38:1</dd></div>
         </dl>
         <p class="reach">Tue, Nov 10, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
         
         <p><strong>News.</strong> Neutral. Micron vs. Nvidia: Which AI Stock Is a Better Buy for 2027?</p>
         <p><strong>Earnings.</strong> EPS 33.19 vs 31.41 (+5.67%). $54.23B reported revenue. Quarter ended Aug 2026.</p>
         <p><strong>Pattern.</strong> Double top, triggered. Two highs near 929.67 share a neckline at 770.10. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Reward to risk is 1.35:1, short of the 2.00:1 minimum.</p>
-      </article>
-<article class="plan plan-WAL">
-        <header class="plan-head">
-          <div><h2 class="short">WAL</h2><p class="name">Western Alliance Bancorporation</p></div>
-          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>75.55</dd></div>
-          <div><dt>Target</dt><dd>61.24</dd></div>
-          <div><dt>Stop</dt><dd>78.09</dd></div>
-          <div><dt>Reward:risk</dt><dd>5.63:1</dd></div>
-        </dl>
-        <p class="reach">Mon, Nov 16, 2026, if price travels about one daily ATR per session toward the target (6 sessions).</p>
-        
-        <p><strong>News.</strong> Neutral. WAL Q3 Deep Dive: Deposit Optimization and Asset Quality Drive Profitability Gains</p>
-        <p><strong>Earnings.</strong> EPS 2.45 vs 2.43 (+0.82%). $1.01B reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Double top, forming. Two highs near 81.36 share a neckline at 71.30. Price has not closed through 71.30.</p>
-        <p class="reason">Stand aside. The chart pattern has not triggered.</p>
-      </article>
-<article class="plan plan-NFLX">
-        <header class="plan-head">
-          <div><h2 class="short">NFLX</h2><p class="name">Netflix, Inc.</p></div>
-          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>63.41</dd></div>
-          <div><dt>Target</dt><dd>62.66</dd></div>
-          <div><dt>Stop</dt><dd>65.62</dd></div>
-          <div><dt>Reward:risk</dt><dd>0.34:1</dd></div>
-        </dl>
-        <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        
-        <p><strong>News.</strong> Neutral. Investors Heavily Search Netflix, Inc. (NFLX): Here is What You Need to Know</p>
-        <p><strong>Earnings.</strong> EPS 0.87 vs 0.82 (+6.10%). $12.87B reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 63.46–64.26, and the session closed outside that range.</p>
-        <p class="reason">Stand aside. Reward to risk is 0.339:1, short of the 2.00:1 minimum.</p>
-      </article>
-<article class="plan plan-TSLA">
-        <header class="plan-head">
-          <div><h2 class="short">TSLA</h2><p class="name">Tesla, Inc.</p></div>
-          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>358.22</dd></div>
-          <div><dt>Target</dt><dd>181.34</dd></div>
-          <div><dt>Stop</dt><dd>376.20</dd></div>
-          <div><dt>Reward:risk</dt><dd>9.84:1</dd></div>
-        </dl>
-        <p class="reach">Fri, Nov 20, 2026, if price travels about one daily ATR per session toward the target (10 sessions).</p>
-        
-        <p><strong>News.</strong> Neutral. Musk's futuristic Cybertruck rolls toward exit</p>
-        <p><strong>Earnings.</strong> EPS 0.20 vs 0.22 (-9.09%). $28.05B reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Double top, forming. Two highs near 413.43 share a neckline at 297.38. Price has not closed through 297.38.</p>
-        <p class="reason">Stand aside. The chart pattern has not triggered. The opening range broke the other way.</p>
-      </article>
-<article class="plan plan-TREX">
-        <header class="plan-head">
-          <div><h2 class="long">TREX</h2><p class="name">Trex Company, Inc.</p></div>
-          <p class="plan-side"><span class="long">Long</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>54.74</dd></div>
-          <div><dt>Target</dt><dd>53.84</dd></div>
-          <div><dt>Stop</dt><dd>52.32</dd></div>
-          <div><dt>Reward:risk</dt><dd>-0.37:1</dd></div>
-        </dl>
-        <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        
-        <p><strong>News.</strong> Positive. Trex Co Inc (TREX) (Q3 2026) Earnings Call Highlights: Record Revenue, Raised Outlook and a ...</p>
-        <p><strong>Earnings.</strong> EPS 0.55 vs 0.49 (+12.24%). $359.5M reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 48.35 share a neckline at 51.10. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Price rejected at VWAP, which fights the long. The opening range broke the other way. Reward to risk is -0.372:1, short of the 2.00:1 minimum.</p>
+        <p class="reason">Stand aside. Reward to risk is 1.38:1, short of the 2.00:1 minimum.</p>
       </article>
 <article class="plan plan-CRM">
         <header class="plan-head">
@@ -1079,16 +1044,52 @@
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>213.65</dd></div>
-          <div><dt>Target</dt><dd>194.77</dd></div>
-          <div><dt>Stop</dt><dd>223.15</dd></div>
-          <div><dt>Reward:risk</dt><dd>1.99:1</dd></div>
+          <div><dt>Target</dt><dd>209.03</dd></div>
+          <div><dt>Stop</dt><dd>222.77</dd></div>
+          <div><dt>Reward:risk</dt><dd>0.51:1</dd></div>
         </dl>
-        <p class="reach">Tue, Nov 10, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
+        <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
         
         <p><strong>News.</strong> Neutral. CRM or ADSK: Which Is the Better Value Stock Right Now?</p>
         <p><strong>Earnings.</strong> EPS 4.95 vs 2.35 (+110.64%). $11.35B reported revenue. Quarter ended Jul 2026.</p>
-        <p><strong>Pattern.</strong> Breakdown, triggered. Closed through the prior 20-session low at 214.67.</p>
-        <p class="reason">Stand aside. Reward to risk is 1.987:1, short of the 2.00:1 minimum.</p>
+        <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 213.90–218.77, and the session closed outside that range.</p>
+        <p class="reason">Stand aside. Reward to risk is 0.507:1, short of the 2.00:1 minimum.</p>
+      </article>
+<article class="plan plan-WAL">
+        <header class="plan-head">
+          <div><h2 class="short">WAL</h2><p class="name">Western Alliance Bancorporation</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>75.55</dd></div>
+          <div><dt>Target</dt><dd>64.75</dd></div>
+          <div><dt>Stop</dt><dd>78.09</dd></div>
+          <div><dt>Reward:risk</dt><dd>4.25:1</dd></div>
+        </dl>
+        <p class="reach">Fri, Nov 13, 2026, if price travels about one daily ATR per session toward the target (5 sessions).</p>
+        
+        <p><strong>News.</strong> Neutral. WAL Q3 Deep Dive: Deposit Optimization and Asset Quality Drive Profitability Gains</p>
+        <p><strong>Earnings.</strong> EPS 2.45 vs 2.43 (+0.82%). $1.01B reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Double top, forming. Two highs near 77.85 share a neckline at 71.30. Price has not closed through 71.30.</p>
+        <p class="reason">Stand aside. The chart pattern has not triggered.</p>
+      </article>
+<article class="plan plan-COST">
+        <header class="plan-head">
+          <div><h2 class="long">COST</h2><p class="name">Costco Wholesale Corporation</p></div>
+          <p class="plan-side"><span class="long">Long</span> <span class="badge aside">Stand aside</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>1,053.56</dd></div>
+          <div><dt>Target</dt><dd>1,122.62</dd></div>
+          <div><dt>Stop</dt><dd>1,033.58</dd></div>
+          <div><dt>Reward:risk</dt><dd>3.46:1</dd></div>
+        </dl>
+        <p class="reach">Thu, Nov 12, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
+        
+        <p><strong>News.</strong> Neutral. Costco retains BofA &quot;buy&quot; as October US comps rise 8.1%</p>
+        <p><strong>Earnings.</strong> EPS 6.60 vs 6.48 (+1.85%). $95.72B reported revenue. Quarter ended Aug 2026.</p>
+        <p><strong>Pattern.</strong> Breakout, triggered. Closed through the prior 20-session high at 1053.66.</p>
+        <p class="reason">Stand aside. Price rejected at VWAP, which fights the long.</p>
       </article>
 <article class="plan plan-ORCL">
         <header class="plan-head">
@@ -1097,34 +1098,16 @@
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>116.10</dd></div>
-          <div><dt>Target</dt><dd>96.93</dd></div>
-          <div><dt>Stop</dt><dd>124.98</dd></div>
-          <div><dt>Reward:risk</dt><dd>2.16:1</dd></div>
+          <div><dt>Target</dt><dd>89.44</dd></div>
+          <div><dt>Stop</dt><dd>124.47</dd></div>
+          <div><dt>Reward:risk</dt><dd>3.19:1</dd></div>
         </dl>
-        <p class="reach">Wed, Nov 11, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
+        <p class="reach">Thu, Nov 12, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
         
         <p><strong>News.</strong> Neutral. Oracle (ORCL) Ranks Sixth Among the Cheapest AI Data Center Stocks</p>
         <p><strong>Earnings.</strong> EPS 1.63 vs 1.39 (+17.27%). $19.34B reported revenue. Quarter ended Aug 2026.</p>
-        <p><strong>Pattern.</strong> Double top, triggered. Two highs near 148.59 share a neckline at 122.76. Price closed through that neckline.</p>
+        <p><strong>Pattern.</strong> Bear flag, triggered. Bear flag cleared 118.43 after a 21.0% pole. The flag fails through 129.85.</p>
         <p class="reason">Stand aside. Price reclaimed VWAP, which fights the short.</p>
-      </article>
-<article class="plan plan-META">
-        <header class="plan-head">
-          <div><h2 class="short">META</h2><p class="name">Meta Platforms, Inc.</p></div>
-          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>610.15</dd></div>
-          <div><dt>Target</dt><dd>464.52</dd></div>
-          <div><dt>Stop</dt><dd>633.97</dd></div>
-          <div><dt>Reward:risk</dt><dd>6.11:1</dd></div>
-        </dl>
-        <p class="reach">Tue, Nov 17, 2026, if price travels about one daily ATR per session toward the target (7 sessions).</p>
-        
-        <p><strong>News.</strong> Neutral. Meta Pauses Data-Scraping Terms Following Publisher Criticism</p>
-        <p><strong>Earnings.</strong> EPS 7.40 vs 6.52 (+13.50%). $64.60B reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Bear flag, forming. Bear flag is still inside 583.80–643.09 after a 19.3% pole.</p>
-        <p class="reason">Stand aside. The chart pattern has not triggered.</p>
       </article>
 <article class="plan plan-AAPL">
         <header class="plan-head">
@@ -1134,8 +1117,8 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>342.37</dd></div>
           <div><dt>Target</dt><dd>252.00</dd></div>
-          <div><dt>Stop</dt><dd>351.39</dd></div>
-          <div><dt>Reward:risk</dt><dd>10.02:1</dd></div>
+          <div><dt>Stop</dt><dd>351.27</dd></div>
+          <div><dt>Reward:risk</dt><dd>10.15:1</dd></div>
         </dl>
         <p class="reach">Mon, Nov 23, 2026, if price travels about one daily ATR per session toward the target (11 sessions).</p>
         
@@ -1143,6 +1126,42 @@
         <p><strong>Earnings.</strong> EPS 2.05 vs 1.98 (+3.54%). $114.48B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double top, forming. Two highs near 348.00 share a neckline at 300.00. Price has not closed through 300.00.</p>
         <p class="reason">Stand aside. The chart pattern has not triggered. The EPS print is fresh (reported 4 sessions ago) and beat by 3.54%, which fights a short.</p>
+      </article>
+<article class="plan plan-LEA">
+        <header class="plan-head">
+          <div><h2 class="short">LEA</h2><p class="name">Lear Corporation</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>110.28</dd></div>
+          <div><dt>Target</dt><dd>109.13</dd></div>
+          <div><dt>Stop</dt><dd>113.91</dd></div>
+          <div><dt>Reward:risk</dt><dd>0.32:1</dd></div>
+        </dl>
+        <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
+        
+        <p><strong>News.</strong> Neutral. Unlocking Lear (LEA) International Revenues: Trends, Surprises, and Prospects</p>
+        <p><strong>Earnings.</strong> EPS 3.71 vs 3.32 (+11.75%). $5.77B reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Double top, triggered. Two highs near 123.75 share a neckline at 116.44. Price closed through that neckline.</p>
+        <p class="reason">Stand aside. The EPS print is fresh (reported 5 sessions ago) and beat by 11.75%, which fights a short. Reward to risk is 0.317:1, short of the 2.00:1 minimum.</p>
+      </article>
+<article class="plan plan-XOM">
+        <header class="plan-head">
+          <div><h2 class="short">XOM</h2><p class="name">ExxonMobil Holdings Corporation</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>165.87</dd></div>
+          <div><dt>Target</dt><dd>154.41</dd></div>
+          <div><dt>Stop</dt><dd>170.98</dd></div>
+          <div><dt>Reward:risk</dt><dd>2.24:1</dd></div>
+        </dl>
+        <p class="reach">Wed, Nov 11, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
+        
+        <p><strong>News.</strong> Neutral. Exxon (XOM) Reports Q3 Earnings: What Key Metrics Have to Say</p>
+        <p><strong>Earnings.</strong> EPS 4.23 vs 3.90 (+8.46%). $113.16B reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Breakdown, triggered. Closed through the prior 20-session low at 166.71.</p>
+        <p class="reason">Stand aside. The EPS print is fresh (reported 5 sessions ago) and beat by 8.46%, which fights a short.</p>
       </article>
 <article class="plan plan-WMT">
         <header class="plan-head">
@@ -1152,33 +1171,15 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>125.52</dd></div>
           <div><dt>Target</dt><dd>128.80</dd></div>
-          <div><dt>Stop</dt><dd>122.30</dd></div>
-          <div><dt>Reward:risk</dt><dd>1.02:1</dd></div>
+          <div><dt>Stop</dt><dd>122.54</dd></div>
+          <div><dt>Reward:risk</dt><dd>1.10:1</dd></div>
         </dl>
         <p class="reach">Tue, Nov 10, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
         
         <p><strong>News.</strong> Neutral. 54 ETFs Add to Walmart (WMT) on Wednesday</p>
         <p><strong>Earnings.</strong> EPS 0.81 vs 0.73 (+10.96%). $187.94B reported revenue. Quarter ended Jul 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 117.08 share a neckline at 122.94. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Reward to risk is 1.019:1, short of the 2.00:1 minimum.</p>
-      </article>
-<article class="plan plan-COST">
-        <header class="plan-head">
-          <div><h2 class="long">COST</h2><p class="name">Costco Wholesale Corporation</p></div>
-          <p class="plan-side"><span class="long">Long</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>1,053.56</dd></div>
-          <div><dt>Target</dt><dd>1,210.26</dd></div>
-          <div><dt>Stop</dt><dd>1,032.86</dd></div>
-          <div><dt>Reward:risk</dt><dd>7.57:1</dd></div>
-        </dl>
-        <p class="reach">Wed, Nov 18, 2026, if price travels about one daily ATR per session toward the target (8 sessions).</p>
-        
-        <p><strong>News.</strong> Neutral. Costco retains BofA &quot;buy&quot; as October US comps rise 8.1%</p>
-        <p><strong>Earnings.</strong> EPS 6.60 vs 6.48 (+1.85%). $95.72B reported revenue. Quarter ended Aug 2026.</p>
-        <p><strong>Pattern.</strong> Double bottom, forming. Two lows near 982.74 share a neckline at 1096.50. Price has not closed through 1096.50.</p>
-        <p class="reason">Stand aside. The chart pattern has not triggered. Price rejected at VWAP, which fights the long.</p>
+        <p class="reason">Stand aside. Reward to risk is 1.10:1, short of the 2.00:1 minimum.</p>
       </article>
 <article class="plan plan-CROX">
         <header class="plan-head">
@@ -1188,15 +1189,33 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>151.86</dd></div>
           <div><dt>Target</dt><dd>165.31</dd></div>
-          <div><dt>Stop</dt><dd>144.87</dd></div>
-          <div><dt>Reward:risk</dt><dd>1.92:1</dd></div>
+          <div><dt>Stop</dt><dd>144.95</dd></div>
+          <div><dt>Reward:risk</dt><dd>1.95:1</dd></div>
         </dl>
         <p class="reach">Tue, Nov 10, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
         
         <p><strong>News.</strong> Neutral. CROX or CTAS: Which Is the Better Value Stock Right Now?</p>
         <p><strong>Earnings.</strong> EPS 3.69 vs 3.31 (+11.48%). $1.04B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 117.24 share a neckline at 141.28. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Price rejected at VWAP, which fights the long. Reward to risk is 1.92:1, short of the 2.00:1 minimum.</p>
+        <p class="reason">Stand aside. Price rejected at VWAP, which fights the long. Reward to risk is 1.946:1, short of the 2.00:1 minimum.</p>
+      </article>
+<article class="plan plan-TREX">
+        <header class="plan-head">
+          <div><h2 class="short">TREX</h2><p class="name">Trex Company, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>54.74</dd></div>
+          <div><dt>Target</dt><dd>53.56</dd></div>
+          <div><dt>Stop</dt><dd>57.14</dd></div>
+          <div><dt>Reward:risk</dt><dd>0.49:1</dd></div>
+        </dl>
+        <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
+        
+        <p><strong>News.</strong> Positive. Trex Co Inc (TREX) (Q3 2026) Earnings Call Highlights: Record Revenue, Raised Outlook and a ...</p>
+        <p><strong>Earnings.</strong> EPS 0.55 vs 0.49 (+12.24%). $359.5M reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Opening-range break, triggered. The first 30 minutes ran 55.07–56.58, and the session closed outside that range.</p>
+        <p class="reason">Stand aside. News fights the short: the headline sentiment is positive. The EPS print is fresh (reported 2 sessions ago) and beat by 12.24%, which fights a short. Reward to risk is 0.49:1, short of the 2.00:1 minimum.</p>
       </article>
 <article class="plan plan-QCOM">
         <header class="plan-head">
@@ -1206,15 +1225,33 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>165.41</dd></div>
           <div><dt>Target</dt><dd>150.41</dd></div>
-          <div><dt>Stop</dt><dd>174.51</dd></div>
-          <div><dt>Reward:risk</dt><dd>1.65:1</dd></div>
+          <div><dt>Stop</dt><dd>174.16</dd></div>
+          <div><dt>Reward:risk</dt><dd>1.71:1</dd></div>
         </dl>
         <p class="reach">Tue, Nov 10, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
         
         <p><strong>News.</strong> Neutral. There's a 'disconnect' between the market, rate of AI build-out: Qualcomm CEO</p>
         <p><strong>Earnings.</strong> EPS 1.45 vs 1.46 (-0.68%). $10.44B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double top, triggered. Two highs near 187.27 share a neckline at 168.84. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Price reclaimed VWAP, which fights the short. The opening range broke the other way. Reward to risk is 1.648:1, short of the 2.00:1 minimum.</p>
+        <p class="reason">Stand aside. Price reclaimed VWAP, which fights the short. The opening range broke the other way. Reward to risk is 1.71:1, short of the 2.00:1 minimum.</p>
+      </article>
+<article class="plan plan-CGNX">
+        <header class="plan-head">
+          <div><h2 class="short">CGNX</h2><p class="name">Cognex Corporation</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>47.78</dd></div>
+          <div><dt>Target</dt><dd>41.64</dd></div>
+          <div><dt>Stop</dt><dd>51.10</dd></div>
+          <div><dt>Reward:risk</dt><dd>1.85:1</dd></div>
+        </dl>
+        <p class="reach">Tue, Nov 10, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
+        
+        <p><strong>News.</strong> Positive. CGNX Q3 Earnings Call Highlights Outlook and Margin Expansion</p>
+        <p><strong>Earnings.</strong> EPS 0.53 vs 0.51 (+3.92%). $313.4M reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Breakdown, triggered. Closed through the prior 20-session low at 51.80.</p>
+        <p class="reason">Stand aside. News fights the short: the headline sentiment is positive. The EPS print is fresh (reported 2 sessions ago) and beat by 3.92%, which fights a short. Reward to risk is 1.849:1, short of the 2.00:1 minimum.</p>
       </article>
 <article class="plan plan-BLDR">
         <header class="plan-head">
@@ -1224,15 +1261,15 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>62.54</dd></div>
           <div><dt>Target</dt><dd>64.32</dd></div>
-          <div><dt>Stop</dt><dd>58.95</dd></div>
-          <div><dt>Reward:risk</dt><dd>0.50:1</dd></div>
+          <div><dt>Stop</dt><dd>59.02</dd></div>
+          <div><dt>Reward:risk</dt><dd>0.51:1</dd></div>
         </dl>
         <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
         
         <p><strong>News.</strong> Neutral. Investors Heavily Search Builders FirstSource, Inc. (BLDR): Here is What You Need to Know</p>
         <p><strong>Earnings.</strong> EPS 1.51 vs 1.12 (+34.82%). $3.85B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 54.78 share a neckline at 59.55. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Price rejected at VWAP, which fights the long. Reward to risk is 0.496:1, short of the 2.00:1 minimum.</p>
+        <p class="reason">Stand aside. Price rejected at VWAP, which fights the long. Reward to risk is 0.506:1, short of the 2.00:1 minimum.</p>
       </article>
 <article class="plan plan-OC">
         <header class="plan-head">
@@ -1242,15 +1279,33 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>121.31</dd></div>
           <div><dt>Target</dt><dd>128.59</dd></div>
-          <div><dt>Stop</dt><dd>115.68</dd></div>
-          <div><dt>Reward:risk</dt><dd>1.29:1</dd></div>
+          <div><dt>Stop</dt><dd>115.86</dd></div>
+          <div><dt>Reward:risk</dt><dd>1.34:1</dd></div>
         </dl>
         <p class="reach">Tue, Nov 10, 2026, if price travels about one daily ATR per session toward the target (2 sessions).</p>
         
         <p><strong>News.</strong> Neutral. Owens Corning (OC) Q3 2026 Earnings Call Transcript</p>
         <p><strong>Earnings.</strong> EPS 2.44 vs 2.96 (-17.57%). $2.49B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 112.66 share a neckline at 120.63. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. Price rejected at VWAP, which fights the long. The EPS print is fresh (reported 2 sessions ago) and missed by 17.57%, which fights a long. Reward to risk is 1.29:1, short of the 2.00:1 minimum.</p>
+        <p class="reason">Stand aside. Price rejected at VWAP, which fights the long. The EPS print is fresh (reported 2 sessions ago) and missed by 17.57%, which fights a long. Reward to risk is 1.336:1, short of the 2.00:1 minimum.</p>
+      </article>
+<article class="plan plan-AMD">
+        <header class="plan-head">
+          <div><h2 class="short">AMD</h2><p class="name">Advanced Micro Devices, Inc.</p></div>
+          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
+        </header>
+        <dl class="stats">
+          <div><dt>Last</dt><dd>449.04</dd></div>
+          <div><dt>Target</dt><dd>317.43</dd></div>
+          <div><dt>Stop</dt><dd>484.94</dd></div>
+          <div><dt>Reward:risk</dt><dd>3.67:1</dd></div>
+        </dl>
+        <p class="reach">Thu, Nov 12, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
+        
+        <p><strong>News.</strong> Positive. Stock Market Today, Nov. 6: AMD Surges 11% on Record Quarterly Revenue and Stronger Growth Outlook</p>
+        <p><strong>Earnings.</strong> EPS 1.84 vs 1.68 (+9.52%). $13.38B reported revenue. Quarter ended Sep 2026.</p>
+        <p><strong>Pattern.</strong> Bear flag, triggered. Bear flag cleared 466.07 after a 17.7% pole. The flag fails through 514.61.</p>
+        <p class="reason">Stand aside. News fights the short: the headline sentiment is positive. Price reclaimed VWAP, which fights the short. The EPS print is fresh (reported 3 sessions ago) and beat by 9.52%, which fights a short.</p>
       </article>
 <article class="plan plan-DIS">
         <header class="plan-head">
@@ -1260,69 +1315,15 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>116.75</dd></div>
           <div><dt>Target</dt><dd>119.01</dd></div>
-          <div><dt>Stop</dt><dd>114.23</dd></div>
-          <div><dt>Reward:risk</dt><dd>0.90:1</dd></div>
+          <div><dt>Stop</dt><dd>114.41</dd></div>
+          <div><dt>Reward:risk</dt><dd>0.97:1</dd></div>
         </dl>
         <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
         
         <p><strong>News.</strong> Negative. How to Play DIS Stock as Disney Eyes 20% Cost Cuts and Thousands of Layoffs</p>
         <p><strong>Earnings.</strong> EPS 2.06 vs 1.88 (+9.57%). $25.25B reported revenue. Quarter ended Jun 2026.</p>
         <p><strong>Pattern.</strong> Double bottom, triggered. Two lows near 107.74 share a neckline at 113.38. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. News fights the long: the headline sentiment is negative. Price rejected at VWAP, which fights the long. Reward to risk is 0.897:1, short of the 2.00:1 minimum.</p>
-      </article>
-<article class="plan plan-CGNX">
-        <header class="plan-head">
-          <div><h2 class="short">CGNX</h2><p class="name">Cognex Corporation</p></div>
-          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>47.78</dd></div>
-          <div><dt>Target</dt><dd>47.72</dd></div>
-          <div><dt>Stop</dt><dd>51.09</dd></div>
-          <div><dt>Reward:risk</dt><dd>0.02:1</dd></div>
-        </dl>
-        <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        
-        <p><strong>News.</strong> Positive. CGNX Q3 Earnings Call Highlights Outlook and Margin Expansion</p>
-        <p><strong>Earnings.</strong> EPS 0.53 vs 0.51 (+3.92%). $313.4M reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Breakout, forming. No bull flag, bear flag, double top, double bottom, head and shoulders, cup and handle, breakout, breakdown, or opening-range break is on this tape.</p>
-        <p class="reason">Stand aside. The chart pattern has not triggered. News fights the short: the headline sentiment is positive. The EPS print is fresh (reported 2 sessions ago) and beat by 3.92%, which fights a short. Reward to risk is 0.018:1, short of the 2.00:1 minimum.</p>
-      </article>
-<article class="plan plan-XOM">
-        <header class="plan-head">
-          <div><h2 class="short">XOM</h2><p class="name">ExxonMobil Holdings Corporation</p></div>
-          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>165.87</dd></div>
-          <div><dt>Target</dt><dd>165.89</dd></div>
-          <div><dt>Stop</dt><dd>171.07</dd></div>
-          <div><dt>Reward:risk</dt><dd>-0.00:1</dd></div>
-        </dl>
-        <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
-        
-        <p><strong>News.</strong> Neutral. Exxon (XOM) Reports Q3 Earnings: What Key Metrics Have to Say</p>
-        <p><strong>Earnings.</strong> EPS 4.23 vs 3.90 (+8.46%). $113.16B reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Breakout, forming. No bull flag, bear flag, double top, double bottom, head and shoulders, cup and handle, breakout, breakdown, or opening-range break is on this tape.</p>
-        <p class="reason">Stand aside. The chart pattern has not triggered. The EPS print is fresh (reported 5 sessions ago) and beat by 8.46%, which fights a short. Reward to risk is -0.004:1, short of the 2.00:1 minimum.</p>
-      </article>
-<article class="plan plan-AMD">
-        <header class="plan-head">
-          <div><h2 class="short">AMD</h2><p class="name">Advanced Micro Devices, Inc.</p></div>
-          <p class="plan-side"><span class="short">Short</span> <span class="badge aside">Stand aside</span></p>
-        </header>
-        <dl class="stats">
-          <div><dt>Last</dt><dd>449.04</dd></div>
-          <div><dt>Target</dt><dd>296.45</dd></div>
-          <div><dt>Stop</dt><dd>487.06</dd></div>
-          <div><dt>Reward:risk</dt><dd>4.01:1</dd></div>
-        </dl>
-        <p class="reach">Fri, Nov 13, 2026, if price travels about one daily ATR per session toward the target (5 sessions).</p>
-        
-        <p><strong>News.</strong> Positive. Stock Market Today, Nov. 6: AMD Surges 11% on Record Quarterly Revenue and Stronger Growth Outlook</p>
-        <p><strong>Earnings.</strong> EPS 1.84 vs 1.68 (+9.52%). $13.38B reported revenue. Quarter ended Sep 2026.</p>
-        <p><strong>Pattern.</strong> Double top, forming. Two highs near 551.61 share a neckline at 424.03. Price has not closed through 424.03.</p>
-        <p class="reason">Stand aside. The chart pattern has not triggered. News fights the short: the headline sentiment is positive. Price reclaimed VWAP, which fights the short. The EPS print is fresh (reported 3 sessions ago) and beat by 9.52%, which fights a short.</p>
+        <p class="reason">Stand aside. News fights the long: the headline sentiment is negative. Price rejected at VWAP, which fights the long. Reward to risk is 0.966:1, short of the 2.00:1 minimum.</p>
       </article>
 <article class="plan plan-BA">
         <header class="plan-head">
@@ -1332,7 +1333,7 @@
         <dl class="stats">
           <div><dt>Last</dt><dd>173.40</dd></div>
           <div><dt>Target</dt><dd>171.66</dd></div>
-          <div><dt>Stop</dt><dd>179.72</dd></div>
+          <div><dt>Stop</dt><dd>179.67</dd></div>
           <div><dt>Reward:risk</dt><dd>0.28:1</dd></div>
         </dl>
         <p class="reach">Mon, Nov 9, 2026, if price travels about one daily ATR per session toward the target (1 session).</p>
@@ -1340,7 +1341,7 @@
         <p><strong>News.</strong> Positive. Boeing (BA) Looks 8% Overvalued Following Avolon’s 140 Jet Order</p>
         <p><strong>Earnings.</strong> EPS -0.34 vs -0.21 (-61.90%). $24.19B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Double top, triggered. Two highs near 195.10 share a neckline at 183.38. Price closed through that neckline.</p>
-        <p class="reason">Stand aside. News fights the short: the headline sentiment is positive. Price reclaimed VWAP, which fights the short. The opening range broke the other way. Reward to risk is 0.275:1, short of the 2.00:1 minimum.</p>
+        <p class="reason">Stand aside. News fights the short: the headline sentiment is positive. Price reclaimed VWAP, which fights the short. The opening range broke the other way. Reward to risk is 0.278:1, short of the 2.00:1 minimum.</p>
       </article></div>
   </main>
   <footer>Decision support only. Nothing here sends an order.</footer>

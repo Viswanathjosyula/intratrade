@@ -1,3 +1,4 @@
+import { targetBeyondLast } from "./patterns";
 import type {
   EarningsPillar,
   OpeningRangeEvent,
@@ -223,6 +224,7 @@ export function evaluateSnapshot(
   const vwap = vwapAlignment(side, snapshot.vwapEvent);
   const openingRange = openingRangeAlignment(side, snapshot.openingRangeEvent);
   const levels = levelsFor(snapshot, side);
+  const qualified = targetBeyondLast(snapshot.pattern.bias, levels.target, snapshot.last);
   const clearsMinimumReward = levels.riskReward + 1e-9 >= settings.minRewardRisk;
 
   const riskBudget = roundPrice(settings.accountSize * (settings.maxRiskPct / 100));
@@ -263,6 +265,10 @@ export function evaluateSnapshot(
     );
   }
 
+  if (!qualified) {
+    conflicts.push("No pattern leaves a target beyond the last price, so this name is not a long or a short.");
+  }
+
   if (levels.riskPerShare <= 0) {
     conflicts.push("The ATR stop is not beyond the entry.");
   } else if (indicatedShares < 1) {
@@ -282,12 +288,14 @@ export function evaluateSnapshot(
     settings,
     conflicts,
     stance,
+    qualified,
   });
 
   return {
     symbol: snapshot.symbol,
     name: snapshot.name,
     side,
+    qualified,
     stance,
     entryLow: levels.entryLow,
     entryHigh: levels.entryHigh,
@@ -344,6 +352,7 @@ function buildReasons(input: {
   settings: RiskSettings;
   conflicts: string[];
   stance: TradeIdea["stance"];
+  qualified: boolean;
 }): string[] {
   const { snapshot, levels, settings, conflicts } = input;
   const earnings: EarningsPillar = snapshot.earnings;
@@ -384,9 +393,11 @@ function buildReasons(input: {
     `Relative volume is ${snapshot.relativeVolume.toFixed(1)}×. Price ${vwapPhrase(snapshot.vwapEvent)} (${openingRangePhrase(snapshot.openingRangeEvent)}).`,
   );
 
-  reasons.push(
-    `The stop is one ${snapshot.atrTimeframe ?? "intraday"} ATR (${snapshot.atr.toFixed(2)}) from the near edge of the entry zone, at ${levels.stop.toFixed(2)}. The measured move to ${levels.target.toFixed(2)} pays ${formatRatio(levels.riskReward)} against your ${formatRatio(settings.minRewardRisk)} minimum.`,
-  );
+  if (input.qualified) {
+    reasons.push(
+      `The stop is one ${snapshot.atrTimeframe ?? "intraday"} ATR (${snapshot.atr.toFixed(2)}) from the near edge of the entry zone, at ${levels.stop.toFixed(2)}. The measured move to ${levels.target.toFixed(2)} pays ${formatRatio(levels.riskReward)} against your ${formatRatio(settings.minRewardRisk)} minimum.`,
+    );
+  }
 
   if (input.stance === "consider") {
     reasons.push(

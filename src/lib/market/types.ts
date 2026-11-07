@@ -178,6 +178,8 @@ export interface TradeIdea {
   symbol: string;
   name: string;
   side: Side;
+  /** False when no pattern leaves the target on the correct side of the last price. */
+  qualified: boolean;
   stance: Stance;
   rank: number;
   entryLow: number;

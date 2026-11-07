@@ -1,6 +1,6 @@
 import { renameSync, writeFileSync } from "node:fs";
 
-import { addedPrice, earningsRead, price, rewardRisk, sentimentLabel, sideLabel, stanceLabel } from "@/lib/format";
+import { addedPrice, earningsRead, price, rewardRisk, sentimentLabel, setupSideLabel, setupTarget, sideLabel, stanceLabel } from "@/lib/format";
 import { trackBook, type TrackedBook } from "@/lib/market/call-log";
 import { callConfidence, confidenceLabel, confidentCalls, groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
 import { rankIdeas } from "@/lib/market/engine";
@@ -172,14 +172,21 @@ function render(
         atr: idea.atr,
         atrTimeframe: idea.atrTimeframe,
       });
-      const sessions = reach ? (reach.sessions === 1 ? "1 session" : `${reach.sessions} sessions`) : "Reach date unavailable";
+      const tone = idea.qualified ? idea.side : "nosetup";
+      const sessions = !idea.qualified
+        ? "No target beyond the last price."
+        : reach
+          ? reach.sessions === 1
+            ? "1 session"
+            : `${reach.sessions} sessions`
+          : "Reach date unavailable";
       return `<article class="keys keys-${idea.symbol}">
-        <div class="keys-top"><strong class="${idea.side}">${escapeHtml(idea.symbol)}</strong><span><span class="${idea.side}">${escapeHtml(sideLabel(idea.side))}</span> · ${escapeHtml(stanceLabel(idea.stance))}</span></div>
+        <div class="keys-top"><strong class="${tone}">${escapeHtml(idea.symbol)}</strong><span><span class="${tone}">${escapeHtml(setupSideLabel(idea.qualified, idea.side))}</span> · ${escapeHtml(stanceLabel(idea.stance))}</span></div>
         <dl>
           <div><dt>Last</dt><dd>${price(idea.last)}</dd></div>
-          <div><dt>Target</dt><dd>${price(idea.target)}</dd></div>
-          <div><dt>Stop</dt><dd>${price(idea.stop)}</dd></div>
-          <div><dt>R:R</dt><dd>${rewardRisk(idea.riskReward)}</dd></div>
+          <div><dt>Target</dt><dd>${setupTarget(idea.qualified, idea.target)}</dd></div>
+          <div><dt>Stop</dt><dd>${idea.qualified ? price(idea.stop) : "—"}</dd></div>
+          <div><dt>R:R</dt><dd>${idea.qualified ? rewardRisk(idea.riskReward) : "—"}</dd></div>
         </dl>
         <p>${escapeHtml(sessions)}</p>
       </article>`;
@@ -189,7 +196,7 @@ function render(
   const boxes = ideas
     .map(
       (idea) =>
-        `<label class="box ${idea.stance === "consider" ? "consider" : "aside"}" for="pick-${idea.symbol}"><span class="sym ${idea.side}">${escapeHtml(idea.symbol)}</span><span class="sub"><span class="${idea.side}">${escapeHtml(sideLabel(idea.side))}</span> · ${price(idea.last)}</span></label>`,
+        `<label class="box ${idea.stance === "consider" ? "consider" : "aside"}" for="pick-${idea.symbol}"><span class="sym ${idea.qualified ? idea.side : "nosetup"}">${escapeHtml(idea.symbol)}</span><span class="sub"><span class="${idea.qualified ? idea.side : "nosetup"}">${escapeHtml(setupSideLabel(idea.qualified, idea.side))}</span> · ${price(idea.last)}</span></label>`,
     )
     .join("\n");
 
@@ -206,17 +213,18 @@ function render(
         }),
       );
       const tone = idea.stance === "consider" ? "consider" : "aside";
+      const sideTone = idea.qualified ? idea.side : "nosetup";
       const timing = mood && idea.stance === "consider" ? timingCall(mood.name, idea.side) : null;
       return `<article class="plan plan-${idea.symbol}">
         <header class="plan-head">
-          <div><h2 class="${idea.side}">${escapeHtml(idea.symbol)}</h2><p class="name">${escapeHtml(idea.name)}</p></div>
-          <p class="plan-side"><span class="${idea.side}">${escapeHtml(sideLabel(idea.side))}</span> <span class="badge ${tone}">${escapeHtml(stanceLabel(idea.stance))}</span></p>
+          <div><h2 class="${sideTone}">${escapeHtml(idea.symbol)}</h2><p class="name">${escapeHtml(idea.name)}</p></div>
+          <p class="plan-side"><span class="${sideTone}">${escapeHtml(setupSideLabel(idea.qualified, idea.side))}</span> <span class="badge ${tone}">${escapeHtml(stanceLabel(idea.stance))}</span></p>
         </header>
         <dl class="stats">
           <div><dt>Last</dt><dd>${price(idea.last)}</dd></div>
-          <div><dt>Target</dt><dd>${price(idea.target)}</dd></div>
-          <div><dt>Stop</dt><dd>${price(idea.stop)}</dd></div>
-          <div><dt>Reward:risk</dt><dd>${rewardRisk(idea.riskReward)}</dd></div>
+          <div><dt>Target</dt><dd>${setupTarget(idea.qualified, idea.target)}</dd></div>
+          <div><dt>Stop</dt><dd>${idea.qualified ? price(idea.stop) : "—"}</dd></div>
+          <div><dt>Reward:risk</dt><dd>${idea.qualified ? rewardRisk(idea.riskReward) : "—"}</dd></div>
         </dl>
         <p class="reach">${escapeHtml(reach)}</p>
         ${timing ? `<p class="timing ${timing.action}">${escapeHtml(timing.line)}</p>` : ""}
@@ -289,6 +297,7 @@ function render(
     .targets .sym { font-family: ui-monospace, monospace; font-weight: 750; font-size: inherit; }
     .long { color: #34d399; }
     .short { color: #ef4444; }
+    .nosetup { color: #c7d2fe; }
     .targets tr.side-long { box-shadow: inset 4px 0 0 #34d399; }
     .targets tr.side-short { box-shadow: inset 4px 0 0 #ef4444; }
     .plan-side { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-weight: 750; }
