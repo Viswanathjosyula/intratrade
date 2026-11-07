@@ -128,6 +128,8 @@ export interface IndicatorRow {
   period: string;
   statistic: string;
   alignment: IndicatorAlignment;
+  /** The way this factor points after its own rule, compared with the S&P tape. */
+  points: "up" | "down" | "flat";
 }
 
 export interface IndicatorBoard {

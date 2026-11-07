@@ -19,6 +19,14 @@ export interface PublishedCall {
 
 export type CallStatus = "reached" | "not-reached" | "open";
 
+/** Why a row has its status. Computed from the stored levels and the bars already used to score it. */
+export type StatusReason =
+  | "target-before-stop"
+  | "stop-before-target"
+  | "pace-missed"
+  | "awaiting"
+  | "unconfirmed";
+
 export interface SuggestionRates {
   reached: number;
   notReached: number;
@@ -86,7 +94,7 @@ export function groupCalls<T extends { status: CallStatus; asOf?: string }>(
  * target before the stop, closeness in daily ATRs, pace still ahead, side with the mood.
  * A missing reading is left out. It is not filled in.
  */
-export function callConfidence(input: {
+export interface ConfidenceInput {
   status: CallStatus;
   side: Side;
   target: number;
@@ -98,14 +106,55 @@ export function callConfidence(input: {
   dailyAtr: number | null;
   through: string | null;
   mood: MarketMoodName | null;
-}): number | null {
-  if (input.status === "reached") return 100;
-  const parts = [targetBeforeStop(input), atrCloseness(input), paceReading(input), moodReading(input)].filter(
-    (part): part is number => part != null,
-  );
-  if (parts.length === 0) return null;
-  const mean = parts.reduce((sum, part) => sum + part, 0) / parts.length;
-  return Math.round(mean * 100);
+}
+
+/** The four readings behind a confidence percent. Missing readings stay null. */
+export interface ConfidenceParts {
+  percent: number | null;
+  barrier: number | null;
+  closeness: number | null;
+  pace: number | null;
+  mood: number | null;
+  reward: number | null;
+  risk: number | null;
+  distance: number | null;
+}
+
+export function confidenceParts(input: ConfidenceInput): ConfidenceParts {
+  if (input.status === "reached") {
+    return {
+      percent: 100,
+      barrier: null,
+      closeness: null,
+      pace: null,
+      mood: null,
+      reward: null,
+      risk: null,
+      distance: null,
+    };
+  }
+  const levels = rewardAndRisk(input);
+  const distance = distanceLeft(input);
+  const barrier = levels?.reading ?? null;
+  const closeness = closenessReading(input, distance);
+  const pace = paceReading(input);
+  const mood = moodReading(input);
+  const parts = [barrier, closeness, pace, mood].filter((part): part is number => part != null);
+  const percent = parts.length === 0 ? null : Math.round(parts.reduce((sum, part) => sum + part, 0) / parts.length * 100);
+  return {
+    percent,
+    barrier,
+    closeness,
+    pace,
+    mood,
+    reward: levels?.reward ?? null,
+    risk: levels?.risk ?? null,
+    distance,
+  };
+}
+
+export function callConfidence(input: ConfidenceInput): number | null {
+  return confidenceParts(input).percent;
 }
 
 export function confidenceLabel(percent: number | null): string {
@@ -132,33 +181,38 @@ export function confidentCalls<
   });
 }
 
-function targetBeforeStop(input: {
+function rewardAndRisk(input: {
   side: Side;
   target: number;
   stop: number;
   entry?: number;
-}): number | null {
+}): { reward: number; risk: number; reading: number } | null {
   const entry = input.entry;
   if (entry == null || !Number.isFinite(entry) || entry <= 0) return null;
   if (!Number.isFinite(input.target) || !Number.isFinite(input.stop)) return null;
   const reward = input.side === "long" ? input.target - entry : entry - input.target;
   const risk = input.side === "long" ? entry - input.stop : input.stop - entry;
   if (!(reward > 0) || !(risk > 0)) return null;
-  return risk / (risk + reward);
+  return { reward, risk, reading: risk / (risk + reward) };
 }
 
-function atrCloseness(input: {
+function distanceLeft(input: {
   side: Side;
   target: number;
   latestClose: number | null;
-  dailyAtr: number | null;
 }): number | null {
-  const atr = input.dailyAtr;
   const last = input.latestClose;
-  if (atr == null || !Number.isFinite(atr) || atr <= 0) return null;
-  if (last == null || !Number.isFinite(last)) return null;
+  if (last == null || !Number.isFinite(last) || !Number.isFinite(input.target)) return null;
   const left = input.side === "long" ? input.target - last : last - input.target;
-  const distance = left > 0 ? left : 0;
+  return left > 0 ? left : 0;
+}
+
+function closenessReading(
+  input: { dailyAtr: number | null },
+  distance: number | null,
+): number | null {
+  const atr = input.dailyAtr;
+  if (distance == null || atr == null || !Number.isFinite(atr) || atr <= 0) return null;
   return 1 / (1 + distance / atr);
 }
 
@@ -206,9 +260,16 @@ export interface TrackedCall extends PublishedCall {
   nextPaceDate: string | null;
   latestClose: number | null;
   dailyAtr: number | null;
+  /** How the status was scored. Absent only on rows built without a fresh score. */
+  reason?: StatusReason;
 }
 
-export function trackedCall(call: PublishedCall, status: CallStatus, pace?: Partial<PaceMark>): TrackedCall {
+export function trackedCall(
+  call: PublishedCall,
+  status: CallStatus,
+  pace?: Partial<PaceMark>,
+  reason?: StatusReason,
+): TrackedCall {
   return {
     ...call,
     status,
@@ -216,6 +277,7 @@ export function trackedCall(call: PublishedCall, status: CallStatus, pace?: Part
     nextPaceDate: pace?.nextPaceDate ?? null,
     latestClose: pace?.latestClose ?? null,
     dailyAtr: pace?.dailyAtr ?? null,
+    ...(reason ? { reason } : {}),
   };
 }
 
@@ -235,6 +297,7 @@ export interface IntradayPrint {
 
 export interface ScoreOutcome {
   status: CallStatus;
+  reason: StatusReason;
   /**
    * A later session traded both the target and the stop. Daily bars cannot
    * say which came first, and no intraday bars were supplied.
@@ -352,7 +415,7 @@ export function scoreCall(input: {
   const call = input.call;
   const daily = [...input.daily].sort((a, b) => a.date.localeCompare(b.date));
   const asOfBar = daily.find((print) => print.date === call.asOf);
-  if (!asOfBar) return { status: "open" };
+  if (!asOfBar) return { status: "open", reason: "unconfirmed" };
 
   const paceDate = paceDateFor(call, daily);
   const lastDate = daily[daily.length - 1]?.date ?? call.asOf;
@@ -369,23 +432,25 @@ export function scoreCall(input: {
     const targetHit = tradedTarget(call, bar);
     const stopHit = tradedStop(call, bar);
     if (!targetHit && !stopHit) continue;
-    if (gap) return { status: "open" };
+    if (gap) return { status: "open", reason: "unconfirmed" };
     if (targetHit && stopHit) {
-      if (!input.intraday) return { status: "open", needsIntradayOn: date };
+      if (!input.intraday) return { status: "open", reason: "unconfirmed", needsIntradayOn: date };
       const decision = firstIntradayTouch(
         call,
         input.intraday.filter((print) => print.date === date),
       );
-      return { status: decision ?? "open" };
+      if (decision === "reached") return { status: "reached", reason: "target-before-stop" };
+      if (decision === "not-reached") return { status: "not-reached", reason: "stop-before-target" };
+      return { status: "open", reason: "unconfirmed" };
     }
-    if (targetHit) return { status: "reached" };
-    return { status: "not-reached" };
+    if (targetHit) return { status: "reached", reason: "target-before-stop" };
+    return { status: "not-reached", reason: "stop-before-target" };
   }
 
   if (paceDate && paceHasPassed(paceDate, input.now) && !gapThrough(call.asOf, paceDate, byDate)) {
-    return { status: "not-reached" };
+    return { status: "not-reached", reason: "pace-missed" };
   }
-  return { status: "open" };
+  return { status: "open", reason: "awaiting" };
 }
 
 export function newYorkMinutes(now: Date): { date: string; minutes: number } | null {

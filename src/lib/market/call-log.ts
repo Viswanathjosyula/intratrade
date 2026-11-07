@@ -106,7 +106,7 @@ export async function scorePublishedCalls(calls: PublishedCall[]): Promise<Track
   const intradayNeeded = new Set<string>();
   const preliminary = calls.map((call) => {
     const daily = dailyBySymbol.get(call.symbol);
-    if (!daily) return { call, outcome: { status: "open" as const } };
+    if (!daily) return { call, outcome: { status: "open" as const, reason: "unconfirmed" as const } };
     const outcome = scoreCall({ call, daily, now: new Date() });
     if (outcome.needsIntradayOn) intradayNeeded.add(call.symbol);
     return { call, outcome };
@@ -130,18 +130,19 @@ export async function scorePublishedCalls(calls: PublishedCall[]): Promise<Track
   const lastBySymbol = new Map<string, string>();
   const tracked: TrackedCall[] = preliminary.map(({ call, outcome }) => {
     const daily = dailyBySymbol.get(call.symbol);
-    if (!daily || daily.length === 0) return trackedCall(call, "open");
+    if (!daily || daily.length === 0) return trackedCall(call, "open", undefined, "unconfirmed");
     const last = daily[daily.length - 1]?.date;
     if (last) lastBySymbol.set(call.symbol, last);
     const now = new Date();
-    if (!outcome.needsIntradayOn) return trackedCall(call, outcome.status, paceMark({ call, daily, now }));
+    const pace = paceMark({ call, daily, now });
+    if (!outcome.needsIntradayOn) return trackedCall(call, outcome.status, pace, outcome.reason);
     const intraday = intradayBySymbol.get(call.symbol);
     if (!intraday) {
       incomplete = true;
-      return trackedCall(call, "open");
+      return trackedCall(call, "open", pace, "unconfirmed");
     }
-    const status = scoreCall({ call, daily, intraday, now }).status;
-    return trackedCall(call, status, paceMark({ call, daily, now }));
+    const scored = scoreCall({ call, daily, intraday, now });
+    return trackedCall(call, scored.status, pace, scored.reason);
   });
 
   const lastDates = [...lastBySymbol.values()];

@@ -96,11 +96,13 @@ function pushReturnRow(
   const low = Math.min(...windows);
   const high = Math.max(...windows);
   const year = spy[0].date.slice(0, 4);
+  const points = sideOf(roundTo(current, 1));
   rows.push({
     factor: "S&P 500",
     period: `${RETURN_SESSIONS} sessions`,
     statistic: `${signedPercent(current)} · avg ${signedPercent(average)} since ${year} · range ${signedPercent(low)} to ${signedPercent(high)}`,
-    alignment: align(tape, sideOf(roundTo(current, 1))),
+    alignment: align(tape, points),
+    points,
   });
 }
 
@@ -115,11 +117,13 @@ function pushYearRow(
     omitted.push("S&P 500 252-session return (SPY)");
     return;
   }
+  const points = sideOf(roundTo(change.percent, 1));
   rows.push({
     factor: "S&P 500",
     period: `${YEAR_SESSIONS} sessions`,
     statistic: signedPercent(change.percent),
-    alignment: align(tape, sideOf(roundTo(change.percent, 1))),
+    alignment: align(tape, points),
+    points,
   });
 }
 
@@ -153,11 +157,13 @@ function pushElectionRow(
   }
   const average = mean(priors);
   const gap = roundTo(current.percent, 1) - roundTo(average, 1);
+  const points = sideOf(gap);
   rows.push({
     factor: "S&P after elections",
     period: spanLabel(spy[current.preIndex].date, spy[spy.length - 1].date),
     statistic: `${signedPercent(current.percent)} over ${current.span} sessions · avg ${signedPercent(average)} after ${priors.length} elections · range ${signedPercent(Math.min(...priors))} to ${signedPercent(Math.max(...priors))}`,
-    alignment: align(tape, sideOf(gap)),
+    alignment: align(tape, points),
+    points,
   });
 }
 
@@ -176,12 +182,14 @@ function pushYieldRow(
   }
   const from = roundTo(change.from, 2);
   const to = roundTo(change.to, 2);
-  const points = roundTo(to - from, 2);
+  const changePoints = roundTo(to - from, 2);
+  const points = invert(sideOf(changePoints));
   rows.push({
     factor: "10-year yield",
     period: `${RETURN_SESSIONS} sessions`,
-    statistic: `${price(to)}% from ${price(from)}% (${signedPoints(points)})`,
-    alignment: align(tape, invert(sideOf(points))),
+    statistic: `${price(to)}% from ${price(from)}% (${signedPoints(changePoints)})`,
+    alignment: align(tape, points),
+    points,
   });
 }
 
@@ -205,11 +213,13 @@ function pushCpiRow(
   }
   const delta = roundTo(roundTo(yoy, 1) - roundTo(prior, 1), 1);
   const month = monthName(latest.month);
+  const points = invert(sideOf(delta));
   rows.push({
     factor: "CPI",
     period: `12 months to ${month} ${latest.year}`,
     statistic: `${signedPercent(yoy)} year over year · prior year ${signedPercent(prior)} (${signedPoints(delta, 1)})`,
-    alignment: align(tape, invert(sideOf(delta))),
+    alignment: align(tape, points),
+    points,
   });
 }
 
@@ -228,11 +238,13 @@ function pushTipsRow(
     return;
   }
   const spread = roundTo(roundTo(tipChange.percent, 1) - roundTo(iefChange.percent, 1), 1);
+  const points = invert(sideOf(spread));
   rows.push({
     factor: "TIPS vs Treasuries",
     period: `${RETURN_SESSIONS} sessions`,
     statistic: `TIP ${signedPercent(tipChange.percent)} · IEF ${signedPercent(iefChange.percent)} · spread ${signedPoints(spread, 1)}`,
-    alignment: align(tape, invert(sideOf(spread))),
+    alignment: align(tape, points),
+    points,
   });
 }
 
@@ -250,11 +262,13 @@ function pushHeadwindRow(
     omitted.push(missingName);
     return;
   }
+  const points = invert(sideOf(roundTo(change.percent, 1)));
   rows.push({
     factor,
     period: `${RETURN_SESSIONS} sessions`,
     statistic: signedPercent(change.percent),
-    alignment: align(tape, invert(sideOf(roundTo(change.percent, 1)))),
+    alignment: align(tape, points),
+    points,
   });
 }
 

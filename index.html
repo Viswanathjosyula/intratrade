@@ -80,6 +80,8 @@
     .timing { margin: 0.45rem 0 0; font-size: 0.88rem; font-weight: 750; line-height: 1.35; }
     .timing.take { color: #34d399; }
     .timing.wait { color: #fbbf24; }
+    [data-tip] { cursor: help; }
+    #hover-tip { position: fixed; z-index: 40; max-width: 22rem; margin: 0; padding: 0.45rem 0.6rem; border-radius: 0.4rem; background: #0b1020; color: #f8fafc; border: 1px solid #818cf8; font-size: 0.75rem; line-height: 1.35; font-weight: 550; box-shadow: 0 8px 24px rgba(0,0,0,0.35); pointer-events: none; }
     .indicators { margin: 0.5rem 1rem 0; border: 2px solid rgba(56, 189, 248, 0.75); border-radius: 0.55rem; background: #1a2140; }
     .indicators-head { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding: 0.45rem 0.7rem; }
     .indicators-head p { margin: 0; color: #7dd3fc; font-size: 0.85rem; font-weight: 650; }
@@ -199,7 +201,7 @@
     </div>
     <p class="counts"><span class="consider-count">4 consider</span> · <span class="aside-count">26 stand aside</span></p>
   </header>
-  <section class="mood risk-off" aria-label="Market mood"><p class="mood-name">Risk-off</p><p>SPY 735.29 is below its 10-session average of 759.86. 11 of 30 names are above their 10-session average. VIX 25.64 is above its 10-session average of 20.19.</p></section>
+  <section class="mood risk-off" aria-label="Market mood"><p class="mood-name" data-tip="Risk-off means every vote that came back is off, and at least two votes are in. SPY 735.29 is below its 10-session average of 759.86. 11 of 30 names are above their 10-session average. VIX 25.64 is above its 10-session average of 20.19.">Risk-off</p><p>SPY 735.29 is below its 10-session average of 759.86. 11 of 30 names are above their 10-session average. VIX 25.64 is above its 10-session average of 20.19.</p></section>
   <section class="indicators" aria-label="Tape indicators">
     <div class="indicators-head"><h2>Indicators</h2><p>S&amp;P 733.00 is below its 10-session average of 759.86.</p></div>
     <div class="indicators-scroll"><table>
@@ -208,42 +210,42 @@
           <td>S&amp;P 500</td>
           <td>21 sessions</td>
           <td class="stat">−5.7% · avg +0.8% since 1993 · range −33.1% to +25.2%</td>
-          <td class="with">With</td>
+          <td class="with" data-tip="With means this factor points the same way as the S&amp;P tape. The tape points down: S&amp;P 733.00 is below its 10-session average of 759.86. A rising S&amp;P points up with an up tape. This row is −5.7% · avg +0.8% since 1993 · range −33.1% to +25.2%, which points down, so the label is With.">With</td>
         </tr><tr>
           <td>S&amp;P after elections</td>
           <td>Nov 2–Nov 5, 2026</td>
           <td class="stat">−2.5% over 3 sessions · avg +1.1% after 16 elections · range −6.4% to +6.1%</td>
-          <td class="with">With</td>
+          <td class="with" data-tip="With means this factor points the same way as the S&amp;P tape. The tape points down: S&amp;P 733.00 is below its 10-session average of 759.86. A post-election return above its usual change points up with an up tape. This row is −2.5% over 3 sessions · avg +1.1% after 16 elections · range −6.4% to +6.1%, which points down, so the label is With.">With</td>
         </tr><tr>
           <td>CPI</td>
           <td>12 months to Sep 2026</td>
           <td class="stat">+3.7% year over year · prior year +3.0% (+0.7 pt)</td>
-          <td class="with">With</td>
+          <td class="with" data-tip="With means this factor points the same way as the S&amp;P tape. The tape points down: S&amp;P 733.00 is below its 10-session average of 759.86. Cooler inflation than the prior year points up with an up tape. This row is +3.7% year over year · prior year +3.0% (+0.7 pt), which points down, so the label is With.">With</td>
         </tr><tr>
           <td>10-year yield</td>
           <td>21 sessions</td>
           <td class="stat">4.86% from 5.23% (−0.37 pt)</td>
-          <td class="against">Against</td>
+          <td class="against" data-tip="Against means this factor points the opposite way from the S&amp;P tape. The tape points down: S&amp;P 733.00 is below its 10-session average of 759.86. A falling yield points up, because lower yields line up with an up tape. This row is 4.86% from 5.23% (−0.37 pt), which points up, so the label is Against.">Against</td>
         </tr><tr>
           <td>S&amp;P 500</td>
           <td>252 sessions</td>
           <td class="stat">+8.6%</td>
-          <td class="against">Against</td>
+          <td class="against" data-tip="Against means this factor points the opposite way from the S&amp;P tape. The tape points down: S&amp;P 733.00 is below its 10-session average of 759.86. A rising S&amp;P points up with an up tape. This row is +8.6%, which points up, so the label is Against.">Against</td>
         </tr><tr>
           <td>TIPS vs Treasuries</td>
           <td>21 sessions</td>
           <td class="stat">TIP +1.9% · IEF +3.2% · spread −1.3 pt</td>
-          <td class="against">Against</td>
+          <td class="against" data-tip="Against means this factor points the opposite way from the S&amp;P tape. The tape points down: S&amp;P 733.00 is below its 10-session average of 759.86. TIPS lagging Treasuries points up with an up tape. This row is TIP +1.9% · IEF +3.2% · spread −1.3 pt, which points up, so the label is Against.">Against</td>
         </tr><tr>
           <td>Dollar</td>
           <td>21 sessions</td>
           <td class="stat">−0.4%</td>
-          <td class="against">Against</td>
+          <td class="against" data-tip="Against means this factor points the opposite way from the S&amp;P tape. The tape points down: S&amp;P 733.00 is below its 10-session average of 759.86. A falling dollar points up with an up tape. This row is −0.4%, which points up, so the label is Against.">Against</td>
         </tr><tr>
           <td>Oil</td>
           <td>21 sessions</td>
           <td class="stat">−1.3%</td>
-          <td class="against">Against</td>
+          <td class="against" data-tip="Against means this factor points the opposite way from the S&amp;P tape. The tape points down: S&amp;P 733.00 is below its 10-session average of 759.86. Falling oil points up with an up tape. This row is −1.3%, which points up, so the label is Against.">Against</td>
         </tr></tbody>
       </table></div>
   </section>
@@ -258,185 +260,185 @@
     </div>
     <div class="targets-scroll">
       <table>
-        <thead><tr><th>Name</th><th>Side</th><th>Added at</th><th>Target</th><th>Confidence</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
-        <tbody><tr class="group not-reached"><td colspan="9">Not reached · 1</td></tr>
+        <thead><tr><th data-tip="Name is the ticker this row tracks.">Name</th><th data-tip="Side is long when the target is above the added price, and short when the target is below it.">Side</th><th data-tip="Added at is the price stored when the call was published.">Added at</th><th data-tip="Target is the stored price this call is tracking.">Target</th><th data-tip="Confidence is 100% when the target has been reached. Otherwise it averages the readings on the row: target before the stop, distance left versus daily ATR, whether the pace date is still ahead, and whether the side agrees with the mood. A row is listed only when that percent is above 50%.">Confidence</th><th data-tip="As of is the New York session when the call was added.">As of</th><th data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price.">Pace</th><th data-tip="New pace is set only after the original pace date passes without the target printing.">New pace</th><th data-tip="Status is Reached when a later session trades the target before the stop, Not reached when the stop prints first or the pace date passes, and Open when neither is confirmed.">Status</th></tr></thead>
+        <tbody><tr class="group not-reached"><td colspan="9" data-tip="Not reached means the stop printed before the target, or the pace date passed with no target print.">Not reached · 1</td></tr>
 <tr class="side-short">
-          <td class="sym short">MU</td>
-          <td class="short">Short</td>
-          <td>856.49</td>
-          <td>660.32</td>
-          <td class="conf">55%</td>
-          <td>Thu, Oct 22, 2026</td>
-          <td>Wed, Oct 28, 2026</td>
-          <td></td>
-          <td class="not-reached">Not reached</td>
+          <td class="sym short" data-tip="Name is the ticker on this row. MU is a short, added at 856.49 on Thu, Oct 22, 2026, with target 660.32.">MU</td>
+          <td class="short" data-tip="Short means the target is below the added price. MU was added at 856.49 and the target is 660.32.">Short</td>
+          <td data-tip="Added at is the price stored when the call was published. MU was added at 856.49 on Thu, Oct 22, 2026.">856.49</td>
+          <td data-tip="Target is the stored price this row tracks. This short target is 660.32, below the added price 856.49.">660.32</td>
+          <td class="conf" data-tip="Confidence averages the readings on this row and rounds. This MU short is 55%. Target before the stop is 20% from added 856.49, target 660.32, and stop 905.67 (risk 49.18, reward 196.17). Distance left is 100%: 0.00 left from the close 656.39 to the target 660.32, against daily ATR 57.39. Pace is 0% because Wed, Oct 28, 2026 is not ahead of Thu, Nov 5, 2026. Mood is 100% because this short agrees with risk-off. It is listed because 55% is above 50%.">55%</td>
+          <td data-tip="As of is the New York session when the call was added. MU was added Thu, Oct 22, 2026.">Thu, Oct 22, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This MU pace is Wed, Oct 28, 2026.">Wed, Oct 28, 2026</td>
+          <td data-tip="New pace stays blank until the pace date passes without the target printing. This MU pace is Wed, Oct 28, 2026 and no new date is set."></td>
+          <td class="not-reached" data-tip="Not reached means the stop printed before the target, or the pace date passed with no target print. This MU stop 905.67 printed before the target 660.32.">Not reached</td>
         </tr>
-<tr class="group open"><td colspan="9">Open · 4</td></tr>
+<tr class="group open"><td colspan="9" data-tip="Open means neither the target nor the stop is confirmed, and the pace date has not passed.">Open · 4</td></tr>
 <tr class="side-short">
-          <td class="sym short">NFLX</td>
-          <td class="short">Short</td>
-          <td>65.56</td>
-          <td>59.67</td>
-          <td class="conf">64%</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
-          <td></td>
-          <td class="open">Open</td>
-        </tr>
-<tr class="side-short">
-          <td class="sym short">AVGO</td>
-          <td class="short">Short</td>
-          <td>291.53</td>
-          <td>258.43</td>
-          <td class="conf">65%</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Tue, Nov 10, 2026</td>
-          <td></td>
-          <td class="open">Open</td>
+          <td class="sym short" data-tip="Name is the ticker on this row. NFLX is a short, added at 65.56 on Thu, Nov 5, 2026, with target 59.67.">NFLX</td>
+          <td class="short" data-tip="Short means the target is below the added price. NFLX was added at 65.56 and the target is 59.67.">Short</td>
+          <td data-tip="Added at is the price stored when the call was published. NFLX was added at 65.56 on Thu, Nov 5, 2026.">65.56</td>
+          <td data-tip="Target is the stored price this row tracks. This short target is 59.67, below the added price 65.56.">59.67</td>
+          <td class="conf" data-tip="Confidence averages the readings on this row and rounds. This NFLX short is 64%. Target before the stop is 27% from added 65.56, target 59.67, and stop 67.78 (risk 2.22, reward 5.89). Distance left is 27%: 5.89 left from the close 65.56 to the target 59.67, against daily ATR 2.15. Pace is 100% because Tue, Nov 10, 2026 is still ahead of Thu, Nov 5, 2026. Mood is 100% because this short agrees with risk-off. It is listed because 64% is above 50%.">64%</td>
+          <td data-tip="As of is the New York session when the call was added. NFLX was added Thu, Nov 5, 2026.">Thu, Nov 5, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This NFLX pace is Tue, Nov 10, 2026.">Tue, Nov 10, 2026</td>
+          <td data-tip="New pace stays blank until the pace date passes without the target printing. This NFLX pace is Tue, Nov 10, 2026 and no new date is set."></td>
+          <td class="open" data-tip="Open means neither the target nor the stop is confirmed, and the pace date has not passed. This NFLX target is 59.67 and the stop is 67.78. Pace is Tue, Nov 10, 2026. Checked through Thu, Nov 5, 2026.">Open</td>
         </tr>
 <tr class="side-short">
-          <td class="sym short">ORCL</td>
-          <td class="short">Short</td>
-          <td>115.16</td>
-          <td>89.44</td>
-          <td class="conf">62%</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Wed, Nov 11, 2026</td>
-          <td></td>
-          <td class="open">Open</td>
+          <td class="sym short" data-tip="Name is the ticker on this row. AVGO is a short, added at 291.53 on Thu, Nov 5, 2026, with target 258.43.">AVGO</td>
+          <td class="short" data-tip="Short means the target is below the added price. AVGO was added at 291.53 and the target is 258.43.">Short</td>
+          <td data-tip="Added at is the price stored when the call was published. AVGO was added at 291.53 on Thu, Nov 5, 2026.">291.53</td>
+          <td data-tip="Target is the stored price this row tracks. This short target is 258.43, below the added price 291.53.">258.43</td>
+          <td class="conf" data-tip="Confidence averages the readings on this row and rounds. This AVGO short is 65%. Target before the stop is 30% from added 291.53, target 258.43, and stop 305.93 (risk 14.40, reward 33.10). Distance left is 30%: 33.10 left from the close 291.53 to the target 258.43, against daily ATR 14.40. Pace is 100% because Tue, Nov 10, 2026 is still ahead of Thu, Nov 5, 2026. Mood is 100% because this short agrees with risk-off. It is listed because 65% is above 50%.">65%</td>
+          <td data-tip="As of is the New York session when the call was added. AVGO was added Thu, Nov 5, 2026.">Thu, Nov 5, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This AVGO pace is Tue, Nov 10, 2026.">Tue, Nov 10, 2026</td>
+          <td data-tip="New pace stays blank until the pace date passes without the target printing. This AVGO pace is Tue, Nov 10, 2026 and no new date is set."></td>
+          <td class="open" data-tip="Open means neither the target nor the stop is confirmed, and the pace date has not passed. This AVGO target is 258.43 and the stop is 305.93. Pace is Tue, Nov 10, 2026. Checked through Thu, Nov 5, 2026.">Open</td>
         </tr>
 <tr class="side-short">
-          <td class="sym short">META</td>
-          <td class="short">Short</td>
-          <td>605.08</td>
-          <td>476.85</td>
-          <td class="conf">58%</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td>Fri, Nov 13, 2026</td>
-          <td></td>
-          <td class="open">Open</td>
+          <td class="sym short" data-tip="Name is the ticker on this row. ORCL is a short, added at 115.16 on Thu, Nov 5, 2026, with target 89.44.">ORCL</td>
+          <td class="short" data-tip="Short means the target is below the added price. ORCL was added at 115.16 and the target is 89.44.">Short</td>
+          <td data-tip="Added at is the price stored when the call was published. ORCL was added at 115.16 on Thu, Nov 5, 2026.">115.16</td>
+          <td data-tip="Target is the stored price this row tracks. This short target is 89.44, below the added price 115.16.">89.44</td>
+          <td class="conf" data-tip="Confidence averages the readings on this row and rounds. This ORCL short is 62%. Target before the stop is 25% from added 115.16, target 89.44, and stop 123.53 (risk 8.37, reward 25.72). Distance left is 25%: 25.72 left from the close 115.16 to the target 89.44, against daily ATR 8.37. Pace is 100% because Wed, Nov 11, 2026 is still ahead of Thu, Nov 5, 2026. Mood is 100% because this short agrees with risk-off. It is listed because 62% is above 50%.">62%</td>
+          <td data-tip="As of is the New York session when the call was added. ORCL was added Thu, Nov 5, 2026.">Thu, Nov 5, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This ORCL pace is Wed, Nov 11, 2026.">Wed, Nov 11, 2026</td>
+          <td data-tip="New pace stays blank until the pace date passes without the target printing. This ORCL pace is Wed, Nov 11, 2026 and no new date is set."></td>
+          <td class="open" data-tip="Open means neither the target nor the stop is confirmed, and the pace date has not passed. This ORCL target is 89.44 and the stop is 123.53. Pace is Wed, Nov 11, 2026. Checked through Thu, Nov 5, 2026.">Open</td>
         </tr>
-<tr class="group reached"><td colspan="9">Reached · 11</td></tr>
+<tr class="side-short">
+          <td class="sym short" data-tip="Name is the ticker on this row. META is a short, added at 605.08 on Thu, Nov 5, 2026, with target 476.85.">META</td>
+          <td class="short" data-tip="Short means the target is below the added price. META was added at 605.08 and the target is 476.85.">Short</td>
+          <td data-tip="Added at is the price stored when the call was published. META was added at 605.08 on Thu, Nov 5, 2026.">605.08</td>
+          <td data-tip="Target is the stored price this row tracks. This short target is 476.85, below the added price 605.08.">476.85</td>
+          <td class="conf" data-tip="Confidence averages the readings on this row and rounds. This META short is 58%. Target before the stop is 15% from added 605.08, target 476.85, and stop 628.55 (risk 23.47, reward 128.23). Distance left is 15%: 128.23 left from the close 605.08 to the target 476.85, against daily ATR 23.47. Pace is 100% because Fri, Nov 13, 2026 is still ahead of Thu, Nov 5, 2026. Mood is 100% because this short agrees with risk-off. It is listed because 58% is above 50%.">58%</td>
+          <td data-tip="As of is the New York session when the call was added. META was added Thu, Nov 5, 2026.">Thu, Nov 5, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This META pace is Fri, Nov 13, 2026.">Fri, Nov 13, 2026</td>
+          <td data-tip="New pace stays blank until the pace date passes without the target printing. This META pace is Fri, Nov 13, 2026 and no new date is set."></td>
+          <td class="open" data-tip="Open means neither the target nor the stop is confirmed, and the pace date has not passed. This META target is 476.85 and the stop is 628.55. Pace is Fri, Nov 13, 2026. Checked through Thu, Nov 5, 2026.">Open</td>
+        </tr>
+<tr class="group reached"><td colspan="9" data-tip="Reached means a later session traded the target before the stop.">Reached · 11</td></tr>
 <tr class="side-long">
-          <td class="sym long">DIS</td>
-          <td class="long">Long</td>
-          <td>114.18</td>
-          <td>119.01</td>
-          <td class="conf">100%</td>
-          <td>Tue, Nov 3, 2026</td>
-          <td>Fri, Nov 6, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
+          <td class="sym long" data-tip="Name is the ticker on this row. DIS is a long, added at 114.18 on Tue, Nov 3, 2026, with target 119.01.">DIS</td>
+          <td class="long" data-tip="Long means the target is above the added price. DIS was added at 114.18 and the target is 119.01.">Long</td>
+          <td data-tip="Added at is the price stored when the call was published. DIS was added at 114.18 on Tue, Nov 3, 2026.">114.18</td>
+          <td data-tip="Target is the stored price this row tracks. This long target is 119.01, above the added price 114.18.">119.01</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This DIS target 119.01 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. DIS was added Tue, Nov 3, 2026.">Tue, Nov 3, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This DIS pace is Fri, Nov 6, 2026.">Fri, Nov 6, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This DIS target 119.01 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This DIS target 119.01 printed before the stop 112.01.">Reached</td>
         </tr>
 <tr class="side-short">
-          <td class="sym short">QCOM</td>
-          <td class="short">Short</td>
-          <td>162.08</td>
-          <td>150.41</td>
-          <td class="conf">100%</td>
-          <td>Mon, Nov 2, 2026</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
+          <td class="sym short" data-tip="Name is the ticker on this row. QCOM is a short, added at 162.08 on Mon, Nov 2, 2026, with target 150.41.">QCOM</td>
+          <td class="short" data-tip="Short means the target is below the added price. QCOM was added at 162.08 and the target is 150.41.">Short</td>
+          <td data-tip="Added at is the price stored when the call was published. QCOM was added at 162.08 on Mon, Nov 2, 2026.">162.08</td>
+          <td data-tip="Target is the stored price this row tracks. This short target is 150.41, below the added price 162.08.">150.41</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This QCOM target 150.41 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. QCOM was added Mon, Nov 2, 2026.">Mon, Nov 2, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This QCOM pace is Wed, Nov 4, 2026.">Wed, Nov 4, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This QCOM target 150.41 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This QCOM target 150.41 printed before the stop 174.56.">Reached</td>
         </tr>
 <tr class="side-short">
-          <td class="sym short">MU</td>
-          <td class="short">Short</td>
-          <td>833.59</td>
-          <td>708.52</td>
-          <td class="conf">100%</td>
-          <td>Mon, Nov 2, 2026</td>
-          <td>Thu, Nov 5, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
+          <td class="sym short" data-tip="Name is the ticker on this row. MU is a short, added at 833.59 on Mon, Nov 2, 2026, with target 708.52.">MU</td>
+          <td class="short" data-tip="Short means the target is below the added price. MU was added at 833.59 and the target is 708.52.">Short</td>
+          <td data-tip="Added at is the price stored when the call was published. MU was added at 833.59 on Mon, Nov 2, 2026.">833.59</td>
+          <td data-tip="Target is the stored price this row tracks. This short target is 708.52, below the added price 833.59.">708.52</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This MU target 708.52 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. MU was added Mon, Nov 2, 2026.">Mon, Nov 2, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This MU pace is Thu, Nov 5, 2026.">Thu, Nov 5, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This MU target 708.52 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This MU target 708.52 printed before the stop 887.61.">Reached</td>
         </tr>
 <tr class="side-short">
-          <td class="sym short">NVDA</td>
-          <td class="short">Short</td>
-          <td>204.64</td>
-          <td>191.03</td>
-          <td class="conf">100%</td>
-          <td>Fri, Oct 30, 2026</td>
-          <td>Wed, Nov 4, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
+          <td class="sym short" data-tip="Name is the ticker on this row. NVDA is a short, added at 204.64 on Fri, Oct 30, 2026, with target 191.03.">NVDA</td>
+          <td class="short" data-tip="Short means the target is below the added price. NVDA was added at 204.64 and the target is 191.03.">Short</td>
+          <td data-tip="Added at is the price stored when the call was published. NVDA was added at 204.64 on Fri, Oct 30, 2026.">204.64</td>
+          <td data-tip="Target is the stored price this row tracks. This short target is 191.03, below the added price 204.64.">191.03</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This NVDA target 191.03 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. NVDA was added Fri, Oct 30, 2026.">Fri, Oct 30, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This NVDA pace is Wed, Nov 4, 2026.">Wed, Nov 4, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This NVDA target 191.03 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This NVDA target 191.03 printed before the stop 211.73.">Reached</td>
         </tr>
 <tr class="side-short">
-          <td class="sym short">GOOGL</td>
-          <td class="short">Short</td>
-          <td>324.22</td>
-          <td>301.26</td>
-          <td class="conf">100%</td>
-          <td>Thu, Oct 22, 2026</td>
-          <td>Tue, Oct 27, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
-        </tr>
-<tr class="side-long">
-          <td class="sym long">DIS</td>
-          <td class="long">Long</td>
-          <td>109.59</td>
-          <td>116.77</td>
-          <td class="conf">100%</td>
-          <td>Mon, Oct 19, 2026</td>
-          <td>Fri, Oct 23, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
+          <td class="sym short" data-tip="Name is the ticker on this row. GOOGL is a short, added at 324.22 on Thu, Oct 22, 2026, with target 301.26.">GOOGL</td>
+          <td class="short" data-tip="Short means the target is below the added price. GOOGL was added at 324.22 and the target is 301.26.">Short</td>
+          <td data-tip="Added at is the price stored when the call was published. GOOGL was added at 324.22 on Thu, Oct 22, 2026.">324.22</td>
+          <td data-tip="Target is the stored price this row tracks. This short target is 301.26, below the added price 324.22.">301.26</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This GOOGL target 301.26 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. GOOGL was added Thu, Oct 22, 2026.">Thu, Oct 22, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This GOOGL pace is Tue, Oct 27, 2026.">Tue, Oct 27, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This GOOGL target 301.26 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This GOOGL target 301.26 printed before the stop 335.89.">Reached</td>
         </tr>
 <tr class="side-long">
-          <td class="sym long">COST</td>
-          <td class="long">Long</td>
-          <td>989.11</td>
-          <td>1,069.60</td>
-          <td class="conf">100%</td>
-          <td>Fri, Oct 16, 2026</td>
-          <td>Mon, Oct 26, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
+          <td class="sym long" data-tip="Name is the ticker on this row. DIS is a long, added at 109.59 on Mon, Oct 19, 2026, with target 116.77.">DIS</td>
+          <td class="long" data-tip="Long means the target is above the added price. DIS was added at 109.59 and the target is 116.77.">Long</td>
+          <td data-tip="Added at is the price stored when the call was published. DIS was added at 109.59 on Mon, Oct 19, 2026.">109.59</td>
+          <td data-tip="Target is the stored price this row tracks. This long target is 116.77, above the added price 109.59.">116.77</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This DIS target 116.77 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. DIS was added Mon, Oct 19, 2026.">Mon, Oct 19, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This DIS pace is Fri, Oct 23, 2026.">Fri, Oct 23, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This DIS target 116.77 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This DIS target 116.77 printed before the stop 107.47.">Reached</td>
+        </tr>
+<tr class="side-long">
+          <td class="sym long" data-tip="Name is the ticker on this row. COST is a long, added at 989.11 on Fri, Oct 16, 2026, with target 1,069.60.">COST</td>
+          <td class="long" data-tip="Long means the target is above the added price. COST was added at 989.11 and the target is 1,069.60.">Long</td>
+          <td data-tip="Added at is the price stored when the call was published. COST was added at 989.11 on Fri, Oct 16, 2026.">989.11</td>
+          <td data-tip="Target is the stored price this row tracks. This long target is 1,069.60, above the added price 989.11.">1,069.60</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This COST target 1,069.60 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. COST was added Fri, Oct 16, 2026.">Fri, Oct 16, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This COST pace is Mon, Oct 26, 2026.">Mon, Oct 26, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This COST target 1,069.60 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This COST target 1,069.60 printed before the stop 973.07.">Reached</td>
         </tr>
 <tr class="side-short">
-          <td class="sym short">META</td>
-          <td class="short">Short</td>
-          <td>709.33</td>
-          <td>647.81</td>
-          <td class="conf">100%</td>
-          <td>Fri, Oct 16, 2026</td>
-          <td>Wed, Oct 21, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
+          <td class="sym short" data-tip="Name is the ticker on this row. META is a short, added at 709.33 on Fri, Oct 16, 2026, with target 647.81.">META</td>
+          <td class="short" data-tip="Short means the target is below the added price. META was added at 709.33 and the target is 647.81.">Short</td>
+          <td data-tip="Added at is the price stored when the call was published. META was added at 709.33 on Fri, Oct 16, 2026.">709.33</td>
+          <td data-tip="Target is the stored price this row tracks. This short target is 647.81, below the added price 709.33.">647.81</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This META target 647.81 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. META was added Fri, Oct 16, 2026.">Fri, Oct 16, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This META pace is Wed, Oct 21, 2026.">Wed, Oct 21, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This META target 647.81 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This META target 647.81 printed before the stop 731.44.">Reached</td>
         </tr>
 <tr class="side-long">
-          <td class="sym long">XOM</td>
-          <td class="long">Long</td>
-          <td>172.15</td>
-          <td>183.69</td>
-          <td class="conf">100%</td>
-          <td>Mon, Oct 12, 2026</td>
-          <td>Fri, Oct 16, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
+          <td class="sym long" data-tip="Name is the ticker on this row. XOM is a long, added at 172.15 on Mon, Oct 12, 2026, with target 183.69.">XOM</td>
+          <td class="long" data-tip="Long means the target is above the added price. XOM was added at 172.15 and the target is 183.69.">Long</td>
+          <td data-tip="Added at is the price stored when the call was published. XOM was added at 172.15 on Mon, Oct 12, 2026.">172.15</td>
+          <td data-tip="Target is the stored price this row tracks. This long target is 183.69, above the added price 172.15.">183.69</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This XOM target 183.69 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. XOM was added Mon, Oct 12, 2026.">Mon, Oct 12, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This XOM pace is Fri, Oct 16, 2026.">Fri, Oct 16, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This XOM target 183.69 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This XOM target 183.69 printed before the stop 168.86.">Reached</td>
         </tr>
 <tr class="side-long">
-          <td class="sym long">WMT</td>
-          <td class="long">Long</td>
-          <td>111.35</td>
-          <td>119.69</td>
-          <td class="conf">100%</td>
-          <td>Fri, Oct 9, 2026</td>
-          <td>Thu, Oct 15, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
+          <td class="sym long" data-tip="Name is the ticker on this row. WMT is a long, added at 111.35 on Fri, Oct 9, 2026, with target 119.69.">WMT</td>
+          <td class="long" data-tip="Long means the target is above the added price. WMT was added at 111.35 and the target is 119.69.">Long</td>
+          <td data-tip="Added at is the price stored when the call was published. WMT was added at 111.35 on Fri, Oct 9, 2026.">111.35</td>
+          <td data-tip="Target is the stored price this row tracks. This long target is 119.69, above the added price 111.35.">119.69</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This WMT target 119.69 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. WMT was added Fri, Oct 9, 2026.">Fri, Oct 9, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This WMT pace is Thu, Oct 15, 2026.">Thu, Oct 15, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This WMT target 119.69 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This WMT target 119.69 printed before the stop 109.05.">Reached</td>
         </tr>
 <tr class="side-long">
-          <td class="sym long">DIS</td>
-          <td class="long">Long</td>
-          <td>107.02</td>
-          <td>111.40</td>
-          <td class="conf">100%</td>
-          <td>Thu, Oct 8, 2026</td>
-          <td>Tue, Oct 13, 2026</td>
-          <td></td>
-          <td class="reached">Reached</td>
+          <td class="sym long" data-tip="Name is the ticker on this row. DIS is a long, added at 107.02 on Thu, Oct 8, 2026, with target 111.40.">DIS</td>
+          <td class="long" data-tip="Long means the target is above the added price. DIS was added at 107.02 and the target is 111.40.">Long</td>
+          <td data-tip="Added at is the price stored when the call was published. DIS was added at 107.02 on Thu, Oct 8, 2026.">107.02</td>
+          <td data-tip="Target is the stored price this row tracks. This long target is 111.40, above the added price 107.02.">111.40</td>
+          <td class="conf" data-tip="Confidence is 100% when the target has been reached. This DIS target 111.40 has been reached, so the confidence is 100%.">100%</td>
+          <td data-tip="As of is the New York session when the call was added. DIS was added Thu, Oct 8, 2026.">Thu, Oct 8, 2026</td>
+          <td data-tip="Pace is the first date the target was expected, walking one daily ATR per session from the added price. This DIS pace is Tue, Oct 13, 2026.">Tue, Oct 13, 2026</td>
+          <td data-tip="New pace stays blank once the target has been reached. This DIS target 111.40 is reached, so no new pace is set."></td>
+          <td class="reached" data-tip="Reached means a later session traded the target before the stop. This DIS target 111.40 printed before the stop 104.99.">Reached</td>
         </tr></tbody>
       </table>
     </div>
@@ -815,7 +817,7 @@
           <div><dt>Reward:risk</dt><dd>3.63:1</dd></div>
         </dl>
         <p class="reach">Thu, Nov 12, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
-        <p class="timing wait">Wait. The tape is risk-off, so this long is fighting the mood.</p>
+        <p class="timing wait" data-tip="Wait means the side fights the mood, or the mood is mixed. MORN is a long and the tape is risk-off, so this line says wait. SPY 735.29 is below its 10-session average of 759.86. 11 of 30 names are above their 10-session average. VIX 25.64 is above its 10-session average of 20.19.">Wait. The tape is risk-off, so this long is fighting the mood.</p>
         <p><strong>News.</strong> Positive. Morningstar (MORN) Posted Stronger Q3 Results, Is The Stock Already Fully Valued?</p>
         <p><strong>Earnings.</strong> EPS 3.48 vs 3.04 (+14.49%). $672.1M reported revenue. 3Q2026.</p>
         <p><strong>Pattern.</strong> Breakout, triggered. Closed through the prior 20-session high at 245.02.</p>
@@ -833,7 +835,7 @@
           <div><dt>Reward:risk</dt><dd>3.53:1</dd></div>
         </dl>
         <p class="reach">Thu, Nov 12, 2026, if price travels about one daily ATR per session toward the target (4 sessions).</p>
-        <p class="timing take">Take it. The tape is risk-off, and this name is a short.</p>
+        <p class="timing take" data-tip="Take means the side agrees with the mood. NVDA is a short and the tape is risk-off, so this line says take. SPY 735.29 is below its 10-session average of 759.86. 11 of 30 names are above their 10-session average. VIX 25.64 is above its 10-session average of 20.19.">Take it. The tape is risk-off, and this name is a short.</p>
         <p><strong>News.</strong> Neutral. Nvidia (NVDA) Tightens Chip Tracking In Southeast Asia</p>
         <p><strong>Earnings.</strong> EPS 2.22 vs 2.09 (+6.22%). $96.22B reported revenue. Quarter ended Jul 2026.</p>
         <p><strong>Pattern.</strong> Bear flag, triggered. Bear flag cleared 199.68 after a 10.6% pole. The flag fails through 209.98.</p>
@@ -851,7 +853,7 @@
           <div><dt>Reward:risk</dt><dd>2.45:1</dd></div>
         </dl>
         <p class="reach">Wed, Nov 11, 2026, if price travels about one daily ATR per session toward the target (3 sessions).</p>
-        <p class="timing take">Take it. The tape is risk-off, and this name is a short.</p>
+        <p class="timing take" data-tip="Take means the side agrees with the mood. AVGO is a short and the tape is risk-off, so this line says take. SPY 735.29 is below its 10-session average of 759.86. 11 of 30 names are above their 10-session average. VIX 25.64 is above its 10-session average of 20.19.">Take it. The tape is risk-off, and this name is a short.</p>
         <p><strong>News.</strong> Neutral. Broadcom Is Still Down 22% in the Past Month: Is AVGO Stock Really on a Road to Recovery?</p>
         <p><strong>Earnings.</strong> EPS 3.03 vs 2.83 (+7.07%). $22.19B reported revenue. Quarter ended Jul 2026.</p>
         <p><strong>Pattern.</strong> Bear flag, triggered. Bear flag cleared 321.74 after a 10.4% pole. The flag fails through 335.74.</p>
@@ -869,7 +871,7 @@
           <div><dt>Reward:risk</dt><dd>5.68:1</dd></div>
         </dl>
         <p class="reach">Mon, Nov 16, 2026, if price travels about one daily ATR per session toward the target (6 sessions).</p>
-        <p class="timing take">Take it. The tape is risk-off, and this name is a short.</p>
+        <p class="timing take" data-tip="Take means the side agrees with the mood. META is a short and the tape is risk-off, so this line says take. SPY 735.29 is below its 10-session average of 759.86. 11 of 30 names are above their 10-session average. VIX 25.64 is above its 10-session average of 20.19.">Take it. The tape is risk-off, and this name is a short.</p>
         <p><strong>News.</strong> Neutral. Meta Pauses Data-Scraping Terms Following Publisher Criticism</p>
         <p><strong>Earnings.</strong> EPS 7.40 vs 6.52 (+13.50%). $64.60B reported revenue. Quarter ended Sep 2026.</p>
         <p><strong>Pattern.</strong> Bear flag, triggered. Bear flag cleared 606.41 after a 20.2% pole. The flag fails through 647.69.</p>
@@ -1345,5 +1347,32 @@
       </article></div>
   </main>
   <footer>Decision support only. Nothing here sends an order.</footer>
+  <p id="hover-tip" hidden></p>
+  <script>
+    const hoverTip = document.getElementById("hover-tip");
+    function placeTip(el) {
+      const text = el.getAttribute("data-tip");
+      if (!text) { hoverTip.hidden = true; return; }
+      hoverTip.textContent = text;
+      hoverTip.hidden = false;
+      const rect = el.getBoundingClientRect();
+      const width = hoverTip.offsetWidth;
+      const height = hoverTip.offsetHeight;
+      const left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 8));
+      const below = rect.bottom + 8;
+      const top = below + height > window.innerHeight ? Math.max(8, rect.top - height - 8) : below;
+      hoverTip.style.left = left + "px";
+      hoverTip.style.top = top + "px";
+    }
+    document.addEventListener("mouseover", (event) => {
+      const el = event.target.closest("[data-tip]");
+      if (!el) { hoverTip.hidden = true; return; }
+      placeTip(el);
+    });
+    document.addEventListener("mouseout", (event) => {
+      const next = event.relatedTarget && event.relatedTarget.closest ? event.relatedTarget.closest("[data-tip]") : null;
+      if (!next) hoverTip.hidden = true;
+    });
+  </script>
 </body>
 </html>

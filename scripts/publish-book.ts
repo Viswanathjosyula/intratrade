@@ -7,6 +7,7 @@ import { rankIdeas } from "@/lib/market/engine";
 import { loadPublicSession } from "@/lib/market/live";
 import { moodLabel, timingCall } from "@/lib/market/mood";
 import { estimatedReach, formatSessionDate, reachLabel } from "@/lib/market/reach";
+import { HEADER_TIPS, moodTip, rowTips, statusGroupTip, timingTip, trendTip } from "@/lib/market/tips";
 import { DEFAULT_RISK, type IndicatorBoard, type MarketMood, type TradeIdea } from "@/lib/market/types";
 
 function escapeHtml(value: string): string {
@@ -15,6 +16,10 @@ function escapeHtml(value: string): string {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
+}
+
+function tip(text: string): string {
+  return ` data-tip="${escapeHtml(text)}"`;
 }
 
 function statusText(status: CallStatus): string {
@@ -46,16 +51,17 @@ function renderCallRow(
       mood: mood?.name ?? null,
     }),
   );
+  const tips = rowTips(call, through, mood?.name ?? null);
   return `<tr class="side-${call.side}">
-          <td class="sym ${call.side}">${escapeHtml(call.symbol)}</td>
-          <td class="${call.side}">${escapeHtml(sideLabel(call.side))}</td>
-          <td>${escapeHtml(addedPrice(call.entry))}</td>
-          <td>${price(call.target)}</td>
-          <td class="conf">${escapeHtml(confidence)}</td>
-          <td>${escapeHtml(formatSessionDate(call.asOf))}</td>
-          <td>${call.paceDate ? escapeHtml(formatSessionDate(call.paceDate)) : ""}</td>
-          <td>${call.nextPaceDate ? escapeHtml(formatSessionDate(call.nextPaceDate)) : ""}</td>
-          <td class="${call.status}">${statusText(call.status)}</td>
+          <td class="sym ${call.side}"${tip(tips.name)}>${escapeHtml(call.symbol)}</td>
+          <td class="${call.side}"${tip(tips.side)}>${escapeHtml(sideLabel(call.side))}</td>
+          <td${tip(tips.added)}>${escapeHtml(addedPrice(call.entry))}</td>
+          <td${tip(tips.target)}>${price(call.target)}</td>
+          <td class="conf"${tip(tips.confidence)}>${escapeHtml(confidence)}</td>
+          <td${tip(tips.asOf)}>${escapeHtml(formatSessionDate(call.asOf))}</td>
+          <td${tip(tips.pace)}>${call.paceDate ? escapeHtml(formatSessionDate(call.paceDate)) : ""}</td>
+          <td${tip(tips.newPace)}>${call.nextPaceDate ? escapeHtml(formatSessionDate(call.nextPaceDate)) : ""}</td>
+          <td class="${call.status}"${tip(tips.status)}>${statusText(call.status)}</td>
         </tr>`;
 }
 
@@ -71,7 +77,7 @@ function renderTargets(tracked: TrackedBook, mood: MarketMood | null): string {
               group.calls.length === 0
                 ? `<tr class="empty"><td colspan="9">None</td></tr>`
                 : group.calls.map((call) => renderCallRow(call, tracked.through, mood)).join("\n");
-            return `<tr class="group ${group.status}"><td colspan="9">${escapeHtml(statusText(group.status))} · ${group.calls.length}</td></tr>
+            return `<tr class="group ${group.status}"><td colspan="9"${tip(statusGroupTip(group.status))}>${escapeHtml(statusText(group.status))} · ${group.calls.length}</td></tr>
 ${body}`;
           })
           .join("\n");
@@ -90,7 +96,7 @@ ${body}`;
     </div>
     <div class="targets-scroll">
       <table>
-        <thead><tr><th>Name</th><th>Side</th><th>Added at</th><th>Target</th><th>Confidence</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
+        <thead><tr><th${tip(HEADER_TIPS.name)}>Name</th><th${tip(HEADER_TIPS.side)}>Side</th><th${tip(HEADER_TIPS.added)}>Added at</th><th${tip(HEADER_TIPS.target)}>Target</th><th${tip(HEADER_TIPS.confidence)}>Confidence</th><th${tip(HEADER_TIPS.asOf)}>As of</th><th${tip(HEADER_TIPS.pace)}>Pace</th><th${tip(HEADER_TIPS.newPace)}>New pace</th><th${tip(HEADER_TIPS.status)}>Status</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
@@ -114,7 +120,7 @@ function renderIndicators(board: IndicatorBoard | null): string {
           <td>${escapeHtml(row.factor)}</td>
           <td>${escapeHtml(row.period)}</td>
           <td class="stat">${escapeHtml(row.statistic)}</td>
-          <td class="${row.alignment}">${row.alignment === "with" ? "With" : "Against"}</td>
+          <td class="${row.alignment}"${tip(trendTip(row, board.tape))}>${row.alignment === "with" ? "With" : "Against"}</td>
         </tr>`,
           )
           .join("")}</tbody>
@@ -133,7 +139,7 @@ function renderMood(mood: MarketMood | null): string {
   if (!mood) {
     return `<section class="mood" aria-label="Market mood"><p class="mood-name">Mood unavailable</p><p>Yahoo did not return SPY, book breadth, or VIX.</p></section>`;
   }
-  return `<section class="mood ${mood.name}" aria-label="Market mood"><p class="mood-name">${escapeHtml(moodLabel(mood.name))}</p><p>${escapeHtml(mood.summary)}</p></section>`;
+  return `<section class="mood ${mood.name}" aria-label="Market mood"><p class="mood-name"${tip(moodTip(mood))}>${escapeHtml(moodLabel(mood.name))}</p><p>${escapeHtml(mood.summary)}</p></section>`;
 }
 
 function render(
@@ -227,7 +233,7 @@ function render(
           <div><dt>Reward:risk</dt><dd>${idea.qualified ? rewardRisk(idea.riskReward) : "—"}</dd></div>
         </dl>
         <p class="reach">${escapeHtml(reach)}</p>
-        ${timing ? `<p class="timing ${timing.action}">${escapeHtml(timing.line)}</p>` : ""}
+        ${timing && mood ? `<p class="timing ${timing.action}"${tip(timingTip(mood, idea.side, idea.symbol))}>${escapeHtml(timing.line)}</p>` : ""}
         <p><strong>News.</strong> ${escapeHtml(sentimentLabel(idea.news.sentiment))}. ${escapeHtml(idea.news.headline)}</p>
         <p><strong>Earnings.</strong> ${escapeHtml(earnings.title)}. ${escapeHtml(earnings.dollars)}. ${escapeHtml(idea.earnings.period)}.</p>
         <p><strong>Pattern.</strong> ${escapeHtml(idea.pattern.name)}, ${escapeHtml(idea.pattern.status)}. ${escapeHtml(idea.pattern.note)}</p>
@@ -318,6 +324,8 @@ function render(
     .timing { margin: 0.45rem 0 0; font-size: 0.88rem; font-weight: 750; line-height: 1.35; }
     .timing.take { color: #34d399; }
     .timing.wait { color: #fbbf24; }
+    [data-tip] { cursor: help; }
+    #hover-tip { position: fixed; z-index: 40; max-width: 22rem; margin: 0; padding: 0.45rem 0.6rem; border-radius: 0.4rem; background: #0b1020; color: #f8fafc; border: 1px solid #818cf8; font-size: 0.75rem; line-height: 1.35; font-weight: 550; box-shadow: 0 8px 24px rgba(0,0,0,0.35); pointer-events: none; }
     .indicators { margin: 0.5rem 1rem 0; border: 2px solid rgba(56, 189, 248, 0.75); border-radius: 0.55rem; background: #1a2140; }
     .indicators-head { display: flex; justify-content: space-between; gap: 0.75rem; align-items: baseline; padding: 0.45rem 0.7rem; }
     .indicators-head p { margin: 0; color: #7dd3fc; font-size: 0.85rem; font-weight: 650; }
@@ -358,6 +366,33 @@ function render(
     <div class="plans">${plans}</div>
   </main>
   <footer>Decision support only. Nothing here sends an order.</footer>
+  <p id="hover-tip" hidden></p>
+  <script>
+    const hoverTip = document.getElementById("hover-tip");
+    function placeTip(el) {
+      const text = el.getAttribute("data-tip");
+      if (!text) { hoverTip.hidden = true; return; }
+      hoverTip.textContent = text;
+      hoverTip.hidden = false;
+      const rect = el.getBoundingClientRect();
+      const width = hoverTip.offsetWidth;
+      const height = hoverTip.offsetHeight;
+      const left = Math.max(8, Math.min(rect.left, window.innerWidth - width - 8));
+      const below = rect.bottom + 8;
+      const top = below + height > window.innerHeight ? Math.max(8, rect.top - height - 8) : below;
+      hoverTip.style.left = left + "px";
+      hoverTip.style.top = top + "px";
+    }
+    document.addEventListener("mouseover", (event) => {
+      const el = event.target.closest("[data-tip]");
+      if (!el) { hoverTip.hidden = true; return; }
+      placeTip(el);
+    });
+    document.addEventListener("mouseout", (event) => {
+      const next = event.relatedTarget && event.relatedTarget.closest ? event.relatedTarget.closest("[data-tip]") : null;
+      if (!next) hoverTip.hidden = true;
+    });
+  </script>
 </body>
 </html>
 `;
