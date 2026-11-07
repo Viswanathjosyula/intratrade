@@ -112,6 +112,26 @@ export function confidenceLabel(percent: number | null): string {
   return percent == null ? "—" : `${percent}%`;
 }
 
+/** Rows the targets table lists. A call stays only when its confidence is above 50%. */
+export function confidentCalls<
+  T extends {
+    status: CallStatus;
+    side: Side;
+    target: number;
+    stop: number;
+    entry?: number;
+    paceDate: string | null;
+    nextPaceDate: string | null;
+    latestClose: number | null;
+    dailyAtr: number | null;
+  },
+>(calls: readonly T[], through: string | null, mood: MarketMoodName | null): T[] {
+  return calls.filter((call) => {
+    const percent = callConfidence({ ...call, through, mood });
+    return percent != null && percent > 50;
+  });
+}
+
 function targetBeforeStop(input: {
   side: Side;
   target: number;

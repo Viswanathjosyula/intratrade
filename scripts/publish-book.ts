@@ -2,7 +2,7 @@ import { renameSync, writeFileSync } from "node:fs";
 
 import { addedPrice, earningsRead, price, rewardRisk, sentimentLabel, sideLabel, stanceLabel } from "@/lib/format";
 import { trackBook, type TrackedBook } from "@/lib/market/call-log";
-import { callConfidence, confidenceLabel, groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
+import { callConfidence, confidenceLabel, confidentCalls, groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
 import { rankIdeas } from "@/lib/market/engine";
 import { loadPublicSession } from "@/lib/market/live";
 import { moodLabel, timingCall } from "@/lib/market/mood";
@@ -24,7 +24,7 @@ function statusText(status: CallStatus): string {
 }
 
 const CONFIDENCE_LINE =
-  "Confidence is 100% when the target has been reached. Otherwise it is the average of four equal readings from this book: risk/(risk+reward) for tagging the target before the stop, 1/(1+daily ATRs still left), 100 if the pace date is still ahead and 0 if it has been missed, and 100, 50, or 0 when the side agrees with the mood, the mood is mixed, or the side fights it.";
+  "Confidence is 100% when the target has been reached. Otherwise it is the average of four equal readings from this book: risk/(risk+reward) for tagging the target before the stop, 1/(1+daily ATRs still left), 100 if the pace date is still ahead and 0 if it has been missed, and 100, 50, or 0 when the side agrees with the mood, the mood is mixed, or the side fights it. A row is listed only when that percent is above 50.";
 
 function renderCallRow(
   call: TrackedBook["calls"][number],
@@ -60,11 +60,12 @@ function renderCallRow(
 }
 
 function renderTargets(tracked: TrackedBook, mood: MarketMood | null): string {
-  const rates = suggestionRates(tracked.calls);
+  const shown = confidentCalls(tracked.calls, tracked.through, mood?.name ?? null);
+  const rates = suggestionRates(shown);
   const rows =
-    tracked.calls.length === 0
-      ? `<tr><td colspan="9">No published consider call is in the log yet.</td></tr>`
-      : groupCalls(tracked.calls)
+    shown.length === 0
+      ? `<tr><td colspan="9">No published consider call is above 50% confidence.</td></tr>`
+      : groupCalls(shown)
           .map((group) => {
             const body =
               group.calls.length === 0

@@ -12,7 +12,11 @@ import type {
   Snapshot,
 } from "./types";
 
-/** Liquid US names. The book keeps the ones whose tape can be read. */
+/**
+ * Liquid US names. The first block is the large-cap book. The second block is
+ * US mid caps whose Yahoo market cap was between $2 billion and $10 billion
+ * on Nov 7, 2026. The book keeps the ones whose tape can be read.
+ */
 const UNIVERSE = [
   "AAPL",
   "MSFT",
@@ -34,6 +38,16 @@ const UNIVERSE = [
   "CRM",
   "ORCL",
   "QCOM",
+  "BLDR",
+  "CGNX",
+  "CROX",
+  "FLR",
+  "LEA",
+  "MORN",
+  "OC",
+  "SAIA",
+  "TREX",
+  "WAL",
 ] as const;
 
 const CACHE_MS = 90_000;
