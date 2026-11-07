@@ -62,7 +62,7 @@
     .targets tr.side-long { box-shadow: inset 4px 0 0 #34d399; }
     .targets tr.side-short { box-shadow: inset 4px 0 0 #ef4444; }
     .plan-side { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-weight: 750; }
-    .targets td:nth-child(3), .targets td:nth-child(4), .targets td:nth-child(5) { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+    .targets td:nth-child(3), .targets td:nth-child(4), .targets td.conf { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
     .reached { color: #34d399; font-weight: 750; }
     .not-reached { color: #fb7185; font-weight: 750; }
     .open { color: #38bdf8; font-weight: 750; }
@@ -227,13 +227,14 @@
     </div>
     <div class="targets-scroll">
       <table>
-        <thead><tr><th>Name</th><th>Side</th><th>Added at</th><th>Target</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
-        <tbody><tr class="group reached"><td colspan="8">Reached · 11</td></tr>
+        <thead><tr><th>Name</th><th>Side</th><th>Added at</th><th>Target</th><th>Confidence</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
+        <tbody><tr class="group reached"><td colspan="9">Reached · 11</td></tr>
 <tr class="side-long">
           <td class="sym long">DIS</td>
           <td class="long">Long</td>
           <td>114.18</td>
           <td>119.01</td>
+          <td class="conf">100%</td>
           <td>Tue, Nov 3, 2026</td>
           <td>Fri, Nov 6, 2026</td>
           <td></td>
@@ -244,6 +245,7 @@
           <td class="short">Short</td>
           <td>162.08</td>
           <td>150.41</td>
+          <td class="conf">100%</td>
           <td>Mon, Nov 2, 2026</td>
           <td>Wed, Nov 4, 2026</td>
           <td></td>
@@ -254,6 +256,7 @@
           <td class="short">Short</td>
           <td>833.59</td>
           <td>708.52</td>
+          <td class="conf">100%</td>
           <td>Mon, Nov 2, 2026</td>
           <td>Thu, Nov 5, 2026</td>
           <td></td>
@@ -264,6 +267,7 @@
           <td class="short">Short</td>
           <td>204.64</td>
           <td>191.03</td>
+          <td class="conf">100%</td>
           <td>Fri, Oct 30, 2026</td>
           <td>Wed, Nov 4, 2026</td>
           <td></td>
@@ -274,6 +278,7 @@
           <td class="short">Short</td>
           <td>324.22</td>
           <td>301.26</td>
+          <td class="conf">100%</td>
           <td>Thu, Oct 22, 2026</td>
           <td>Tue, Oct 27, 2026</td>
           <td></td>
@@ -284,6 +289,7 @@
           <td class="long">Long</td>
           <td>109.59</td>
           <td>116.77</td>
+          <td class="conf">100%</td>
           <td>Mon, Oct 19, 2026</td>
           <td>Fri, Oct 23, 2026</td>
           <td></td>
@@ -294,6 +300,7 @@
           <td class="long">Long</td>
           <td>989.11</td>
           <td>1,069.60</td>
+          <td class="conf">100%</td>
           <td>Fri, Oct 16, 2026</td>
           <td>Mon, Oct 26, 2026</td>
           <td></td>
@@ -304,6 +311,7 @@
           <td class="short">Short</td>
           <td>709.33</td>
           <td>647.81</td>
+          <td class="conf">100%</td>
           <td>Fri, Oct 16, 2026</td>
           <td>Wed, Oct 21, 2026</td>
           <td></td>
@@ -314,6 +322,7 @@
           <td class="long">Long</td>
           <td>172.15</td>
           <td>183.69</td>
+          <td class="conf">100%</td>
           <td>Mon, Oct 12, 2026</td>
           <td>Fri, Oct 16, 2026</td>
           <td></td>
@@ -324,6 +333,7 @@
           <td class="long">Long</td>
           <td>111.35</td>
           <td>119.69</td>
+          <td class="conf">100%</td>
           <td>Fri, Oct 9, 2026</td>
           <td>Thu, Oct 15, 2026</td>
           <td></td>
@@ -334,17 +344,19 @@
           <td class="long">Long</td>
           <td>107.02</td>
           <td>111.40</td>
+          <td class="conf">100%</td>
           <td>Thu, Oct 8, 2026</td>
           <td>Tue, Oct 13, 2026</td>
           <td></td>
           <td class="reached">Reached</td>
         </tr>
-<tr class="group not-reached"><td colspan="8">Not reached · 14</td></tr>
+<tr class="group not-reached"><td colspan="9">Not reached · 14</td></tr>
 <tr class="side-long">
           <td class="sym long">COST</td>
           <td class="long">Long</td>
           <td>1,065.59</td>
           <td>1,132.93</td>
+          <td class="conf">33%</td>
           <td>Thu, Nov 5, 2026</td>
           <td>Wed, Nov 11, 2026</td>
           <td></td>
@@ -355,6 +367,7 @@
           <td class="short">Short</td>
           <td>291.53</td>
           <td>258.43</td>
+          <td class="conf">65%</td>
           <td>Thu, Nov 5, 2026</td>
           <td>Tue, Nov 10, 2026</td>
           <td></td>
@@ -365,6 +378,7 @@
           <td class="long">Long</td>
           <td>555.80</td>
           <td>585.06</td>
+          <td class="conf">15%</td>
           <td>Wed, Nov 4, 2026</td>
           <td>Fri, Nov 6, 2026</td>
           <td>Thu, Nov 12, 2026</td>
@@ -375,6 +389,7 @@
           <td class="long">Long</td>
           <td>352.11</td>
           <td>362.58</td>
+          <td class="conf">17%</td>
           <td>Wed, Nov 4, 2026</td>
           <td>Fri, Nov 6, 2026</td>
           <td>Thu, Nov 12, 2026</td>
@@ -385,6 +400,7 @@
           <td class="short">Short</td>
           <td>466.84</td>
           <td>383.68</td>
+          <td class="conf">41%</td>
           <td>Mon, Nov 2, 2026</td>
           <td>Thu, Nov 5, 2026</td>
           <td>Tue, Nov 10, 2026</td>
@@ -395,6 +411,7 @@
           <td class="long">Long</td>
           <td>187.25</td>
           <td>198.24</td>
+          <td class="conf">10%</td>
           <td>Fri, Oct 30, 2026</td>
           <td>Wed, Nov 4, 2026</td>
           <td>Tue, Nov 17, 2026</td>
@@ -405,6 +422,7 @@
           <td class="long">Long</td>
           <td>399.81</td>
           <td>431.19</td>
+          <td class="conf">13%</td>
           <td>Fri, Oct 30, 2026</td>
           <td>Wed, Nov 4, 2026</td>
           <td>Fri, Nov 13, 2026</td>
@@ -415,6 +433,7 @@
           <td class="long">Long</td>
           <td>123.51</td>
           <td>136.45</td>
+          <td class="conf">10%</td>
           <td>Fri, Oct 30, 2026</td>
           <td>Fri, Nov 6, 2026</td>
           <td>Thu, Nov 12, 2026</td>
@@ -425,6 +444,7 @@
           <td class="short">Short</td>
           <td>243.79</td>
           <td>222.15</td>
+          <td class="conf">36%</td>
           <td>Thu, Oct 29, 2026</td>
           <td>Wed, Nov 4, 2026</td>
           <td>Thu, Nov 12, 2026</td>
@@ -435,6 +455,7 @@
           <td class="short">Short</td>
           <td>283.82</td>
           <td>244.60</td>
+          <td class="conf">36%</td>
           <td>Thu, Oct 29, 2026</td>
           <td>Wed, Nov 4, 2026</td>
           <td>Thu, Nov 12, 2026</td>
@@ -445,6 +466,7 @@
           <td class="short">Short</td>
           <td>210.96</td>
           <td>194.91</td>
+          <td class="conf">57%</td>
           <td>Fri, Oct 23, 2026</td>
           <td>Wed, Oct 28, 2026</td>
           <td></td>
@@ -455,6 +477,7 @@
           <td class="long">Long</td>
           <td>113.13</td>
           <td>123.14</td>
+          <td class="conf">11%</td>
           <td>Thu, Oct 22, 2026</td>
           <td>Thu, Oct 29, 2026</td>
           <td>Wed, Nov 11, 2026</td>
@@ -465,6 +488,7 @@
           <td class="short">Short</td>
           <td>856.49</td>
           <td>660.32</td>
+          <td class="conf">47%</td>
           <td>Thu, Oct 22, 2026</td>
           <td>Wed, Oct 28, 2026</td>
           <td></td>
@@ -475,17 +499,19 @@
           <td class="long">Long</td>
           <td>242.45</td>
           <td>258.17</td>
+          <td class="conf">15%</td>
           <td>Mon, Oct 19, 2026</td>
           <td>Wed, Oct 21, 2026</td>
           <td>Fri, Nov 13, 2026</td>
           <td class="not-reached">Not reached</td>
         </tr>
-<tr class="group open"><td colspan="8">Open · 3</td></tr>
+<tr class="group open"><td colspan="9">Open · 3</td></tr>
 <tr class="side-short">
           <td class="sym short">NFLX</td>
           <td class="short">Short</td>
           <td>65.56</td>
           <td>59.67</td>
+          <td class="conf">66%</td>
           <td>Thu, Nov 5, 2026</td>
           <td>Tue, Nov 10, 2026</td>
           <td></td>
@@ -496,6 +522,7 @@
           <td class="short">Short</td>
           <td>115.16</td>
           <td>89.44</td>
+          <td class="conf">62%</td>
           <td>Thu, Nov 5, 2026</td>
           <td>Wed, Nov 11, 2026</td>
           <td></td>
@@ -506,6 +533,7 @@
           <td class="short">Short</td>
           <td>605.08</td>
           <td>476.85</td>
+          <td class="conf">58%</td>
           <td>Thu, Nov 5, 2026</td>
           <td>Fri, Nov 13, 2026</td>
           <td></td>
@@ -513,7 +541,7 @@
         </tr></tbody>
       </table>
     </div>
-    <p class="targets-note">Checked against Yahoo regular-session bars through Fri, Nov 6, 2026. Added at is the price stored when the call was published. This table does not send an order.</p>
+    <p class="targets-note">Checked against Yahoo regular-session bars through Fri, Nov 6, 2026. Added at is the price stored when the call was published. Confidence is 100% when the target has been reached. Otherwise it is the average of four equal readings from this book: risk/(risk+reward) for tagging the target before the stop, 1/(1+daily ATRs still left), 100 if the pace date is still ahead and 0 if it has been missed, and 100, 50, or 0 when the side agrees with the mood, the mood is mixed, or the side fights it. This table does not send an order.</p>
   </section>
   <input class="pick" type="radio" name="book" id="pick-JPM" checked>
 <input class="pick" type="radio" name="book" id="pick-AVGO">

@@ -2,7 +2,7 @@ import { renameSync, writeFileSync } from "node:fs";
 
 import { addedPrice, earningsRead, price, rewardRisk, sentimentLabel, sideLabel, stanceLabel } from "@/lib/format";
 import { trackBook, type TrackedBook } from "@/lib/market/call-log";
-import { groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
+import { callConfidence, confidenceLabel, groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
 import { rankIdeas } from "@/lib/market/engine";
 import { loadPublicSession } from "@/lib/market/live";
 import { moodLabel, timingCall } from "@/lib/market/mood";
@@ -23,12 +23,35 @@ function statusText(status: CallStatus): string {
   return "Open";
 }
 
-function renderCallRow(call: TrackedBook["calls"][number]): string {
+const CONFIDENCE_LINE =
+  "Confidence is 100% when the target has been reached. Otherwise it is the average of four equal readings from this book: risk/(risk+reward) for tagging the target before the stop, 1/(1+daily ATRs still left), 100 if the pace date is still ahead and 0 if it has been missed, and 100, 50, or 0 when the side agrees with the mood, the mood is mixed, or the side fights it.";
+
+function renderCallRow(
+  call: TrackedBook["calls"][number],
+  through: string | null,
+  mood: MarketMood | null,
+): string {
+  const confidence = confidenceLabel(
+    callConfidence({
+      status: call.status,
+      side: call.side,
+      target: call.target,
+      stop: call.stop,
+      entry: call.entry,
+      paceDate: call.paceDate,
+      nextPaceDate: call.nextPaceDate,
+      latestClose: call.latestClose,
+      dailyAtr: call.dailyAtr,
+      through,
+      mood: mood?.name ?? null,
+    }),
+  );
   return `<tr class="side-${call.side}">
           <td class="sym ${call.side}">${escapeHtml(call.symbol)}</td>
           <td class="${call.side}">${escapeHtml(sideLabel(call.side))}</td>
           <td>${escapeHtml(addedPrice(call.entry))}</td>
           <td>${price(call.target)}</td>
+          <td class="conf">${escapeHtml(confidence)}</td>
           <td>${escapeHtml(formatSessionDate(call.asOf))}</td>
           <td>${call.paceDate ? escapeHtml(formatSessionDate(call.paceDate)) : ""}</td>
           <td>${call.nextPaceDate ? escapeHtml(formatSessionDate(call.nextPaceDate)) : ""}</td>
@@ -36,18 +59,18 @@ function renderCallRow(call: TrackedBook["calls"][number]): string {
         </tr>`;
 }
 
-function renderTargets(tracked: TrackedBook): string {
+function renderTargets(tracked: TrackedBook, mood: MarketMood | null): string {
   const rates = suggestionRates(tracked.calls);
   const rows =
     tracked.calls.length === 0
-      ? `<tr><td colspan="8">No published consider call is in the log yet.</td></tr>`
+      ? `<tr><td colspan="9">No published consider call is in the log yet.</td></tr>`
       : groupCalls(tracked.calls)
           .map((group) => {
             const body =
               group.calls.length === 0
-                ? `<tr class="empty"><td colspan="8">None</td></tr>`
-                : group.calls.map((call) => renderCallRow(call)).join("\n");
-            return `<tr class="group ${group.status}"><td colspan="8">${escapeHtml(statusText(group.status))} · ${group.calls.length}</td></tr>
+                ? `<tr class="empty"><td colspan="9">None</td></tr>`
+                : group.calls.map((call) => renderCallRow(call, tracked.through, mood)).join("\n");
+            return `<tr class="group ${group.status}"><td colspan="9">${escapeHtml(statusText(group.status))} · ${group.calls.length}</td></tr>
 ${body}`;
           })
           .join("\n");
@@ -66,11 +89,11 @@ ${body}`;
     </div>
     <div class="targets-scroll">
       <table>
-        <thead><tr><th>Name</th><th>Side</th><th>Added at</th><th>Target</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
+        <thead><tr><th>Name</th><th>Side</th><th>Added at</th><th>Target</th><th>Confidence</th><th>As of</th><th>Pace</th><th>New pace</th><th>Status</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="targets-note">${escapeHtml(`${checked}${gap}`)} Added at is the price stored when the call was published. This table does not send an order.</p>
+    <p class="targets-note">${escapeHtml(`${checked}${gap}`)} Added at is the price stored when the call was published. ${escapeHtml(CONFIDENCE_LINE)} This table does not send an order.</p>
   </section>`;
 }
 
@@ -268,7 +291,7 @@ function render(
     .targets tr.side-long { box-shadow: inset 4px 0 0 #34d399; }
     .targets tr.side-short { box-shadow: inset 4px 0 0 #ef4444; }
     .plan-side { display: flex; align-items: center; gap: 0.4rem; margin: 0; font-weight: 750; }
-    .targets td:nth-child(3), .targets td:nth-child(4), .targets td:nth-child(5) { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+    .targets td:nth-child(3), .targets td:nth-child(4), .targets td.conf { font-family: ui-monospace, monospace; font-variant-numeric: tabular-nums; }
     .reached { color: #34d399; font-weight: 750; }
     .not-reached { color: #fb7185; font-weight: 750; }
     .open { color: #38bdf8; font-weight: 750; }
@@ -317,7 +340,7 @@ function render(
   </header>
   ${renderMood(mood)}
   ${renderIndicators(indicators)}
-  ${renderTargets(tracked)}
+  ${renderTargets(tracked, mood)}
   ${radios}
   <main class="board">
     <div class="mobile-keys">${keys}</div>

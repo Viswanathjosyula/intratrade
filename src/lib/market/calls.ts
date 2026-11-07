@@ -1,6 +1,6 @@
 import { averageTrueRange, type Bar } from "./patterns";
 import { addTradingSessions, estimatedReach, newYorkSessionDate } from "./reach";
-import type { Side } from "./types";
+import type { MarketMoodName, Side } from "./types";
 
 /** A consider call that was published on a session. Outcomes are not stored here. */
 export interface PublishedCall {
@@ -78,6 +78,87 @@ export function groupCalls<T extends { status: CallStatus; asOf?: string }>(
       .filter((call) => call.status === status)
       .sort((a, b) => (b.asOf ?? "").localeCompare(a.asOf ?? "")),
   }));
+}
+
+/**
+ * Chance the stored target gets tagged.
+ * Reached calls are 100%. Every other call averages the readings that exist:
+ * target before the stop, closeness in daily ATRs, pace still ahead, side with the mood.
+ * A missing reading is left out. It is not filled in.
+ */
+export function callConfidence(input: {
+  status: CallStatus;
+  side: Side;
+  target: number;
+  stop: number;
+  entry?: number;
+  paceDate: string | null;
+  nextPaceDate: string | null;
+  latestClose: number | null;
+  dailyAtr: number | null;
+  through: string | null;
+  mood: MarketMoodName | null;
+}): number | null {
+  if (input.status === "reached") return 100;
+  const parts = [targetBeforeStop(input), atrCloseness(input), paceReading(input), moodReading(input)].filter(
+    (part): part is number => part != null,
+  );
+  if (parts.length === 0) return null;
+  const mean = parts.reduce((sum, part) => sum + part, 0) / parts.length;
+  return Math.round(mean * 100);
+}
+
+export function confidenceLabel(percent: number | null): string {
+  return percent == null ? "—" : `${percent}%`;
+}
+
+function targetBeforeStop(input: {
+  side: Side;
+  target: number;
+  stop: number;
+  entry?: number;
+}): number | null {
+  const entry = input.entry;
+  if (entry == null || !Number.isFinite(entry) || entry <= 0) return null;
+  if (!Number.isFinite(input.target) || !Number.isFinite(input.stop)) return null;
+  const reward = input.side === "long" ? input.target - entry : entry - input.target;
+  const risk = input.side === "long" ? entry - input.stop : input.stop - entry;
+  if (!(reward > 0) || !(risk > 0)) return null;
+  return risk / (risk + reward);
+}
+
+function atrCloseness(input: {
+  side: Side;
+  target: number;
+  latestClose: number | null;
+  dailyAtr: number | null;
+}): number | null {
+  const atr = input.dailyAtr;
+  const last = input.latestClose;
+  if (atr == null || !Number.isFinite(atr) || atr <= 0) return null;
+  if (last == null || !Number.isFinite(last)) return null;
+  const left = input.side === "long" ? input.target - last : last - input.target;
+  const distance = left > 0 ? left : 0;
+  return 1 / (1 + distance / atr);
+}
+
+function paceReading(input: {
+  paceDate: string | null;
+  nextPaceDate: string | null;
+  through: string | null;
+}): number | null {
+  if (input.nextPaceDate) return 0;
+  if (!input.paceDate || !input.through) return null;
+  return input.paceDate > input.through ? 1 : 0;
+}
+
+function moodReading(input: { mood: MarketMoodName | null; side: Side }): number | null {
+  if (!input.mood) return null;
+  if (input.mood === "mixed") return 0.5;
+  const agrees =
+    (input.mood === "risk-on" && input.side === "long") ||
+    (input.mood === "risk-off" && input.side === "short");
+  return agrees ? 1 : 0;
 }
 
 export function formatRate(rate: number): string {
