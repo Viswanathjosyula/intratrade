@@ -203,7 +203,8 @@ async function loadSymbol(
     fetchNasdaqEarnings(symbol).catch(() => null),
   ]);
 
-  const intraday = sessionBarsForTape(barsFromChart(intradayChart));
+  const rawIntraday = barsFromChart(intradayChart);
+  const intraday = sessionBarsForTape(rawIntraday);
   const daily = dailyBarsForSession(barsFromChart(dailyChart), intraday);
   const tape = analyzeTape(daily, intraday);
   if (!tape || intraday.length === 0) {
@@ -213,14 +214,21 @@ async function loadSymbol(
   const sessionDate = nyDate(intraday[intraday.length - 1].time * 1000);
   const metaMs = meta.regularMarketTime ? meta.regularMarketTime * 1000 : 0;
   const metaDate = metaMs ? nyDate(metaMs) : sessionDate;
-  const priorClose = metaDate !== sessionDate;
-  const quoteMs = priorClose ? intraday[intraday.length - 1].time * 1000 : metaMs || intraday[intraday.length - 1].time * 1000;
   const sessionClose = daily.length > 0 ? daily[daily.length - 1].close : tape.last;
-  const last = priorClose
-    ? sessionClose
-    : typeof meta.regularMarketPrice === "number" && Number.isFinite(meta.regularMarketPrice)
-      ? meta.regularMarketPrice
-      : tape.last;
+  const quote = displayedQuote({
+    tapeDate: sessionDate,
+    tapeClose: sessionClose,
+    tapeMs: intraday[intraday.length - 1].time * 1000,
+    metaDate,
+    metaPrice:
+      typeof meta.regularMarketPrice === "number" && Number.isFinite(meta.regularMarketPrice)
+        ? meta.regularMarketPrice
+        : null,
+    metaMs,
+    datesWithRegularBar: regularBarDates(rawIntraday),
+  });
+  const quoteMs = quote.quoteMs;
+  const last = quote.last;
   const setup = choosePattern(daily, tape, last);
   const earnings = toEarnings(fundamentals, nasdaq, sessionDate);
   const news = headline ?? quietNews(symbol, new Date(quoteMs).toISOString());
@@ -311,11 +319,8 @@ function barsFromChart(payload: YahooChart): Bar[] {
 
 const MIN_REGULAR_BARS = 3;
 
-/**
- * Regular-session 5-minute bars for the tape. A session that has not printed
- * enough bars yet (the cash open) is skipped in favor of the previous close.
- */
-export function sessionBarsForTape(bars: Bar[]): Bar[] {
+/** Completed regular-session 5-minute bars, grouped by New York session date. */
+export function regularBarsByDate(bars: Bar[]): Map<string, Bar[]> {
   const byDate = new Map<string, Bar[]>();
   for (const bar of bars) {
     const clock = nyClock(bar.time * 1000);
@@ -325,12 +330,49 @@ export function sessionBarsForTape(bars: Bar[]): Bar[] {
     list.push(bar);
     byDate.set(clock.date, list);
   }
+  return byDate;
+}
+
+export function regularBarDates(bars: Bar[]): string[] {
+  return [...regularBarsByDate(bars).keys()];
+}
+
+/**
+ * Regular-session 5-minute bars for the pattern tape. The tape waits for three
+ * bars. The displayed last does not: one bar is enough to use the live print.
+ */
+export function sessionBarsForTape(bars: Bar[]): Bar[] {
+  const byDate = regularBarsByDate(bars);
   const dates = [...byDate.keys()].sort();
   for (let index = dates.length - 1; index >= 0; index -= 1) {
     const session = byDate.get(dates[index]) ?? [];
     if (session.length >= MIN_REGULAR_BARS) return session;
   }
   return [];
+}
+
+/** Live print once that session has a regular five-minute bar; otherwise the prior close. */
+export function displayedQuote(input: {
+  tapeDate: string;
+  tapeClose: number;
+  tapeMs: number;
+  metaDate: string;
+  metaPrice: number | null;
+  metaMs: number;
+  datesWithRegularBar: readonly string[];
+}): { last: number; quoteMs: number; priorClose: boolean } {
+  const livePrice = input.metaPrice != null && Number.isFinite(input.metaPrice) ? input.metaPrice : null;
+  if (livePrice != null && input.metaMs > 0 && input.datesWithRegularBar.includes(input.metaDate)) {
+    return { last: livePrice, quoteMs: input.metaMs, priorClose: false };
+  }
+  if (input.metaDate !== input.tapeDate) {
+    return { last: input.tapeClose, quoteMs: input.tapeMs, priorClose: true };
+  }
+  return {
+    last: livePrice ?? input.tapeClose,
+    quoteMs: input.metaMs || input.tapeMs,
+    priorClose: false,
+  };
 }
 
 /** Drop a newer daily bar when the tape is still the previous regular session. */
