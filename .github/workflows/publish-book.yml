@@ -2,10 +2,14 @@ name: Publish the book
 
 on:
   schedule:
-    # Weekdays at 8:30 AM, noon, and 4:15 PM US Eastern while daylight saving time is in effect.
-    - cron: "30 12 * * 1-5"
-    - cron: "0 16 * * 1-5"
-    - cron: "15 20 * * 1-5"
+    # Weekday cash session while US standard time is in effect (Central = UTC-6).
+    # 8:30 AM Central open, then every 30 minutes, through the 3:00 PM Central close.
+    # After the second Sunday in March the hours shift one earlier (13:30–20:00 UTC)
+    # so the window stays 8:30 AM–3:00 PM Central.
+    # These runs publish the book only. They do not send a chat read.
+    - cron: "30 14 * * 1-5"
+    - cron: "0,30 15-20 * * 1-5"
+    - cron: "0 21 * * 1-5"
   workflow_dispatch:
 
 permissions:
