@@ -615,6 +615,30 @@
       "stop": 238.46,
       "asOf": "2026-11-10",
       "entry": 246.09
+    },
+    {
+      "symbol": "NVDA",
+      "side": "short",
+      "target": 137.46,
+      "stop": 175.95,
+      "asOf": "2026-11-10",
+      "entry": 166.66
+    },
+    {
+      "symbol": "CRM",
+      "side": "short",
+      "target": 174.45,
+      "stop": 219.87,
+      "asOf": "2026-11-10",
+      "entry": 210.77
+    },
+    {
+      "symbol": "MORN",
+      "side": "long",
+      "target": 264.67,
+      "stop": 238.51,
+      "asOf": "2026-11-10",
+      "entry": 246.14
     }
   ]
 }
