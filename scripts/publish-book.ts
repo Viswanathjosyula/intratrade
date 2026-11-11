@@ -8,6 +8,12 @@ import { loadPublicSession } from "@/lib/market/live";
 import { moodLabel, timingCall } from "@/lib/market/mood";
 import { estimatedReach, formatSessionDate, reachLabel } from "@/lib/market/reach";
 import { HEADER_TIPS, moodTip, rowTips, statusGroupTip, timingTip, trendTip } from "@/lib/market/tips";
+import {
+  describePosition,
+  extremesSincePurchase,
+  journalTableHtml,
+  recordedPositions,
+} from "@/lib/market/positions";
 import { DEFAULT_RISK, type IndicatorBoard, type MarketMood, type TradeIdea } from "@/lib/market/types";
 
 function escapeHtml(value: string): string {
@@ -142,6 +148,37 @@ function renderMood(mood: MarketMood | null): string {
   return `<section class="mood ${mood.name}" aria-label="Market mood"><p class="mood-name"${tip(moodTip(mood))}>${escapeHtml(moodLabel(mood.name))}</p><p>${escapeHtml(mood.summary)}</p></section>`;
 }
 
+function journalPassphrase(): string {
+  const configured = process.env.INTRATRADE_PASSPHRASE?.trim();
+  return configured ? configured : "desk-notes";
+}
+
+async function sealJournal(html: string): Promise<string> {
+  const encoded = new TextEncoder().encode(html);
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const material = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(journalPassphrase()),
+    "PBKDF2",
+    false,
+    ["deriveKey"],
+  );
+  const key = await crypto.subtle.deriveKey(
+    { name: "PBKDF2", salt, iterations: 100_000, hash: "SHA-256" },
+    material,
+    { name: "AES-GCM", length: 256 },
+    false,
+    ["encrypt"],
+  );
+  const cipher = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, encoded));
+  const packed = new Uint8Array(salt.length + iv.length + cipher.length);
+  packed.set(salt, 0);
+  packed.set(iv, salt.length);
+  packed.set(cipher, salt.length + iv.length);
+  return Buffer.from(packed).toString("base64");
+}
+
 function render(
   ideas: TradeIdea[],
   meta: string,
@@ -149,6 +186,7 @@ function render(
   tracked: TrackedBook,
   mood: MarketMood | null,
   indicators: IndicatorBoard | null,
+  journalCipher: string,
 ): string {
   const consider = ideas.filter((idea) => idea.stance === "consider").length;
   const aside = ideas.length - consider;
@@ -338,6 +376,23 @@ function render(
     .indicators td.with { color: #34d399; font-weight: 800; }
     .indicators td.against { color: #fbbf24; font-weight: 800; }
     .indicators-note { padding: 0.3rem 0.65rem 0.4rem; border-top: 1px solid rgba(255,255,255,0.08); }
+    .journal { margin: 0.55rem 1rem 0.75rem; border: 2px solid rgba(167, 139, 250, 0.8); border-radius: 0.55rem; background: #1a2140; }
+    .journal-head { padding: 0.7rem 0.85rem 0.35rem; }
+    .journal-head h2 { margin: 0; font-size: 1.05rem; font-weight: 750; }
+    .journal-head p, .journal-note { margin: 0.35rem 0 0; color: #c7d2fe; font-size: 0.8rem; line-height: 1.4; }
+    .journal form { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; padding: 0.65rem 0.85rem 0.85rem; }
+    .journal label { font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: #c7d2fe; font-weight: 750; }
+    .journal input { height: 2.4rem; border-radius: 0.4rem; border: 1px solid #818cf8; background: #12162a; color: #f8fafc; padding: 0 0.6rem; min-width: 12rem; }
+    .journal button { height: 2.4rem; border: 0; border-radius: 0.4rem; background: #c4b5fd; color: #1e1033; font-weight: 750; padding: 0 0.85rem; cursor: pointer; }
+    .journal-error { flex-basis: 100%; margin: 0; color: #fb7185; font-size: 0.85rem; }
+    .journal-scroll { overflow-x: auto; border-top: 1px solid rgba(255,255,255,0.08); }
+    .journal table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .journal th, .journal td { text-align: left; padding: 0.45rem 0.7rem; border-top: 1px solid rgba(255,255,255,0.08); white-space: nowrap; }
+    .journal th { color: #c7d2fe; font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 750; }
+    .journal td { font-variant-numeric: tabular-nums; }
+    .journal .shares { margin-left: 0.35rem; color: #c7d2fe; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.75rem; font-weight: 650; }
+    .journal-note { padding: 0.55rem 0.75rem 0.7rem; }
+    header.site a { color: #ddd6fe; font-size: 0.85rem; font-weight: 750; }
     .mobile-keys { display: none; }
     @media (max-width: 860px) {
       .board { display: flex; flex-direction: column; }
@@ -354,7 +409,7 @@ function render(
       <h1>Intratrade</h1>
       <p class="meta">${escapeHtml(meta)}</p>
     </div>
-    <p class="counts"><span class="consider-count">${consider} consider</span> · <span class="aside-count">${aside} stand aside</span></p>
+    <p class="counts"><span class="consider-count">${consider} consider</span> · <span class="aside-count">${aside} stand aside</span> · <a href="#journal">Private notes</a></p>
   </header>
   ${renderMood(mood)}
   ${renderIndicators(indicators)}
@@ -365,6 +420,19 @@ function render(
     <div class="grid" role="listbox" aria-label="Liquid book">${boxes}</div>
     <div class="plans">${plans}</div>
   </main>
+  <section class="journal" id="journal" aria-label="Private notes">
+    <div class="journal-head">
+      <h2>Private notes</h2>
+      <p>Passphrase-gated journal. These rows stay off the targets table.</p>
+    </div>
+    <form id="journal-form">
+      <label for="journal-pass">Passphrase</label>
+      <input id="journal-pass" type="password" autocomplete="current-password" required>
+      <button type="submit">Open journal</button>
+      <p id="journal-error" class="journal-error" hidden>That passphrase does not open the private notes.</p>
+    </form>
+    <div id="journal-body" hidden></div>
+  </section>
   <footer>Decision support only. Nothing here sends an order.</footer>
   <p id="hover-tip" hidden></p>
   <script>
@@ -392,6 +460,28 @@ function render(
       const next = event.relatedTarget && event.relatedTarget.closest ? event.relatedTarget.closest("[data-tip]") : null;
       if (!next) hoverTip.hidden = true;
     });
+    const journalForm = document.getElementById("journal-form");
+    const journalPacked = ${JSON.stringify(journalCipher)};
+    journalForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const error = document.getElementById("journal-error");
+      const body = document.getElementById("journal-body");
+      try {
+        const bytes = Uint8Array.from(atob(journalPacked), (char) => char.charCodeAt(0));
+        const salt = bytes.slice(0, 16);
+        const iv = bytes.slice(16, 28);
+        const cipher = bytes.slice(28);
+        const material = await crypto.subtle.importKey("raw", new TextEncoder().encode(document.getElementById("journal-pass").value), "PBKDF2", false, ["deriveKey"]);
+        const key = await crypto.subtle.deriveKey({ name: "PBKDF2", salt, iterations: 100000, hash: "SHA-256" }, material, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+        const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, cipher);
+        body.innerHTML = new TextDecoder().decode(plain);
+        body.hidden = false;
+        journalForm.hidden = true;
+        error.hidden = true;
+      } catch (reason) {
+        error.hidden = false;
+      }
+    });
   </script>
 </body>
 </html>
@@ -414,8 +504,44 @@ if (session.snapshots.some((snapshot) => !Number.isFinite(snapshot.last) || snap
 
 const ideas = rankIdeas(session.snapshots, DEFAULT_RISK);
 const tracked = await trackBook(session);
+const journalRows = [];
+for (const position of recordedPositions) {
+  const idea = ideas.find((item) => item.symbol === position.symbol);
+  if (!idea || !Number.isFinite(idea.last) || idea.last <= 0) {
+    console.error(`Refusing to publish: ${position.symbol} has no live print for the private journal.`);
+    process.exit(1);
+  }
+  let bars;
+  try {
+    bars = await extremesSincePurchase(position.symbol);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "bar request failed";
+    console.error(`Refusing to publish: ${position.symbol} bars for the private journal failed. ${message}`);
+    process.exit(1);
+  }
+  journalRows.push(
+    describePosition(
+      position,
+      {
+        last: idea.last,
+        qualified: idea.qualified,
+        side: idea.side,
+        status: idea.pattern.status,
+        stop: idea.stop,
+        target: idea.target,
+        patternName: idea.pattern.name,
+      },
+      session.mood?.name ?? null,
+      bars,
+    ),
+  );
+}
+const journalCipher = await sealJournal(journalTableHtml(journalRows));
 const meta = `${session.delayLabel}${session.note.title ? ` · ${session.note.title}.` : ""}${session.note.detail ? ` ${session.note.detail}` : ""}`;
-const html = render(ideas, meta, session.asOf, tracked, session.mood ?? null, session.indicators ?? null);
+const html = render(ideas, meta, session.asOf, tracked, session.mood ?? null, session.indicators ?? null, journalCipher);
+for (const row of journalRows) {
+  console.log(`JOURNAL ${row.symbol} ${row.actionLabel} last ${row.lastLabel} profit ${row.profitLabel} | ${row.reason}`);
+}
 if (/sample tape|built-in sample|sample wire/i.test(html)) {
   console.error("Refusing to publish: the rendered page looks like the sample tape.");
   process.exit(1);
