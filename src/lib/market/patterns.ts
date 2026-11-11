@@ -116,6 +116,21 @@ export function targetBeyondLast(
   return bias === "bullish" ? target > last : target < last;
 }
 
+function patternChoices(daily: Bar[], tape: Tape, mark: number): Candidate[] {
+  return [
+    bullFlag(daily),
+    bearFlag(daily),
+    doubleBottom(daily, mark),
+    doubleTop(daily, mark),
+    inverseHeadAndShoulders(daily, mark),
+    headAndShoulders(daily, mark),
+    cupAndHandle(daily),
+    rangeBreak(daily, "Breakout"),
+    rangeBreak(daily, "Breakdown"),
+    openingRangeBreak(tape),
+  ].filter((candidate): candidate is Candidate => candidate !== null);
+}
+
 export function choosePattern(daily: Bar[], tape: Tape, last = tape.last): {
   pattern: PatternPillar;
   measuredTarget: number;
@@ -124,18 +139,7 @@ export function choosePattern(daily: Bar[], tape: Tape, last = tape.last): {
 } {
   const tapeBullish = tape.vwapEvent === "reclaim" || tape.vwapEvent === "holding-above";
   const tapeBearish = tape.vwapEvent === "reject" || tape.vwapEvent === "holding-below";
-  const candidates = [
-    bullFlag(daily),
-    bearFlag(daily),
-    doubleBottom(daily),
-    doubleTop(daily),
-    inverseHeadAndShoulders(daily),
-    headAndShoulders(daily),
-    cupAndHandle(daily),
-    rangeBreak(daily, "Breakout"),
-    rangeBreak(daily, "Breakdown"),
-    openingRangeBreak(tape),
-  ].filter((candidate): candidate is Candidate => candidate !== null);
+  const candidates = patternChoices(daily, tape, last);
 
   for (const candidate of candidates) {
     if (tapeBullish && candidate.pattern.bias === "bullish") candidate.score += 12;
@@ -321,15 +325,15 @@ function rangeBreak(daily: Bar[], name: "Breakout" | "Breakdown"): Candidate | n
   return null;
 }
 
-function doubleBottom(daily: Bar[]): Candidate | null {
-  return double(daily, "bottom");
+function doubleBottom(daily: Bar[], mark: number): Candidate | null {
+  return double(daily, "bottom", mark);
 }
 
-function doubleTop(daily: Bar[]): Candidate | null {
-  return double(daily, "top");
+function doubleTop(daily: Bar[], mark: number): Candidate | null {
+  return double(daily, "top", mark);
 }
 
-function double(daily: Bar[], kind: "top" | "bottom"): Candidate | null {
+function double(daily: Bar[], kind: "top" | "bottom", mark: number): Candidate | null {
   const points = swings(daily).filter((point) => point.kind === (kind === "top" ? "high" : "low"));
   if (points.length < 2 || daily.length < 20) return null;
   const last = daily[daily.length - 1];
@@ -349,16 +353,23 @@ function double(daily: Bar[], kind: "top" | "bottom"): Candidate | null {
       const extreme = (first.price + second.price) / 2;
       const separation = Math.abs(extreme - neck) / extreme;
       if (separation < 0.03) continue;
-      const triggered = kind === "top" ? last.close < neck : last.close > neck;
+      const failed =
+        kind === "top" ? mark > extreme || last.high > extreme : mark < extreme || last.low < extreme;
+      if (failed) continue;
+      const triggered = kind === "top" ? mark < neck : mark > neck;
       const forming =
         !triggered &&
-        (kind === "top"
-          ? last.close < extreme && last.close >= neck
-          : last.close > extreme && last.close <= neck);
+        (kind === "top" ? mark < extreme && mark >= neck : mark > extreme && mark <= neck);
       if (!triggered && !forming) continue;
       if (daily.length - 1 - second.index > 15) continue;
       const height = Math.abs(extreme - neck);
       const measuredTarget = kind === "top" ? neck - height : neck + height;
+      const later = daily.slice(second.index + 1);
+      const spent =
+        kind === "top"
+          ? later.some((bar) => bar.low <= measuredTarget)
+          : later.some((bar) => bar.high >= measuredTarget);
+      if (spent) continue;
       const score = (triggered ? 74 : 44) + Math.min(12, separation * 100);
       const candidate: Candidate = {
         score,
@@ -368,7 +379,7 @@ function double(daily: Bar[], kind: "top" | "bottom"): Candidate | null {
           name: kind === "top" ? "Double top" : "Double bottom",
           bias: kind === "top" ? "bearish" : "bullish",
           status: triggered ? "triggered" : "forming",
-          invalidation: kind === "top" ? extreme : extreme,
+          invalidation: extreme,
           note:
             kind === "top"
               ? `Two highs near ${money(extreme)} share a neckline at ${money(neck)}. ${triggered ? `Price closed through that neckline.` : `Price has not closed through ${money(neck)}.`}`
@@ -381,15 +392,15 @@ function double(daily: Bar[], kind: "top" | "bottom"): Candidate | null {
   return best;
 }
 
-function headAndShoulders(daily: Bar[]): Candidate | null {
-  return shoulders(daily, "head");
+function headAndShoulders(daily: Bar[], mark: number): Candidate | null {
+  return shoulders(daily, "head", mark);
 }
 
-function inverseHeadAndShoulders(daily: Bar[]): Candidate | null {
-  return shoulders(daily, "inverse");
+function inverseHeadAndShoulders(daily: Bar[], mark: number): Candidate | null {
+  return shoulders(daily, "inverse", mark);
 }
 
-function shoulders(daily: Bar[], kind: "head" | "inverse"): Candidate | null {
+function shoulders(daily: Bar[], kind: "head" | "inverse", mark: number): Candidate | null {
   const points = swings(daily).filter((point) => point.kind === (kind === "head" ? "high" : "low"));
   if (points.length < 3) return null;
   const last = daily[daily.length - 1];
@@ -412,11 +423,20 @@ function shoulders(daily: Bar[], kind: "head" | "inverse"): Candidate | null {
       kind === "head"
         ? Math.min(...between.map((bar) => bar.low))
         : Math.max(...between.map((bar) => bar.high));
-    const triggered = kind === "head" ? last.close < neck : last.close > neck;
-    const forming = !triggered && (kind === "head" ? last.close < head.price : last.close > head.price);
+    const failed = kind === "head" ? mark > head.price || last.high > head.price : mark < head.price || last.low < head.price;
+    if (failed) continue;
+    const triggered = kind === "head" ? mark < neck : mark > neck;
+    const forming = !triggered && (kind === "head" ? mark < head.price : mark > head.price);
     if (!triggered && !forming) continue;
     const height = Math.abs(((left.price + right.price) / 2) - neck);
     if (height <= 0) continue;
+    const measuredTarget = kind === "head" ? neck - height : neck + height;
+    const later = daily.slice(right.index + 1);
+    const spent =
+      kind === "head"
+        ? later.some((bar) => bar.low <= measuredTarget)
+        : later.some((bar) => bar.high >= measuredTarget);
+    if (spent) continue;
     const score = triggered ? 76 : 40;
     const candidate: Candidate = {
       score,
