@@ -703,6 +703,22 @@
       "stop": 239.57,
       "asOf": "2026-11-11",
       "entry": 246.63
+    },
+    {
+      "symbol": "COST",
+      "side": "long",
+      "target": 1188.84,
+      "stop": 1065.87,
+      "asOf": "2026-11-11",
+      "entry": 1087.61
+    },
+    {
+      "symbol": "MORN",
+      "side": "long",
+      "target": 284.65,
+      "stop": 241.52,
+      "asOf": "2026-11-11",
+      "entry": 248.65
     }
   ]
 }
