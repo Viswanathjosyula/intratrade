@@ -759,6 +759,22 @@
       "stop": 1075.65,
       "asOf": "2026-11-12",
       "entry": 1097.14
+    },
+    {
+      "symbol": "AMD",
+      "side": "long",
+      "target": 673.84,
+      "stop": 517.05,
+      "asOf": "2026-11-13",
+      "entry": 561.66
+    },
+    {
+      "symbol": "AVGO",
+      "side": "long",
+      "target": 397.9,
+      "stop": 335.38,
+      "asOf": "2026-11-13",
+      "entry": 354.47
     }
   ]
 }
