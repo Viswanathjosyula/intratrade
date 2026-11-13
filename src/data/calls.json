@@ -807,6 +807,22 @@
       "stop": 1086.42,
       "asOf": "2026-11-13",
       "entry": 1107.98
+    },
+    {
+      "symbol": "NFLX",
+      "side": "short",
+      "target": 56.53,
+      "stop": 64.13,
+      "asOf": "2026-11-13",
+      "entry": 62.38
+    },
+    {
+      "symbol": "COST",
+      "side": "long",
+      "target": 1205.86,
+      "stop": 1083.06,
+      "asOf": "2026-11-13",
+      "entry": 1104.63
     }
   ]
 }
