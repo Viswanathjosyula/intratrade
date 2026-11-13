@@ -73,7 +73,7 @@ function renderCallRow(
 
 function renderTargets(tracked: TrackedBook, mood: MarketMood | null, bookDate: string | null): string {
   const shown = confidentCalls(tracked.calls, tracked.through, mood?.name ?? null);
-  const rates = suggestionRates(shown);
+  const rates = suggestionRates(tracked.calls);
   const listed = callsForDisplay(shown, bookDate);
   const rows =
     shown.length === 0
@@ -107,7 +107,7 @@ ${body}`;
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="targets-note">${escapeHtml(`${checked}${gap}`)} Added at is the price stored when the call was published. The Reached block lists calls added in the last 30 calendar days. Older reached calls stay in the counts above. ${escapeHtml(CONFIDENCE_LINE)} This table does not send an order.</p>
+    <p class="targets-note">${escapeHtml(`${checked}${gap}`)} Added at is the price stored when the call was published. The counts above are the full ledger: every reached call, including those older than 30 days, and every not-reached and open call. The Reached block lists only calls added in the last 30 calendar days. ${escapeHtml(CONFIDENCE_LINE)} This table does not send an order.</p>
   </section>`;
 }
 
