@@ -839,6 +839,30 @@
       "stop": 1084.16,
       "asOf": "2026-11-13",
       "entry": 1105.73
+    },
+    {
+      "symbol": "CROX",
+      "side": "long",
+      "target": 206.48,
+      "stop": 154.65,
+      "asOf": "2026-11-13",
+      "entry": 162.07
+    },
+    {
+      "symbol": "COST",
+      "side": "long",
+      "target": 1207.67,
+      "stop": 1084.87,
+      "asOf": "2026-11-13",
+      "entry": 1106.44
+    },
+    {
+      "symbol": "NFLX",
+      "side": "short",
+      "target": 56.57,
+      "stop": 64.17,
+      "asOf": "2026-11-13",
+      "entry": 62.42
     }
   ]
 }
