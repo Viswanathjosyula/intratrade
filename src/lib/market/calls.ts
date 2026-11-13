@@ -75,6 +75,37 @@ export function ledgerRows<T extends { symbol: string; status: CallStatus; asOf:
   return calls.filter((call) => call.status === "reached" || active.has(call));
 }
 
+/** How far back the Reached block lists a call. Counts are not cut to this window. */
+export const REACHED_WINDOW_DAYS = 30;
+
+/** Calendar days, not sessions. `2026-11-12` minus 30 days is `2026-10-13`. */
+export function calendarDaysBefore(isoDate: string, days: number): string | null {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(isoDate);
+  if (!match || !Number.isInteger(days)) return null;
+  const cursor = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])));
+  cursor.setUTCDate(cursor.getUTCDate() - days);
+  const year = cursor.getUTCFullYear();
+  const month = String(cursor.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(cursor.getUTCDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Rows for the targets table. The Reached block uses As of, the session the
+ * call was added, and keeps a row when that day is inside the last 30 calendar
+ * days through the book date, including the day 30 days earlier. Not reached
+ * and Open stay. The hit rate is counted on the list before this filter.
+ */
+export function callsForDisplay<T extends { status: CallStatus; asOf?: string }>(
+  calls: readonly T[],
+  bookDate: string | null,
+): T[] {
+  if (!bookDate) return [...calls];
+  const cutoff = calendarDaysBefore(bookDate, REACHED_WINDOW_DAYS);
+  if (!cutoff) return [...calls];
+  return calls.filter((call) => call.status !== "reached" || (call.asOf != null && call.asOf >= cutoff));
+}
+
 /** Table order: not reached, then open, then reached. Inside a block, newest as-of day first. */
 export function groupCalls<T extends { status: CallStatus; asOf?: string }>(
   calls: readonly T[],

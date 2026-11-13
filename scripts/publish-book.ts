@@ -2,11 +2,11 @@ import { renameSync, writeFileSync } from "node:fs";
 
 import { addedPrice, earningsRead, price, rewardRisk, sentimentLabel, setupSideLabel, setupTarget, sideLabel, stanceLabel } from "@/lib/format";
 import { trackBook, type TrackedBook } from "@/lib/market/call-log";
-import { callConfidence, confidenceLabel, confidentCalls, groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
+import { callConfidence, callsForDisplay, confidenceLabel, confidentCalls, groupCalls, settledHitLabel, shareOfSuggestionsLabel, suggestionRates, type CallStatus } from "@/lib/market/calls";
 import { rankIdeas } from "@/lib/market/engine";
 import { loadPublicSession } from "@/lib/market/live";
 import { moodLabel, timingCall } from "@/lib/market/mood";
-import { estimatedReach, formatSessionDate, reachLabel } from "@/lib/market/reach";
+import { estimatedReach, formatSessionDate, newYorkSessionDate, reachLabel } from "@/lib/market/reach";
 import { HEADER_TIPS, moodTip, rowTips, statusGroupTip, timingTip, trendTip } from "@/lib/market/tips";
 import {
   describePosition,
@@ -71,13 +71,14 @@ function renderCallRow(
         </tr>`;
 }
 
-function renderTargets(tracked: TrackedBook, mood: MarketMood | null): string {
+function renderTargets(tracked: TrackedBook, mood: MarketMood | null, bookDate: string | null): string {
   const shown = confidentCalls(tracked.calls, tracked.through, mood?.name ?? null);
   const rates = suggestionRates(shown);
+  const listed = callsForDisplay(shown, bookDate);
   const rows =
     shown.length === 0
       ? `<tr><td colspan="9">No published consider call is above 50% confidence.</td></tr>`
-      : groupCalls(shown)
+      : groupCalls(listed)
           .map((group) => {
             const body =
               group.calls.length === 0
@@ -106,7 +107,7 @@ ${body}`;
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="targets-note">${escapeHtml(`${checked}${gap}`)} Added at is the price stored when the call was published. ${escapeHtml(CONFIDENCE_LINE)} This table does not send an order.</p>
+    <p class="targets-note">${escapeHtml(`${checked}${gap}`)} Added at is the price stored when the call was published. The Reached block lists calls added in the last 30 calendar days. Older reached calls stay in the counts above. ${escapeHtml(CONFIDENCE_LINE)} This table does not send an order.</p>
   </section>`;
 }
 
@@ -413,7 +414,7 @@ function render(
   </header>
   ${renderMood(mood)}
   ${renderIndicators(indicators)}
-  ${renderTargets(tracked, mood)}
+  ${renderTargets(tracked, mood, newYorkSessionDate(asOf))}
   ${radios}
   <main class="board">
     <div class="mobile-keys">${keys}</div>
