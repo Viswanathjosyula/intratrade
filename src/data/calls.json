@@ -911,6 +911,22 @@
       "stop": 1082.65,
       "asOf": "2026-11-13",
       "entry": 1104.22
+    },
+    {
+      "symbol": "CROX",
+      "side": "long",
+      "target": 207.14,
+      "stop": 155.26,
+      "asOf": "2026-11-13",
+      "entry": 162.73
+    },
+    {
+      "symbol": "COST",
+      "side": "long",
+      "target": 1204.15,
+      "stop": 1081.35,
+      "asOf": "2026-11-13",
+      "entry": 1102.92
     }
   ]
 }
